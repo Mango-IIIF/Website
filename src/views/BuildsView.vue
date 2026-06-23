@@ -1,0 +1,31 @@
+<script setup>
+import BuildCard from '../components/BuildCard.vue'
+import { builds } from '../data/docs'
+</script>
+
+<template>
+  <div class="inner-page">
+    <section class="page-hero page-width">
+      <span class="eyebrow">Mango builds</span>
+      <h1>One foundation.<br /><em>Four experiences.</em></h1>
+      <p>Each build packages the same IIIF rendering core for a different task—from open exploration to authored visual narratives.</p>
+    </section>
+    <section class="section page-width section--first">
+      <div class="build-grid build-grid--listing">
+        <BuildCard v-for="build in builds" :key="build.slug" :build="build" />
+      </div>
+    </section>
+    <section class="comparison page-width">
+      <div class="section-heading"><span class="eyebrow">At a glance</span><h2>Choose by task.</h2></div>
+      <div class="comparison-grid">
+        <div class="comparison-row comparison-row--head"><span>Build</span><span>Best for</span><span>Input</span><span>Output</span></div>
+        <div v-for="build in builds" :key="build.slug" class="comparison-row">
+          <RouterLink :to="`/builds/${build.slug}`">{{ build.title }} <span>↗</span></RouterLink>
+          <span>{{ build.eyebrow === 'Explore' ? 'Collection access' : build.eyebrow === 'Describe' ? 'Research & cataloguing' : build.eyebrow === 'Compose' ? 'Story authoring' : 'Audience experiences' }}</span>
+          <span>{{ build.storyUrl ? 'Story JSON' : 'IIIF Manifest' }}</span>
+          <span>{{ build.mode === 'annotation-editor' ? 'Web Annotations' : build.mode === 'story-builder' ? 'Story JSON' : 'Interactive view' }}</span>
+        </div>
+      </div>
+    </section>
+  </div>
+</template>

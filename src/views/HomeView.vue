@@ -13,9 +13,9 @@ const viewerCode = `import '@mango-iiif/iiif-viewer/element.iife';
   <div>
     <section class="hero-section page-width">
       <div class="hero-copy">
-        <span class="eyebrow hero-eyebrow"><i></i> Open source · IIIF native</span>
+        <span class="eyebrow hero-eyebrow"><i></i> Open source · <abbr title="International Image Interoperability Framework">IIIF</abbr> native</span>
         <h1>Look closer.<br /><em>Tell the story.</em></h1>
-        <p class="hero-lede">Mango is a flexible viewer for exploring collections, creating annotations, and building guided visual stories with IIIF.</p>
+        <p class="hero-lede">Mango is a flexible viewer for exploring collections, creating annotations, and building guided visual stories with <abbr title="International Image Interoperability Framework">IIIF</abbr>.</p>
         <div class="hero-actions">
           <RouterLink class="button button--primary" to="/guide">Get started <span>→</span></RouterLink>
           <RouterLink class="button button--text" to="/builds">Explore the builds <span>↘</span></RouterLink>
@@ -34,7 +34,7 @@ const viewerCode = `import '@mango-iiif/iiif-viewer/element.iife';
     <section class="intro-strip">
       <div class="page-width intro-strip__inner">
         <p>One toolkit.<br /><em>Four ways to see.</em></p>
-        <div><span>Images</span><span>Video</span><span>Audio</span><span>PDF</span><span>3D</span><span>Annotations</span></div>
+        <div><span>Images</span><span>Video</span><span>Audio</span><span><abbr title="Portable Document Format">PDF</abbr></span><span><abbr title="Three-dimensional">3D</abbr></span><span>Annotations</span></div>
       </div>
     </section>
 
@@ -67,12 +67,12 @@ const viewerCode = `import '@mango-iiif/iiif-viewer/element.iife';
     <section class="section page-width developer-section">
       <div class="section-heading split-heading">
         <div><span class="eyebrow">Developer friendly</span><h2>Drop it in.<br /><em>Make it yours.</em></h2></div>
-        <p>Use a web component in any framework or the JavaScript API for deeper integrations. Configuration and events stay consistent across builds.</p>
+        <p>Use a web component in any framework or the JavaScript <abbr title="Application Programming Interface">API</abbr> for deeper integrations. Configuration and events stay consistent across builds.</p>
       </div>
       <div class="developer-grid">
         <div class="developer-copy">
-          <div class="feature-list"><span>01</span><div><b>Web component</b><p>Works in Vue, React, Svelte, or plain HTML.</p></div></div>
-          <div class="feature-list"><span>02</span><div><b>Typed JavaScript API</b><p>Control navigation, media, viewports, and annotations.</p></div></div>
+          <div class="feature-list"><span>01</span><div><b>Web component</b><p>Works in Vue, React, Svelte, or plain <abbr title="HyperText Markup Language">HTML</abbr>.</p></div></div>
+          <div class="feature-list"><span>02</span><div><b>Typed JavaScript <abbr title="Application Programming Interface">API</abbr></b><p>Control navigation, media, viewports, and annotations.</p></div></div>
           <div class="feature-list"><span>03</span><div><b>Observable events</b><p>Connect Mango to the rest of your application.</p></div></div>
         </div>
         <div>

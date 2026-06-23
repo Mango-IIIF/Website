@@ -18,6 +18,7 @@ const router = createRouter({
     { path: '/builds/:slug', name: 'build', component: () => import('./views/BuildDetailView.vue') },
     { path: '/events', name: 'events', component: () => import('./views/EventsView.vue') },
     { path: '/guide', name: 'guide', component: () => import('./views/GuideView.vue') },
+    { path: '/cookbook_matrix', name: 'cookbook-matrix', component: () => import('./views/CookbookMatrixView.vue') },
     { path: '/:pathMatch(.*)*', redirect: '/' },
   ],
 })

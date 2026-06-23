@@ -1,5 +1,6 @@
 <script setup>
 import { ref } from 'vue'
+import TechnicalText from './TechnicalText.vue'
 
 const props = defineProps({
   code: { type: String, required: true },
@@ -19,7 +20,7 @@ async function copyCode() {
 <template>
   <div class="code-block">
     <div class="code-block__bar">
-      <span>{{ label || language }}</span>
+      <span><TechnicalText :text="label || language" /></span>
       <button type="button" @click="copyCode">{{ copied ? 'Copied' : 'Copy' }}</button>
     </div>
     <pre><code>{{ code }}</code></pre>

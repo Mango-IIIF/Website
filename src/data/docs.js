@@ -159,7 +159,7 @@ export function buildMarkup(build) {
     ? `\n  story-url="${build.storyUrl}"`
     : `\n  manifest-id="${build.manifest}"`
   const config = Object.keys(build.config).length
-    ? `\n  config='${JSON.stringify(build.config)}'`
+    ? `\n  config='${JSON.stringify(build.config, null, 2).replaceAll('\n', '\n  ')}'`
     : ''
   return `<mango-viewer\n  mode="${build.mode}"${source}${config}\n></mango-viewer>`
 }

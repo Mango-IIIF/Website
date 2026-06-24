@@ -134,6 +134,16 @@ function loadManifest(url = manifestInput.value) {
     <section id="options" class="options-section page-width">
       <div class="section-heading split-heading"><div><span class="eyebrow">Configuration</span><h2>{{ build.shortTitle }} options.</h2></div><p>Pass these values in the <code>config</code> object, or as <abbr title="JavaScript Object Notation">JSON</abbr> in the custom element’s <code>config</code> attribute.</p></div>
       <OptionTable :options="build.options" />
+      <aside v-if="build.slug === 'iiif-viewer'" class="configuration-builder-cta">
+        <div>
+          <span class="eyebrow">Make it yours</span>
+          <h3>Configure the viewer without guessing.</h3>
+          <p>Choose options visually, preview every change, and copy the generated configuration.</p>
+        </div>
+        <RouterLink class="button button--primary" to="/builds/iiif-viewer/configuration-builder">
+          Configuration builder <span aria-hidden="true">→</span>
+        </RouterLink>
+      </aside>
     </section>
 
     <section class="build-events page-width">

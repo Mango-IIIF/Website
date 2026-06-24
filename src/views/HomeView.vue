@@ -18,7 +18,7 @@ const viewerCode = `import '@mango-iiif/iiif-viewer/element.iife';
         <p class="hero-lede">Mango is a flexible viewer for exploring collections, creating annotations, and building guided visual stories with <abbr title="International Image Interoperability Framework">IIIF</abbr>.</p>
         <div class="hero-actions">
           <RouterLink class="button button--primary" to="/guide">Get started <span>→</span></RouterLink>
-          <RouterLink class="button button--text" to="/builds">Explore the builds <span>↘</span></RouterLink>
+          <RouterLink class="button button--text" to="/builds">Explore the builds <span>→</span></RouterLink>
         </div>
       </div>
 
@@ -57,9 +57,9 @@ const viewerCode = `import '@mango-iiif/iiif-viewer/element.iife';
           <RouterLink class="button button--light" to="/builds/story-builder">Meet Story Builder <span>→</span></RouterLink>
         </div>
         <div class="story-sequence" aria-hidden="true">
-          <article><span>01</span><img class="sequence-image" src="/images/01_set_the_scene.png" alt="" /><b>Set the scene</b><p>Frame the complete work.</p></article>
-          <article><span>02</span><img class="sequence-image" src="/images/02_guide_attention.png" alt="" /><b>Guide attention</b><p>Move into the detail.</p></article>
-          <article><span>03</span><img class="sequence-image" src="/images/03_add_a_voice.png" alt="" /><b>Add a voice</b><p>Layer text and narration.</p></article>
+          <article><img class="sequence-image" src="/images/01_set_the_scene.png" alt="" /><b>Set the scene</b><p>Frame the complete work.</p></article>
+          <article><img class="sequence-image" src="/images/02_guide_attention.png" alt="" /><b>Guide attention</b><p>Move into the detail.</p></article>
+          <article><img class="sequence-image" src="/images/03_add_a_voice.png" alt="" /><b>Add a voice</b><p>Layer text and narration.</p></article>
         </div>
       </div>
     </section>

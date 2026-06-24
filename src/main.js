@@ -15,6 +15,7 @@ const router = createRouter({
     { path: '/', name: 'home', component: HomeView },
     { path: '/builds', name: 'builds', component: () => import('./views/BuildsView.vue') },
     { path: '/builds/story-viewer/edit', name: 'story-editor', component: () => import('./views/StoryEditorView.vue') },
+    { path: '/builds/iiif-viewer/configuration-builder', name: 'configuration-builder', component: () => import('./views/ConfigurationBuilderView.vue') },
     { path: '/builds/:slug', name: 'build', component: () => import('./views/BuildDetailView.vue') },
     { path: '/events', name: 'events', component: () => import('./views/EventsView.vue') },
     { path: '/guide', name: 'guide', component: () => import('./views/GuideView.vue') },

@@ -43,17 +43,14 @@ const groupedRecipes = computed(() => categories
   }))
   .filter((group) => group.recipes.length))
 
-const activeManifestUrl = computed(() => manifestUrl(activeRecipe.value))
+const activeManifestUrl = activeRecipe.value.manifest;
+const activeManifestCookbookUrl = activeRecipe.value.url;
 const viewerBuild = computed(() => ({
   slug: 'cookbook-matrix',
   mode: 'viewer',
-  manifest: activeManifestUrl.value,
+  manifest: activeManifestUrl,
   config: {},
 }))
-
-function manifestUrl(recipe) {
-  return recipe.manifest;
-}
 
 function isActive(recipe) {
   return activeRecipe.value === recipe
@@ -72,7 +69,7 @@ async function checkRecipe(recipe) {
     <section class="page-hero page-width cookbook-matrix__hero">
       <span class="eyebrow"><abbr title="International Image Interoperability Framework">IIIF</abbr> Cookbook</span>
       <h1>Cookbook support<br /><em>at a glance.</em></h1>
-      <p>See Mango's support for every <abbr title="International Image Interoperability Framework">IIIF</abbr> Cookbook recipe and load its manifest directly into the viewer.</p>
+      <p>See Mango's support for every <abbr title="International Image Interoperability Framework">IIIF</abbr> Cookbook recipe.</p>
 
       <aside class="cookbook-contribute" aria-labelledby="cookbook-contribute-heading">
         <div>
@@ -111,8 +108,8 @@ async function checkRecipe(recipe) {
       </div>
 
       <p class="cookbook-viewer__manifest">
-        Manifest:
-        <a :href="activeManifestUrl" target="_blank" rel="noreferrer">{{ activeManifestUrl }} <span aria-hidden="true">↗</span></a>
+        Cookbook:
+        <a :href="activeManifestCookbookUrl" target="_blank" rel="noreferrer">{{ activeManifestCookbookUrl }} <span aria-hidden="true">↗</span></a>
       </p>
 
       <ViewerDemo :key="activeManifestUrl" :build="viewerBuild" />

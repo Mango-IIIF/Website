@@ -36,6 +36,17 @@ async function injectViewerStyles(attempts = 20) {
   const accessibilityStyles = document.createElement('style')
   accessibilityStyles.dataset.websiteAccessibilityStyles = ''
   accessibilityStyles.textContent = `
+    button,
+    [role="button"],
+    img {
+      animation: none !important;
+      transition: none !important;
+    }
+    button:hover,
+    [role="button"]:hover,
+    img:hover {
+      transform: none !important;
+    }
     .story-sidebar__narration-button {
       background: #9d4021 !important;
     }

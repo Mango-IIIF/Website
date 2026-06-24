@@ -18,13 +18,13 @@
           <span>02</span>
           <strong>Share feedback</strong>
           <small>Report a problem or suggest an improvement.</small>
-          <b aria-hidden="true">↗</b>
+          <b aria-hidden="true">→</b>
         </a>
         <a href="https://github.com/Mango-IIIF/Mango" target="_blank" rel="noreferrer">
           <span>03</span>
           <strong>Develop with us</strong>
           <small>Explore the source and contribute a change.</small>
-          <b aria-hidden="true">↗</b>
+          <b aria-hidden="true">→</b>
         </a>
       </div>
     </div>

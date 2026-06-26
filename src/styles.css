@@ -37,7 +37,9 @@ a {
   color: inherit;
 }
 button,
-input {
+input,
+select,
+textarea {
   font: inherit;
 }
 button,
@@ -1842,7 +1844,7 @@ h2 em {
 }
 .cookbook-filters {
   display: grid;
-  grid-template-columns: minmax(280px, 1fr) minmax(210px, 0.55fr) minmax(180px, 0.4fr);
+  grid-template-columns: minmax(280px, 1fr) minmax(210px, 0.55fr) minmax(180px, 0.4fr) minmax(170px, auto);
   gap: 18px;
   padding: 24px;
   border: 1px solid var(--line);
@@ -1858,6 +1860,12 @@ h2 em {
   letter-spacing: 0.1em;
   text-transform: uppercase;
 }
+.cookbook-filter__label {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
 .cookbook-filter input,
 .cookbook-filter select {
   width: 100%;
@@ -1868,6 +1876,26 @@ h2 em {
   background: var(--paper-light);
   color: var(--ink);
   font: 14px var(--sans);
+}
+.cookbook-filter--toggle {
+  align-self: end;
+}
+.cookbook-toggle {
+  min-height: 48px;
+  padding: 0 16px;
+  border: 1px solid var(--ink);
+  border-radius: 2px;
+  background: transparent;
+  color: var(--ink);
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.cookbook-toggle[aria-pressed="true"] {
+  background: var(--ink);
+  color: var(--paper-light);
 }
 .cookbook-result-count {
   margin: 15px 0 45px;
@@ -2021,6 +2049,12 @@ h2 em {
   .page-width {
     width: min(100% - 32px, 1320px);
   }
+  .button {
+    width: 100%;
+    min-width: 0;
+    padding-inline: 18px;
+    text-align: center;
+  }
   .site-header__inner {
     min-height: 66px;
   }
@@ -2062,7 +2096,8 @@ h2 em {
   .hero-copy h1,
   .page-hero h1,
   .build-hero h1 {
-    font-size: clamp(48px, 14.5vw, 64px);
+    font-size: clamp(43px, 13vw, 64px);
+    letter-spacing: -0.045em;
   }
   .hero-copy,
   .page-hero,
@@ -2075,12 +2110,13 @@ h2 em {
     font-size: 15px;
   }
   .hero-actions {
+    width: 100%;
     flex-wrap: wrap;
     gap: 20px;
   }
   .hero-copy .hero-actions {
     flex-direction: column;
-    align-items: flex-start;
+    align-items: stretch;
   }
   .hero-art {
     min-height: 390px;
@@ -2168,8 +2204,10 @@ h2 em {
   }
   .footer-nav {
     grid-template-columns: 1fr 1fr;
+    gap: 30px 24px;
   }
   .footer-base {
+    flex-direction: column;
     gap: 20px;
   }
   .page-hero {
@@ -2192,8 +2230,8 @@ h2 em {
     border-right: 0;
   }
   .demo-viewer {
-    height: 100dvh;
-    min-height: 100dvh;
+    height: min(720px, 86dvh);
+    min-height: 540px;
   }
   .demo-note {
     text-align: left;
@@ -2231,8 +2269,8 @@ h2 em {
     gap: 18px;
   }
   .configuration-preview .demo-viewer {
-    height: 100dvh;
-    min-height: 100dvh;
+    height: min(720px, 86dvh);
+    min-height: 540px;
   }
   .configuration-preset-grid,
   .configuration-appearance {
@@ -2260,6 +2298,7 @@ h2 em {
   }
   .cookbook-summary {
     grid-template-columns: 1fr 1fr;
+    max-width: none;
   }
   .cookbook-contribute {
     grid-template-columns: 1fr;
@@ -2275,6 +2314,8 @@ h2 em {
   }
   .cookbook-viewer__heading {
     align-items: flex-start;
+    flex-direction: column;
+    gap: 18px;
   }
   .cookbook-filters {
     grid-template-columns: 1fr;
@@ -2285,26 +2326,43 @@ h2 em {
   }
   .cookbook-recipe {
     grid-template-columns: 1fr;
-    gap: 15px;
-    padding-block: 25px;
+    gap: 18px;
+    margin-bottom: 14px;
+    padding: 18px;
+    border: 1px solid var(--line);
+    background: rgba(255, 255, 255, 0.22);
   }
   .cookbook-recipe__support {
     grid-template-columns: auto 1fr;
     align-items: center;
   }
+  .cookbook-recipe__notes {
+    padding-top: 14px;
+    border-top: 1px solid var(--line);
+  }
   .cookbook-recipe__actions {
     grid-column: auto;
     grid-template-columns: 1fr;
-    justify-items: start;
+    justify-items: stretch;
   }
   .cookbook-recipe__actions .button {
-    width: auto;
+    width: 100%;
   }
   .docs-section {
     padding-block: 80px;
   }
   .option-table {
     min-width: 820px;
+  }
+  .build-pagination {
+    grid-template-columns: 1fr;
+  }
+  .build-pagination a,
+  .build-pagination a:last-child {
+    align-items: flex-start;
+    padding-block: 30px;
+    border-left: 0;
+    border-bottom: 1px solid var(--line);
   }
   .build-events {
     grid-template-columns: 1fr;
@@ -2351,6 +2409,82 @@ h2 em {
   }
   .next-grid > div {
     grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 420px) {
+  .page-width {
+    width: min(100% - 24px, 1320px);
+  }
+  .hero-copy h1,
+  .page-hero h1,
+  .build-hero h1,
+  .story-editor-hero h1 {
+    font-size: clamp(38px, 12vw, 50px);
+    line-height: 1;
+  }
+  .section-heading h2,
+  .docs-sidebar h2,
+  .build-events h2,
+  .recipe-copy h2,
+  .story-band h2,
+  .site-contribution__intro h2,
+  .cta-section h2 {
+    font-size: clamp(34px, 11vw, 46px);
+    letter-spacing: -0.035em;
+  }
+  .hero-art {
+    min-height: 310px;
+  }
+  .floating-card {
+    display: none;
+  }
+  .build-card {
+    min-height: auto;
+  }
+  .build-card__visual {
+    height: 190px;
+  }
+  .site-contribution__actions a {
+    grid-template-columns: 1fr 28px;
+  }
+  .site-contribution__actions span,
+  .site-contribution__actions small {
+    grid-column: 1;
+  }
+  .site-contribution__actions strong {
+    grid-column: 1;
+  }
+  .site-contribution__actions b {
+    grid-column: 2;
+    grid-row: 1 / span 3;
+  }
+  .footer-nav,
+  .configuration-form-grid--four,
+  .cookbook-summary {
+    grid-template-columns: 1fr;
+  }
+  .cookbook-contribute,
+  .configuration-builder-cta,
+  .manifest-presets,
+  .configuration-output {
+    padding-inline: 16px;
+  }
+  .cookbook-recipe {
+    padding: 16px;
+  }
+  .cookbook-recipe__identity {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+  .cookbook-recipe__support {
+    grid-template-columns: 1fr;
+  }
+  .cookbook-status {
+    width: 100%;
+  }
+  .guide-content > section {
+    padding-left: 28px;
   }
 }
 

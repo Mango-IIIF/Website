@@ -228,7 +228,7 @@
       "id": "0010",
       "name": "Viewing direction and Its Effect on Navigation (viewingDirection)",
       "url": "https://iiif.io/api/cookbook/recipe/0010-book-2-viewing-direction/",
-      "manifest": "https://iiif.io/api/cookbook/recipe/0010-book-2-viewing-direction/manifest.json",
+      "manifest": "https://iiif.io/api/cookbook/recipe/0010-book-2-viewing-direction/manifest-rtl.json",
       "support": "Partial",
       "github": "https://github.com/Mango-IIIF/Mango/issues",
       "notes": "Mango parses viewingDirection (e.g. right-to-left), but manual layout toggling is required; it does not automatically re-orient layouts dynamically."
@@ -240,7 +240,7 @@
       "id": "0011",
       "name": "Book 'behavior' Variations (continuous, individuals) (behaviorimage)",
       "url": "https://iiif.io/api/cookbook/recipe/0011-book-3-behavior/",
-      "manifest": "https://iiif.io/api/cookbook/recipe/0011-book-3-behavior/manifest.json",
+      "manifest": "https://iiif.io/api/cookbook/recipe/0011-book-3-behavior/manifest-continuous.json",
       "support": "Partial",
       "github": "https://github.com/Mango-IIIF/Mango/issues",
       "notes": "Supports individual page views, but continuous page layouts are basic."
@@ -357,7 +357,7 @@
       "id": "0230",
       "name": "Navigation by Chronology (navDate)",
       "url": "https://iiif.io/api/cookbook/recipe/0230-navdate/",
-      "manifest": "https://iiif.io/api/cookbook/recipe/0230-navdate/manifest.json",
+      "manifest": "https://iiif.io/api/cookbook/recipe/0230-navdate/navdate-collection.json",
       "support": "No",
       "github": "https://github.com/Mango-IIIF/Mango/issues",
       "notes": "Mango does not have a timeline navigator UI for chronologically sorting/browsing canvases."
@@ -496,7 +496,7 @@
       "id": "0040",
       "name": "Image Rotation Two Ways",
       "url": "https://iiif.io/api/cookbook/recipe/0040-image-rotation-service/",
-      "manifest": "https://iiif.io/api/cookbook/recipe/0040-image-rotation-service/manifest.json",
+      "manifest": "https://iiif.io/api/cookbook/recipe/0040-image-rotation-service/manifest-service.json",
       "support": "Yes",
       "notes": "Fully supported. Supports 90/180/270 degree rotation services on canvas images."
     },
@@ -652,7 +652,7 @@
       "id": "0306",
       "name": "Linking external Annotations targeting a Canvas to a Manifest",
       "url": "https://iiif.io/api/cookbook/recipe/0306-linking-annotations-to-manifests/",
-      "manifest": "https://iiif.io/api/cookbook/recipe/0306-linking-annotations-to-manifests/manifest.json",
+      "manifest": "https://iiif.io/api/cookbook/recipe/0306-linking-annotations-to-manifests/annotationpage.json",
       "support": "Yes",
       "notes": "Fully supported. Parses external annotations defined on the canvas level."
     },
@@ -697,9 +697,9 @@
       "id": "0466",
       "name": "Sharing a link to open a Manifest in a specific viewer",
       "url": "https://iiif.io/api/cookbook/recipe/0466-link-for-loading-manifest/",
-      "manifest": "https://iiif.io/api/cookbook/recipe/0466-link-for-loading-manifest/manifest.json",
-      "support": "Yes",
-      "notes": "Fully supported. Content state loader supports query parameters for quick manifest sharing."
+      "manifest": "",
+      "support": "No",
+      "notes": "Not yet supported."
     },
     {
       "categoryIds": [
@@ -708,7 +708,7 @@
       "id": "0485",
       "name": "Open a specific region of a Canvas in a viewer",
       "url": "https://iiif.io/api/cookbook/recipe/0485-contentstate-canvas-region/",
-      "manifest": "https://iiif.io/api/cookbook/recipe/0485-contentstate-canvas-region/manifest.json",
+      "manifest": "https://iiif.io/api/cookbook/recipe/0485-contentstate-canvas-region/annotation.json",
       "support": "Yes",
       "notes": "Fully supported. Deep zoom viewport centers on the canvas region matching the target coordinate."
     },
@@ -719,7 +719,7 @@
       "id": "0540",
       "name": "Sharing a link for opening two or more Canvases",
       "url": "https://iiif.io/api/cookbook/recipe/0540-link-for-opening-multiple-canvases/",
-      "manifest": "https://iiif.io/api/cookbook/recipe/0540-link-for-opening-multiple-canvases/manifest.json",
+      "manifest": "https://iiif.io/api/cookbook/recipe/0540-link-for-opening-multiple-canvases/annotation.json",
       "support": "Partial",
       "github": "https://github.com/Mango-IIIF/Mango/issues",
       "notes": "Opens the target canvases, but custom dual-panel layout setups are basic."
@@ -731,7 +731,7 @@
       "id": "0599",
       "name": "Drag and Drop",
       "url": "https://iiif.io/api/cookbook/recipe/0599-drag-and-drop/",
-      "manifest": "https://iiif.io/api/cookbook/recipe/0599-drag-and-drop/manifest.json",
+      "manifest": "",
       "support": "Yes",
       "notes": "Fully supported. Users can drag and drop IIIF manifest URLs/files directly to load them."
     },
@@ -778,7 +778,7 @@
       "id": "0318",
       "name": "Locating an Item in Place and Time",
       "url": "https://iiif.io/api/cookbook/recipe/0318-navPlace-navDate/",
-      "manifest": "https://iiif.io/api/cookbook/recipe/0318-navPlace-navDate/manifest.json",
+      "manifest": "https://iiif.io/api/cookbook/recipe/0318-navPlace-navDate/collection.json",
       "support": "No",
       "github": "https://github.com/Mango-IIIF/Mango/issues",
       "notes": "Combined geographic (navPlace) and temporal (navDate) mapping views are not supported."

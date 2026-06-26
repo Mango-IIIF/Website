@@ -220,6 +220,7 @@ async function checkRecipe(recipe) {
               <div class="cookbook-recipe__actions">
                 <a :href="recipe.url" target="_blank" rel="noreferrer">Recipe details <span aria-hidden="true">↗</span></a>
                 <button
+                  v-if="recipe.manifest"
                   class="button button--secondary"
                   type="button"
                   :disabled="isActive(recipe)"

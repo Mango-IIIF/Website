@@ -102,7 +102,7 @@ export const builds = [
     description: 'Turn close looking into structured data. Draw regions, add descriptions, inspect existing annotations, and export normalised W3C Web Annotations for storage in your own systems.',
     accent: 'blue',
     screenshot: '/images/screenshot_annotation_editor.png',
-    manifest: 'https://api.artic.edu/api/v1/artworks/80607/manifest.json',
+    manifest: 'https://iiif.llyfrgell.cymru/manifests/2.0/1294106/manifest.json',
     config: { showThumbnails: false, showSearch: false, showMetadata: false, showAnnotations: true, showTools: false },
     features: ['Rectangle regions', 'Point annotations', 'Polygon geometry', 'W3C Web Annotations', 'Import and export', 'Selection events'],
     options: [

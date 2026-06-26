@@ -1897,6 +1897,40 @@ h2 em {
   background: var(--ink);
   color: var(--paper-light);
 }
+.cookbook-testing-note {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 24px;
+  align-items: center;
+  margin-top: 18px;
+  padding: 20px 22px;
+  border: 1px solid rgba(176, 75, 39, 0.36);
+  border-left: 5px solid var(--orange);
+  background: rgba(176, 75, 39, 0.08);
+}
+.cookbook-testing-note .eyebrow {
+  color: var(--orange-dark);
+}
+.cookbook-testing-note p {
+  margin: 7px 0 0;
+  color: var(--ink);
+  font: 500 20px Georgia, serif;
+}
+.cookbook-testing-note a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 0 16px;
+  border: 1px solid var(--orange-dark);
+  color: var(--orange-dark);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-decoration: none;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
 .cookbook-result-count {
   margin: 15px 0 45px;
   color: var(--muted);
@@ -2320,6 +2354,15 @@ h2 em {
   .cookbook-filters {
     grid-template-columns: 1fr;
     padding: 18px;
+  }
+  .cookbook-testing-note {
+    grid-template-columns: 1fr;
+    gap: 18px;
+    padding: 18px;
+  }
+  .cookbook-testing-note a {
+    width: 100%;
+    white-space: normal;
   }
   .cookbook-result-count {
     text-align: left;

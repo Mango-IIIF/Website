@@ -181,6 +181,18 @@ async function checkRecipe(recipe) {
         </div>
       </div>
 
+      <aside class="cookbook-testing-note" aria-label="Cookbook testing status">
+        <div>
+          <span class="eyebrow">Testing status</span>
+          <p>This section hasn't yet been fully tested.</p>
+        </div>
+        <a
+          href="https://github.com/Mango-IIIF/Mango/issues"
+          target="_blank"
+          rel="noreferrer"
+        >Share a test result <span aria-hidden="true">↗</span></a>
+      </aside>
+
       <p class="cookbook-result-count" aria-live="polite">
         Showing {{ visibleRecipeCount }} entries for {{ filteredRecipes.length }} unique recipes
       </p>

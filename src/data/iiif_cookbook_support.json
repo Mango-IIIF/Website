@@ -172,8 +172,8 @@
       "name": "Grouping Annotations into Collections",
       "url": "https://iiif.io/api/cookbook/recipe/0309-annotation-collection/",
       "manifest": "https://iiif.io/api/cookbook/recipe/0309-annotation-collection/manifest.json",
-      "support": "Yes",
-      "notes": "Fully supported. Handles nested AnnotationCollections referencing multiple pages."
+      "support": "No",
+      "notes": "Not yet supported."
     },
     {
       "categoryIds": [

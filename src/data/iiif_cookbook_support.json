@@ -149,8 +149,8 @@
       "name": "Missing Images in a Sequence",
       "url": "https://iiif.io/api/cookbook/recipe/0283-missing-image/",
       "manifest": "https://iiif.io/api/cookbook/recipe/0283-missing-image/manifest.json",
-      "support": "Yes",
-      "notes": "Fully supported. Missing or corrupted images in the canvas strip are handled gracefully."
+      "support": "Partial",
+      "notes": "Contains a bug where the selecting the missing image breaks the viewer."
     },
     {
       "categoryIds": [
@@ -195,8 +195,8 @@
       "name": "Multiple Choice of Audio Formats in a Single View (Canvas)",
       "url": "https://iiif.io/api/cookbook/recipe/0434-choice-av/",
       "manifest": "https://iiif.io/api/cookbook/recipe/0434-choice-av/manifest.json",
-      "support": "Yes",
-      "notes": "Fully supported. Resolves multiple audio formats in a single canvas and lists them as alternative choices or falls back gracefully to the primary supported source."
+      "support": "No",
+      "notes": "Not yet supported."
     },
     {
       "categoryIds": [
@@ -267,9 +267,9 @@
       "name": "Audio Presentation with Accompanying Image (accompanyingCanvas)",
       "url": "https://iiif.io/api/cookbook/recipe/0014-accompanyingcanvas/",
       "manifest": "https://iiif.io/api/cookbook/recipe/0014-accompanyingcanvas/manifest.json",
-      "support": "Partial",
+      "support": "No",
       "github": "https://github.com/Mango-IIIF/Mango/issues",
-      "notes": "Plays audio with the accompanying image displayed, but lacks tight synchronization for active sub-regions on the image."
+      "notes": "Not yet supported."
     },
     {
       "categoryIds": [
@@ -291,8 +291,8 @@
       "name": "Metadata on any Resource (metadata)",
       "url": "https://iiif.io/api/cookbook/recipe/0029-metadata-anywhere/",
       "manifest": "https://iiif.io/api/cookbook/recipe/0029-metadata-anywhere/manifest.json",
-      "support": "Yes",
-      "notes": "Fully supported. Correctly parses metadata fields attached directly to canvases or specific files."
+      "support": "Partial",
+      "notes": "Does not display all fields in manifest."
     },
     {
       "categoryIds": [
@@ -302,8 +302,8 @@
       "name": "Linking to Web Page of an Object (homepage)",
       "url": "https://iiif.io/api/cookbook/recipe/0047-homepage/",
       "manifest": "https://iiif.io/api/cookbook/recipe/0047-homepage/manifest.json",
-      "support": "Yes",
-      "notes": "Fully supported. Homepage links are parsed and displayed within the metadata panel."
+      "support": "No",
+      "notes": "Not yet supported."
     },
     {
       "categoryIds": [
@@ -313,8 +313,8 @@
       "name": "Linking to Structured Metadata (seeAlso)",
       "url": "https://iiif.io/api/cookbook/recipe/0053-seeAlso/",
       "manifest": "https://iiif.io/api/cookbook/recipe/0053-seeAlso/manifest.json",
-      "support": "Yes",
-      "notes": "Fully supported. seeAlso metadata endpoints are resolved and linked in the details panel."
+      "support": "No",
+      "notes": "Not yet supported."
     },
     {
       "categoryIds": [
@@ -324,8 +324,8 @@
       "name": "Image Thumbnail for Manifest (thumbnail)",
       "url": "https://iiif.io/api/cookbook/recipe/0117-add-image-thumbnail/",
       "manifest": "https://iiif.io/api/cookbook/recipe/0117-add-image-thumbnail/manifest.json",
-      "support": "Yes",
-      "notes": "Fully supported. Resolves thumbnails for the manifest and displays them in search/header lists."
+      "support": "No",
+      "notes": "Not yet supported."
     },
     {
       "categoryIds": [
@@ -347,8 +347,8 @@
       "name": "Load Manifest Beginning with a Specific Canvas (start)",
       "url": "https://iiif.io/api/cookbook/recipe/0202-start-canvas/",
       "manifest": "https://iiif.io/api/cookbook/recipe/0202-start-canvas/manifest.json",
-      "support": "Yes",
-      "notes": "Fully supported. Follows the start canvas index/id parameters."
+      "support": "No",
+      "notes": "Not yet supported."
     },
     {
       "categoryIds": [
@@ -464,8 +464,8 @@
       "name": "Composition from Multiple Images",
       "url": "https://iiif.io/api/cookbook/recipe/0036-composition-from-multiple-images/",
       "manifest": "https://iiif.io/api/cookbook/recipe/0036-composition-from-multiple-images/manifest.json",
-      "support": "Yes",
-      "notes": "Fully supported. OpenSeadragon supports tiling and composing multiple source images on a single canvas."
+      "support": "No",
+      "notes": "Not yet supported."
     },
     {
       "categoryIds": [
@@ -508,8 +508,8 @@
       "name": "Providing Access to Transcript Files of A/V Content (rendering)",
       "url": "https://iiif.io/api/cookbook/recipe/0017-transcription-av/",
       "manifest": "https://iiif.io/api/cookbook/recipe/0017-transcription-av/manifest.json",
-      "support": "Yes",
-      "notes": "Fully supported. Lists external transcription files or resource rendering formats in the details panel."
+      "support": "No",
+      "notes": "Not yet supported."
     },
     {
       "categoryIds": [
@@ -531,8 +531,8 @@
       "name": "Table of Contents for Multiple A/V Files on Multiple Canvases",
       "url": "https://iiif.io/api/cookbook/recipe/0065-opera-multiple-canvases/",
       "manifest": "https://iiif.io/api/cookbook/recipe/0065-opera-multiple-canvases/manifest.json",
-      "support": "Yes",
-      "notes": "Fully supported. Connects structures to separate canvases and handles smooth transition during playback."
+      "support": "No",
+      "notes": "Not yet supported."
     },
     {
       "categoryIds": [
@@ -542,8 +542,8 @@
       "name": "Using Caption and Subtitle Files in Multiple Languages with Video Content",
       "url": "https://iiif.io/api/cookbook/recipe/0074-multiple-language-captions/",
       "manifest": "https://iiif.io/api/cookbook/recipe/0074-multiple-language-captions/manifest.json",
-      "support": "Yes",
-      "notes": "Fully supported. Integrates standard WebVTT tracks in different languages directly into the VideoRenderer."
+      "support": "No",
+      "notes": "Not yet supported."
     },
     {
       "categoryIds": [
@@ -553,8 +553,8 @@
       "name": "Scholarly Annotation of a Poetry Reading",
       "url": "https://iiif.io/api/cookbook/recipe/0103-poetry-reading-annotations/",
       "manifest": "https://iiif.io/api/cookbook/recipe/0103-poetry-reading-annotations/manifest.json",
-      "support": "Yes",
-      "notes": "Fully supported. Annotations with temporal targets are displayed in sync with audio playback."
+      "support": "Partial",
+      "notes": "Fully supported. Annotations with temporal targets are displayed in sync with audio playback. Does not display all possible annotations."
     },
     {
       "categoryIds": [
@@ -564,8 +564,8 @@
       "name": "Using Caption and Subtitle Files with Video Content",
       "url": "https://iiif.io/api/cookbook/recipe/0219-using-caption-file/",
       "manifest": "https://iiif.io/api/cookbook/recipe/0219-using-caption-file/manifest.json",
-      "support": "Yes",
-      "notes": "Fully supported. Captions/subtitles are supported using standard track elements."
+      "support": "No",
+      "notes": "Not yet supported."
     },
     {
       "categoryIds": [
@@ -609,8 +609,8 @@
       "name": "Tagging with an External Resource",
       "url": "https://iiif.io/api/cookbook/recipe/0258-tagging-external-resource/",
       "manifest": "https://iiif.io/api/cookbook/recipe/0258-tagging-external-resource/manifest.json",
-      "support": "Yes",
-      "notes": "Fully supported. Resolves and links annotation tags to external RDF or Web pages."
+      "support": "Partial",
+      "notes": "Data is displayed but links not clickable."
     },
     {
       "categoryIds": [
@@ -642,8 +642,8 @@
       "name": "Embedded or referenced Annotations",
       "url": "https://iiif.io/api/cookbook/recipe/0269-embedded-or-referenced-annotations/",
       "manifest": "https://iiif.io/api/cookbook/recipe/0269-embedded-or-referenced-annotations/manifest.json",
-      "support": "Yes",
-      "notes": "Fully supported. Resolves embedded items array or external AnnotationPage references."
+      "support": "No",
+      "notes": "Example manifest not working."
     },
     {
       "categoryIds": [
@@ -653,8 +653,8 @@
       "name": "Linking external Annotations targeting a Canvas to a Manifest",
       "url": "https://iiif.io/api/cookbook/recipe/0306-linking-annotations-to-manifests/",
       "manifest": "https://iiif.io/api/cookbook/recipe/0306-linking-annotations-to-manifests/annotationpage.json",
-      "support": "Yes",
-      "notes": "Fully supported. Parses external annotations defined on the canvas level."
+      "support": "No",
+      "notes": "Example manifest not working."
     },
     {
       "categoryIds": [
@@ -664,8 +664,8 @@
       "name": "Annotate specific images or layers",
       "url": "https://iiif.io/api/cookbook/recipe/0326-annotating-image-layer/",
       "manifest": "https://iiif.io/api/cookbook/recipe/0326-annotating-image-layer/manifest.json",
-      "support": "Yes",
-      "notes": "Fully supported. Allows target matching specific canvas media resources."
+      "support": "No",
+      "notes": "Annotation not appearing."
     },
     {
       "categoryIds": [
@@ -675,8 +675,8 @@
       "name": "Annotating in Multiple Languages",
       "url": "https://iiif.io/api/cookbook/recipe/0346-multilingual-annotation-body/",
       "manifest": "https://iiif.io/api/cookbook/recipe/0346-multilingual-annotation-body/manifest.json",
-      "support": "Yes",
-      "notes": "Fully supported. Selects appropriate language variants for annotation bodies."
+      "support": "No",
+      "notes": "Not yet supported."
     },
     {
       "categoryIds": [
@@ -709,8 +709,8 @@
       "name": "Open a specific region of a Canvas in a viewer",
       "url": "https://iiif.io/api/cookbook/recipe/0485-contentstate-canvas-region/",
       "manifest": "https://iiif.io/api/cookbook/recipe/0485-contentstate-canvas-region/annotation.json",
-      "support": "Yes",
-      "notes": "Fully supported. Deep zoom viewport centers on the canvas region matching the target coordinate."
+      "support": "No",
+      "notes": "Example manifest not working."
     },
     {
       "categoryIds": [

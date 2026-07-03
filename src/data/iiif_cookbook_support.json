@@ -91,7 +91,7 @@
       "url": "https://iiif.io/api/cookbook/recipe/0006-text-language/",
       "manifest": "https://iiif.io/api/cookbook/recipe/0006-text-language/manifest.json",
       "support": "No",
-      "github": "https://github.com/Mango-IIIF/Mango/issues",
+      "github": "https://github.com/Mango-IIIF/Mango/issues/11",
       "notes": "Fully supported. Handles IIIF language maps, selecting the active locale (English, French, Spanish, Welsh) dynamically."
     },
     {
@@ -126,7 +126,7 @@
       "url": "https://iiif.io/api/cookbook/recipe/0032-collection/",
       "manifest": "https://iiif.io/api/cookbook/recipe/0032-collection/collection.json",
       "support": "No",
-      "github": "https://github.com/Mango-IIIF/Mango/issues",
+      "github": "https://github.com/Mango-IIIF/Mango/issues/12",
       "notes": "Mango resolves single manifests; viewing collections hierarchically is not supported."
     },
     {
@@ -150,6 +150,7 @@
       "url": "https://iiif.io/api/cookbook/recipe/0283-missing-image/",
       "manifest": "https://iiif.io/api/cookbook/recipe/0283-missing-image/manifest.json",
       "support": "Partial",
+      "github": "https://github.com/Mango-IIIF/Mango/issues/13",
       "notes": "Contains a bug where the selecting the missing image breaks the viewer."
     },
     {
@@ -161,7 +162,7 @@
       "url": "https://iiif.io/api/cookbook/recipe/0299-region/",
       "manifest": "https://iiif.io/api/cookbook/recipe/0299-region/manifest.json",
       "support": "No",
-      "github": "https://github.com/Mango-IIIF/Mango/issues",
+      "github": "https://github.com/Mango-IIIF/Mango/issues/14",
       "notes": "Not yet supported."
     },
     {
@@ -173,6 +174,7 @@
       "url": "https://iiif.io/api/cookbook/recipe/0309-annotation-collection/",
       "manifest": "https://iiif.io/api/cookbook/recipe/0309-annotation-collection/manifest.json",
       "support": "No",
+      "github": "https://github.com/Mango-IIIF/Mango/issues/15",
       "notes": "Not yet supported."
     },
     {
@@ -196,6 +198,7 @@
       "url": "https://iiif.io/api/cookbook/recipe/0434-choice-av/",
       "manifest": "https://iiif.io/api/cookbook/recipe/0434-choice-av/manifest.json",
       "support": "No",
+      "github": "https://github.com/Mango-IIIF/Mango/issues/16",
       "notes": "Not yet supported."
     },
     {
@@ -230,7 +233,7 @@
       "url": "https://iiif.io/api/cookbook/recipe/0010-book-2-viewing-direction/",
       "manifest": "https://iiif.io/api/cookbook/recipe/0010-book-2-viewing-direction/manifest-rtl.json",
       "support": "Partial",
-      "github": "https://github.com/Mango-IIIF/Mango/issues",
+      "github": "https://github.com/Mango-IIIF/Mango/issues/17",
       "notes": "Mango parses viewingDirection (e.g. right-to-left), but manual layout toggling is required; it does not automatically re-orient layouts dynamically."
     },
     {
@@ -242,7 +245,7 @@
       "url": "https://iiif.io/api/cookbook/recipe/0011-book-3-behavior/",
       "manifest": "https://iiif.io/api/cookbook/recipe/0011-book-3-behavior/manifest-continuous.json",
       "support": "Partial",
-      "github": "https://github.com/Mango-IIIF/Mango/issues",
+      "github": "https://github.com/Mango-IIIF/Mango/issues/18",
       "notes": "Supports individual page views, but continuous page layouts are basic."
     },
     {
@@ -255,7 +258,7 @@
       "url": "https://iiif.io/api/cookbook/recipe/0013-placeholderCanvas/",
       "manifest": "https://iiif.io/api/cookbook/recipe/0013-placeholderCanvas/manifest.json",
       "support": "Partial",
-      "github": "https://github.com/Mango-IIIF/Mango/issues",
+      "github": "https://github.com/Mango-IIIF/Mango/issues/19",
       "notes": "Parses placeholderCanvas and displays it during loading, but does not implement advanced multi-stage loading or crossfades."
     },
     {
@@ -268,7 +271,7 @@
       "url": "https://iiif.io/api/cookbook/recipe/0014-accompanyingcanvas/",
       "manifest": "https://iiif.io/api/cookbook/recipe/0014-accompanyingcanvas/manifest.json",
       "support": "No",
-      "github": "https://github.com/Mango-IIIF/Mango/issues",
+      "github": "https://github.com/Mango-IIIF/Mango/issues/20",
       "notes": "Not yet supported."
     },
     {
@@ -292,6 +295,7 @@
       "url": "https://iiif.io/api/cookbook/recipe/0029-metadata-anywhere/",
       "manifest": "https://iiif.io/api/cookbook/recipe/0029-metadata-anywhere/manifest.json",
       "support": "Partial",
+      "github": "https://github.com/Mango-IIIF/Mango/issues/25",
       "notes": "Does not display all fields in manifest."
     },
     {
@@ -303,6 +307,7 @@
       "url": "https://iiif.io/api/cookbook/recipe/0047-homepage/",
       "manifest": "https://iiif.io/api/cookbook/recipe/0047-homepage/manifest.json",
       "support": "No",
+      "github": "https://github.com/Mango-IIIF/Mango/issues/30",
       "notes": "Not yet supported."
     },
     {
@@ -314,6 +319,7 @@
       "url": "https://iiif.io/api/cookbook/recipe/0053-seeAlso/",
       "manifest": "https://iiif.io/api/cookbook/recipe/0053-seeAlso/manifest.json",
       "support": "No",
+      "github": "https://github.com/Mango-IIIF/Mango/issues/31",
       "notes": "Not yet supported."
     },
     {
@@ -325,6 +331,7 @@
       "url": "https://iiif.io/api/cookbook/recipe/0117-add-image-thumbnail/",
       "manifest": "https://iiif.io/api/cookbook/recipe/0117-add-image-thumbnail/manifest.json",
       "support": "No",
+      "github": "https://github.com/Mango-IIIF/Mango/issues/36",
       "notes": "Not yet supported."
     },
     {
@@ -359,7 +366,7 @@
       "url": "https://iiif.io/api/cookbook/recipe/0230-navdate/",
       "manifest": "https://iiif.io/api/cookbook/recipe/0230-navdate/navdate-collection.json",
       "support": "No",
-      "github": "https://github.com/Mango-IIIF/Mango/issues",
+      "github": "https://github.com/Mango-IIIF/Mango/issues/40",
       "notes": "Mango does not have a timeline navigator UI for chronologically sorting/browsing canvases."
     },
     {
@@ -371,7 +378,7 @@
       "url": "https://iiif.io/api/cookbook/recipe/0234-provider/",
       "manifest": "https://iiif.io/api/cookbook/recipe/0234-provider/manifest.json",
       "support": "No",
-      "github": "https://github.com/Mango-IIIF/Mango/issues",
+      "github": "https://github.com/Mango-IIIF/Mango/issues/41",
       "notes": "Not yet supported."
     },
     {
@@ -383,6 +390,7 @@
       "url": "https://iiif.io/api/cookbook/recipe/0024-book-4-toc/",
       "manifest": "https://iiif.io/api/cookbook/recipe/0024-book-4-toc/manifest.json",
       "support": "No",
+      "github": "https://github.com/Mango-IIIF/Mango/issues/23",
       "notes": "Not yet supported."
     },
     {
@@ -406,7 +414,7 @@
       "url": "https://iiif.io/api/cookbook/recipe/0027-alternative-page-order/",
       "manifest": "https://iiif.io/api/cookbook/recipe/0027-alternative-page-order/manifest.json",
       "support": "Partial",
-      "github": "https://github.com/Mango-IIIF/Mango/issues",
+      "github": "https://github.com/Mango-IIIF/Mango/issues/24",
       "notes": "Multiple sequences are parsed, but the sequence browser interface is simple."
     },
     {
@@ -418,7 +426,7 @@
       "url": "https://iiif.io/api/cookbook/recipe/0030-multi-volume/",
       "manifest": "https://iiif.io/api/cookbook/recipe/0030-multi-volume/collection.json",
       "support": "No",
-      "github": "https://github.com/Mango-IIIF/Mango/issues",
+      "github": "https://github.com/Mango-IIIF/Mango/issues/26",
       "notes": "Collections are currently not supported; only individual manifests can be loaded."
     },
     {
@@ -441,7 +449,7 @@
       "url": "https://iiif.io/api/cookbook/recipe/0033-choice/",
       "manifest": "https://iiif.io/api/cookbook/recipe/0033-choice/manifest.json",
       "support": "No",
-      "github": "https://github.com/Mango-IIIF/Mango/issues",
+      "github": "https://github.com/Mango-IIIF/Mango/issues/27",
       "notes": "Toggling between alternative image layers (the choice property) is not natively supported inside OpenSeadragon."
     },
     {
@@ -453,7 +461,7 @@
       "url": "https://iiif.io/api/cookbook/recipe/0035-foldouts/",
       "manifest": "https://iiif.io/api/cookbook/recipe/0035-foldouts/manifest.json",
       "support": "Partial",
-      "github": "https://github.com/Mango-IIIF/Mango/issues",
+      "github": "https://github.com/Mango-IIIF/Mango/issues/28",
       "notes": "Renders these as separate canvases, but layout presets for overlapping foldouts or flaps are not automated."
     },
     {
@@ -465,6 +473,7 @@
       "url": "https://iiif.io/api/cookbook/recipe/0036-composition-from-multiple-images/",
       "manifest": "https://iiif.io/api/cookbook/recipe/0036-composition-from-multiple-images/manifest.json",
       "support": "No",
+      "github": "https://github.com/Mango-IIIF/Mango/issues/29",
       "notes": "Not yet supported."
     },
     {
@@ -509,6 +518,7 @@
       "url": "https://iiif.io/api/cookbook/recipe/0017-transcription-av/",
       "manifest": "https://iiif.io/api/cookbook/recipe/0017-transcription-av/manifest.json",
       "support": "No",
+      "github": "https://github.com/Mango-IIIF/Mango/issues/21",
       "notes": "Not yet supported."
     },
     {
@@ -520,7 +530,7 @@
       "url": "https://iiif.io/api/cookbook/recipe/0064-opera-one-canvas/",
       "manifest": "https://iiif.io/api/cookbook/recipe/0064-opera-one-canvas/manifest.json",
       "support": "Partial",
-      "github": "https://github.com/Mango-IIIF/Mango/issues",
+      "github": "https://github.com/Mango-IIIF/Mango/issues/32",
       "notes": "Plays multiple files sequentially, but sub-chapter duration mapping has minor sync issues."
     },
     {
@@ -532,6 +542,7 @@
       "url": "https://iiif.io/api/cookbook/recipe/0065-opera-multiple-canvases/",
       "manifest": "https://iiif.io/api/cookbook/recipe/0065-opera-multiple-canvases/manifest.json",
       "support": "No",
+      "github": "https://github.com/Mango-IIIF/Mango/issues/33",
       "notes": "Not yet supported."
     },
     {
@@ -543,6 +554,7 @@
       "url": "https://iiif.io/api/cookbook/recipe/0074-multiple-language-captions/",
       "manifest": "https://iiif.io/api/cookbook/recipe/0074-multiple-language-captions/manifest.json",
       "support": "No",
+      "github": "https://github.com/Mango-IIIF/Mango/issues/34",
       "notes": "Not yet supported."
     },
     {
@@ -554,6 +566,7 @@
       "url": "https://iiif.io/api/cookbook/recipe/0103-poetry-reading-annotations/",
       "manifest": "https://iiif.io/api/cookbook/recipe/0103-poetry-reading-annotations/manifest.json",
       "support": "Partial",
+      "github": "https://github.com/Mango-IIIF/Mango/issues/35",
       "notes": "Fully supported. Annotations with temporal targets are displayed in sync with audio playback. Does not display all possible annotations."
     },
     {
@@ -598,7 +611,7 @@
       "url": "https://iiif.io/api/cookbook/recipe/0022-linking-with-a-hotspot/",
       "manifest": "https://iiif.io/api/cookbook/recipe/0022-linking-with-a-hotspot/manifest.json",
       "support": "No",
-      "github": "https://github.com/Mango-IIIF/Mango/issues",
+      "github": "https://github.com/Mango-IIIF/Mango/issues/22",
       "notes": "Hotspot annotation links targeting other canvases or external web resources do not automatically trigger redirection."
     },
     {
@@ -687,7 +700,7 @@
       "url": "https://iiif.io/api/cookbook/recipe/0489-multimedia-canvas/",
       "manifest": "https://iiif.io/api/cookbook/recipe/0489-multimedia-canvas/manifest.json",
       "support": "Partial",
-      "github": "https://github.com/Mango-IIIF/Mango/issues",
+      "github": "https://github.com/Mango-IIIF/Mango/issues/42",
       "notes": "Audio and video play, but complex layout grids overlapping on a single timeline have minor presentation issues."
     },
     {
@@ -721,7 +734,7 @@
       "url": "https://iiif.io/api/cookbook/recipe/0540-link-for-opening-multiple-canvases/",
       "manifest": "https://iiif.io/api/cookbook/recipe/0540-link-for-opening-multiple-canvases/annotation.json",
       "support": "Partial",
-      "github": "https://github.com/Mango-IIIF/Mango/issues",
+      "github": "https://github.com/Mango-IIIF/Mango/issues/43",
       "notes": "Opens the target canvases, but custom dual-panel layout setups are basic."
     },
     {
@@ -744,7 +757,7 @@
       "url": "https://iiif.io/api/cookbook/recipe/0139-geolocate-canvas-fragment/",
       "manifest": "https://iiif.io/api/cookbook/recipe/0139-geolocate-canvas-fragment/manifest.json",
       "support": "No",
-      "github": "https://github.com/Mango-IIIF/Mango/issues",
+      "github": "https://github.com/Mango-IIIF/Mango/issues/37",
       "notes": "Geographic coordinate parsing and map layer integrations are not supported."
     },
     {
@@ -756,7 +769,7 @@
       "url": "https://iiif.io/api/cookbook/recipe/0154-geo-extension/",
       "manifest": "https://iiif.io/api/cookbook/recipe/0154-geo-extension/manifest.json",
       "support": "No",
-      "github": "https://github.com/Mango-IIIF/Mango/issues",
+      "github": "https://github.com/Mango-IIIF/Mango/issues/44",
       "notes": "Geographic location markers using navPlace are not displayed."
     },
     {
@@ -768,7 +781,7 @@
       "url": "https://iiif.io/api/cookbook/recipe/0240-navPlace-on-canvases/",
       "manifest": "https://iiif.io/api/cookbook/recipe/0240-navPlace-on-canvases/manifest.json",
       "support": "No",
-      "github": "https://github.com/Mango-IIIF/Mango/issues",
+      "github": "https://github.com/Mango-IIIF/Mango/issues/39",
       "notes": "Geographic metadata (navPlace on canvases) is not integrated with a web map."
     },
     {
@@ -780,7 +793,7 @@
       "url": "https://iiif.io/api/cookbook/recipe/0318-navPlace-navDate/",
       "manifest": "https://iiif.io/api/cookbook/recipe/0318-navPlace-navDate/collection.json",
       "support": "No",
-      "github": "https://github.com/Mango-IIIF/Mango/issues",
+      "github": "https://github.com/Mango-IIIF/Mango/issues/45",
       "notes": "Combined geographic (navPlace) and temporal (navDate) mapping views are not supported."
     }
   ]

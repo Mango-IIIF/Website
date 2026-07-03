@@ -11,7 +11,6 @@ const categoryById = new Map(categories.map((category) => [category.id, category
 const search = ref('')
 const supportFilter = ref('All')
 const categoryFilter = ref('All')
-const hideDuplicateRecipes = ref(false)
 const activeRecipe = ref(recipes[0])
 const viewerHeading = ref(null)
 
@@ -30,41 +29,21 @@ const totals = computed(() => ({
   No: recipes.filter((recipe) => recipe.support === 'No').length,
 }))
 
+const passPercentage = computed(() => Math.round((totals.value.Yes / recipes.length) * 100))
+
 const filteredRecipes = computed(() => {
   const query = search.value.trim().toLocaleLowerCase('en-GB')
 
-  return recipes.filter((recipe) => {
-    const matchesSupport = supportFilter.value === 'All' || recipe.support === supportFilter.value
-    const matchesCategory = categoryFilter.value === 'All' || recipe.categoryIds.includes(categoryFilter.value)
-    const categoryNames = recipe.categoryIds.map((categoryId) => categoryById.get(categoryId)).join(' ')
-    const searchableText = `${recipe.id} ${recipe.name} ${recipe.notes} ${categoryNames}`.toLocaleLowerCase('en-GB')
-    return matchesSupport && matchesCategory && (!query || searchableText.includes(query))
-  })
-})
-
-const groupedRecipes = computed(() => {
-  const renderedRecipeIds = new Set()
-
-  return categories
-    .map((category) => {
-      const groupRecipes = filteredRecipes.value.filter((recipe) => {
-        if (!recipe.categoryIds.includes(category.id)) return false
-        if (!hideDuplicateRecipes.value) return true
-        if (renderedRecipeIds.has(recipe.id)) return false
-
-        renderedRecipeIds.add(recipe.id)
-        return true
-      })
-
-      return {
-        category,
-        recipes: groupRecipes,
-      }
+  return recipes
+    .filter((recipe) => {
+      const matchesSupport = supportFilter.value === 'All' || recipe.support === supportFilter.value
+      const matchesCategory = categoryFilter.value === 'All' || recipe.categoryIds.includes(categoryFilter.value)
+      const categoryNames = getRecipeCategories(recipe).join(' ')
+      const searchableText = `${recipe.id} ${recipe.name} ${recipe.notes} ${categoryNames}`.toLocaleLowerCase('en-GB')
+      return matchesSupport && matchesCategory && (!query || searchableText.includes(query))
     })
-    .filter((group) => group.recipes.length)
+    .sort((recipeA, recipeB) => recipeA.id.localeCompare(recipeB.id, 'en-GB', { numeric: true }))
 })
-
-const visibleRecipeCount = computed(() => groupedRecipes.value.reduce((total, group) => total + group.recipes.length, 0))
 
 const activeManifestUrl = computed(() => activeRecipe.value.manifest)
 const activeManifestCookbookUrl = computed(() => activeRecipe.value.url)
@@ -81,6 +60,10 @@ function isActive(recipe) {
 
 function supportIssueUrl(recipe) {
   return recipe.github || defaultIssueUrl
+}
+
+function getRecipeCategories(recipe) {
+  return recipe.categoryIds.map((categoryId) => categoryById.get(categoryId)).filter(Boolean)
 }
 
 async function checkRecipe(recipe) {
@@ -146,6 +129,7 @@ async function checkRecipe(recipe) {
       <div class="section-heading">
         <span class="eyebrow">Support matrix</span>
         <h2 id="recipe-list-heading">All recipes.</h2>
+        <p class="cookbook-pass-rate">{{ passPercentage }}% of tests pass</p>
       </div>
 
       <div class="cookbook-filters" aria-label="Filter recipes">
@@ -168,80 +152,57 @@ async function checkRecipe(recipe) {
             </option>
           </select>
         </div>
-        <div class="cookbook-filter cookbook-filter--toggle">
-          <span class="cookbook-filter__label">Duplicates</span>
-          <button
-            class="cookbook-toggle"
-            type="button"
-            :aria-pressed="hideDuplicateRecipes"
-            @click="hideDuplicateRecipes = !hideDuplicateRecipes"
-          >
-            {{ hideDuplicateRecipes ? 'Show duplicates' : 'Hide duplicates' }}
-          </button>
-        </div>
       </div>
 
-      <aside class="cookbook-testing-note" aria-label="Cookbook testing status">
-        <div>
-          <span class="eyebrow">Testing status</span>
-          <p>This section hasn't yet been fully tested.</p>
-        </div>
-        <a
-          href="https://github.com/Mango-IIIF/Mango/issues"
-          target="_blank"
-          rel="noreferrer"
-        >Share a test result <span aria-hidden="true">↗</span></a>
-      </aside>
-
       <p class="cookbook-result-count" aria-live="polite">
-        Showing {{ visibleRecipeCount }} entries for {{ filteredRecipes.length }} unique recipes
+        Showing {{ filteredRecipes.length }} recipes
       </p>
 
-      <div v-if="groupedRecipes.length" class="cookbook-groups">
-        <section v-for="group in groupedRecipes" :key="group.category.id" class="cookbook-group">
-          <h3>{{ group.category.name }}</h3>
-          <div class="cookbook-list">
-            <article v-for="recipe in group.recipes" :key="`${group.category.id}-${recipe.id}`" class="cookbook-recipe">
-              <div class="cookbook-recipe__identity">
-                <span class="cookbook-recipe__number">{{ recipe.id }}</span>
-                <h4><TechnicalText :text="recipe.name" /></h4>
+      <div v-if="filteredRecipes.length" class="cookbook-list">
+        <article v-for="recipe in filteredRecipes" :key="recipe.id" class="cookbook-recipe">
+          <div class="cookbook-recipe__identity">
+            <span class="cookbook-recipe__number">{{ recipe.id }}</span>
+            <div>
+              <h4><TechnicalText :text="recipe.name" /></h4>
+              <div class="cookbook-recipe__categories" aria-label="Recipe categories">
+                <span v-for="category in getRecipeCategories(recipe)" :key="category">{{ category }}</span>
               </div>
-              <div class="cookbook-recipe__support">
-                <a
-                  v-if="recipe.support.toLowerCase() !== 'yes'"
-                  class="cookbook-status"
-                  target="_blank"
-                  title="see GitHub issue"
-                  :class="`cookbook-status--${recipe.support.toLowerCase()}`"
-                  :href="supportIssueUrl(recipe)"
-                >
-                  {{ supportDetails[recipe.support].label }}
-                </a>
-
-                <span
-                  v-else
-                  class="cookbook-status"
-                  :class="`cookbook-status--${recipe.support.toLowerCase()}`"
-                >
-                  {{ supportDetails[recipe.support].label }}
-                </span>
-
-                <span>{{ supportDetails[recipe.support].description }}</span>
-              </div>
-              <p class="cookbook-recipe__notes"><TechnicalText :text="recipe.notes || 'No additional notes.'" /></p>
-              <div class="cookbook-recipe__actions">
-                <a :href="recipe.url" target="_blank" rel="noreferrer">Recipe details <span aria-hidden="true">↗</span></a>
-                <button
-                  v-if="recipe.manifest"
-                  class="button button--secondary"
-                  type="button"
-                  :disabled="isActive(recipe)"
-                  @click="checkRecipe(recipe)"
-                >{{ isActive(recipe) ? 'Viewing now' : 'Check manifest' }}</button>
-              </div>
-            </article>
+            </div>
           </div>
-        </section>
+          <div class="cookbook-recipe__support">
+            <a
+              v-if="recipe.support.toLowerCase() !== 'yes'"
+              class="cookbook-status"
+              target="_blank"
+              title="see GitHub issue"
+              :class="`cookbook-status--${recipe.support.toLowerCase()}`"
+              :href="supportIssueUrl(recipe)"
+            >
+              {{ supportDetails[recipe.support].label }}
+            </a>
+
+            <span
+              v-else
+              class="cookbook-status"
+              :class="`cookbook-status--${recipe.support.toLowerCase()}`"
+            >
+              {{ supportDetails[recipe.support].label }}
+            </span>
+
+            <span>{{ supportDetails[recipe.support].description }}</span>
+          </div>
+          <p class="cookbook-recipe__notes"><TechnicalText :text="recipe.notes || 'No additional notes.'" /></p>
+          <div class="cookbook-recipe__actions">
+            <a :href="recipe.url" target="_blank" rel="noreferrer">Recipe details <span aria-hidden="true">↗</span></a>
+            <button
+              v-if="recipe.manifest"
+              class="button button--secondary"
+              type="button"
+              :disabled="isActive(recipe)"
+              @click="checkRecipe(recipe)"
+            >{{ isActive(recipe) ? 'Viewing now' : 'Check manifest' }}</button>
+          </div>
+        </article>
       </div>
       <p v-else class="cookbook-empty">No recipes match these filters.</p>
     </section>

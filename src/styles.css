@@ -1843,9 +1843,19 @@ h2 em {
   margin-bottom: 42px;
 }
 .cookbook-pass-rate {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 18px;
+  align-items: baseline;
   margin: 12px 0 0;
   color: var(--orange-dark);
   font: 500 22px Georgia, serif;
+}
+.cookbook-pass-rate a {
+  color: var(--ink);
+  font: 700 12px var(--sans);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
 }
 .cookbook-filters {
   display: grid;

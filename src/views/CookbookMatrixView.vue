@@ -127,9 +127,11 @@ async function checkRecipe(recipe) {
 
     <section class="cookbook-recipes page-width" aria-labelledby="recipe-list-heading">
       <div class="section-heading">
-        <span class="eyebrow">Support matrix</span>
         <h2 id="recipe-list-heading">All recipes.</h2>
-        <p class="cookbook-pass-rate">{{ passPercentage }}% of tests pass</p>
+        <p class="cookbook-pass-rate">
+          <span>{{ passPercentage }}% of cookbook recipes supported</span>
+          <a href="https://github.com/Mango-IIIF/Mango/issues?q=is%3Aissue%20state%3Aopen%20label%3A%22cookbook%20recipe%22" target="_blank" rel="noreferrer">Help add support <span aria-hidden="true">↗</span></a>
+        </p>
       </div>
 
       <div class="cookbook-filters" aria-label="Filter recipes">

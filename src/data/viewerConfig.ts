@@ -3,6 +3,7 @@ export type ViewerConfig = {
   theme?: 'light' | 'dark' | string;
   allowCreateMode?: boolean;
   showThumbnails?: boolean;
+  showCollection?: boolean;
   showMetadata?: boolean;
   showSearch?: boolean;
   showAnnotations?: boolean;
@@ -29,6 +30,8 @@ export type ViewerConfig = {
   pdf?: {
     page?: number;
   };
+  /** Audio/video player, controls, transcript, request, and playback options. */
+  av?: Record<string, unknown>;
   initialCanvasIndex?: number;
   initialLayoutMode?: 'single' | 'two-page' | 'continuous' | 'gallery';
   initialRotation?: number;
@@ -42,6 +45,12 @@ export type ViewerConfig = {
     enabled?: boolean;
     showDebug?: boolean;
     languages?: string[];
+    /** Public HTTP(S) identifier used for new story AnnotationPage exports. */
+    annotationPageId?: string;
+    /** Optional chapter Annotation base. Defaults to `${annotationPageId}/annotation/`. */
+    annotationBase?: string;
+    /** Prevent authors from changing host-supplied canonical identifiers. */
+    identifiersLocked?: boolean;
     save?: {
       endpoint?: string;
       method?: 'POST' | 'PUT';
@@ -58,6 +67,7 @@ export const viewerConfigDefaults = {
   theme: 'dark',
   allowCreateMode: false,
   showThumbnails: true,
+  showCollection: true,
   showMetadata: true,
   showSearch: true,
   showAnnotations: true,

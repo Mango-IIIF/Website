@@ -17,6 +17,7 @@
         <div>
           <span class="footer-label">Developers</span>
           <RouterLink to="/guide">Installation</RouterLink>
+          <RouterLink to="/plugins">Plugins</RouterLink>
           <RouterLink to="/cookbook_matrix"><abbr title="International Image Interoperability Framework">IIIF</abbr> Cookbook matrix</RouterLink>
           <RouterLink to="/events">Events</RouterLink>
           <a href="https://github.com/Mango-IIIF/Mango" target="_blank" rel="noreferrer">Source code ↗</a>

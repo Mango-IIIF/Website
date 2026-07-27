@@ -1,11 +1,14 @@
 <script setup>
 import TechnicalText from './TechnicalText.vue'
 
-defineProps({ build: { type: Object, required: true } })
+defineProps({
+  build: { type: Object, required: true },
+  to: { type: [String, Object], default: null },
+})
 </script>
 
 <template>
-  <RouterLink class="build-card" :class="`build-card--${build.accent}`" :to="`/builds/${build.slug}`">
+  <RouterLink class="build-card" :class="`build-card--${build.accent}`" :to="to || build.demoUrl || `/builds/${build.slug}`">
     <div class="build-card__top">
       <span>{{ build.eyebrow }}</span>
       <span class="build-card__arrow" aria-hidden="true">→</span>

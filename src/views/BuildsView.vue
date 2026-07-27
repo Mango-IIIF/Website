@@ -21,10 +21,10 @@ import { builds } from '../data/docs'
       <div class="comparison-grid">
         <div class="comparison-row comparison-row--head"><span>Build</span><span>Best for</span><span>Input</span><span>Output</span></div>
         <div v-for="build in builds" :key="build.slug" class="comparison-row">
-          <RouterLink :to="`/builds/${build.slug}`"><TechnicalText :text="build.title" /> <span>↗</span></RouterLink>
+          <RouterLink :to="build.demoUrl || `/builds/${build.slug}`"><TechnicalText :text="build.title" /> <span>↗</span></RouterLink>
           <span>{{ build.eyebrow === 'Explore' ? 'Collection access' : build.eyebrow === 'Describe' ? 'Research & cataloguing' : build.eyebrow === 'Compose' ? 'Story authoring' : 'Audience experiences' }}</span>
-          <span><TechnicalText :text="build.storyUrl ? 'Story JSON' : 'IIIF Manifest'" /></span>
-          <span><TechnicalText :text="build.mode === 'annotation-editor' ? 'Web Annotations' : build.mode === 'story-builder' ? 'Story JSON' : 'Interactive view'" /></span>
+          <span><TechnicalText :text="build.storyUrl ? 'AnnotationPage' : 'IIIF Manifest'" /></span>
+          <span><TechnicalText :text="build.mode === 'annotation-editor' ? 'Web Annotations' : build.mode === 'story-builder' ? 'AnnotationPage' : 'Interactive view'" /></span>
         </div>
       </div>
     </section>

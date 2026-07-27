@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" role="img" aria-labelledby="title desc">
+  <title id="title">Add a voice</title>
+  <desc id="desc">A speech bubble and audio waveform representing text and narration.</desc>
+  <g fill="none" stroke="#F4EFE6" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M37 42h86a7 7 0 0 1 7 7v53a7 7 0 0 1-7 7H77l-22 16 5-16H37a7 7 0 0 1-7-7V49a7 7 0 0 1 7-7z"/>
+    <path d="M48 77v8M58 70v22M68 75v12M78 64v34M88 72v18M98 67v28M108 76v10M118 72v18" stroke="#C9A66B"/>
+  </g>
+</svg>

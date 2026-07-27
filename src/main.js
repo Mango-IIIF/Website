@@ -17,6 +17,7 @@ const router = createRouter({
     { path: '/builds/story-viewer/edit', name: 'story-editor', component: () => import('./views/StoryEditorView.vue') },
     { path: '/builds/iiif-viewer/configuration-builder', name: 'configuration-builder', component: () => import('./views/ConfigurationBuilderView.vue') },
     { path: '/builds/:slug', name: 'build', component: () => import('./views/BuildDetailView.vue') },
+    { path: '/plugins', name: 'plugins', component: () => import('./views/PluginsView.vue') },
     { path: '/events', name: 'events', component: () => import('./views/EventsView.vue') },
     { path: '/guide', name: 'guide', component: () => import('./views/GuideView.vue') },
     { path: '/cookbook_matrix', name: 'cookbook-matrix', component: () => import('./views/CookbookMatrixView.vue') },

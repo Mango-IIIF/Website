@@ -62,6 +62,7 @@ const controlGroups = [
     description: 'Choose the information and tools available around the canvas.',
     options: [
       ['showThumbnails', 'Thumbnails', 'Show the canvas navigation strip.'],
+      ['showCollection', 'Collection navigation', 'Show collection navigation when a IIIF Collection is loaded.'],
       ['showMetadata', 'Metadata', 'Expose descriptive manifest metadata.'],
       ['showSearch', 'Search', 'Enable full-text search when the manifest provides it.'],
       ['showAnnotations', 'Annotations', 'Display annotation overlays and their panel.'],

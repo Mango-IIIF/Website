@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" role="img" aria-labelledby="title desc">
+  <title id="title">Guide attention</title>
+  <desc id="desc">A magnifying lens and focus point representing movement into detail.</desc>
+  <g fill="none" stroke="#F4EFE6" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="34" y="34" width="72" height="72" rx="4"/>
+    <path d="M40 92l18-18 13 12 10-9 18 15"/>
+    <circle cx="91" cy="84" r="27"/>
+    <path d="M110 103l18 18"/>
+    <circle cx="91" cy="84" r="6" stroke="#C9A66B"/>
+    <path d="M91 67v8M91 93v8M74 84h8M100 84h8" stroke="#C9A66B"/>
+  </g>
+</svg>

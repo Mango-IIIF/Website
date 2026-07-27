@@ -5,6 +5,7 @@ import ViewerDemo from '../components/ViewerDemo.vue'
 import cookbookSupport from '../data/iiif_cookbook_support.json'
 
 const recipes = cookbookSupport.recipes
+const cookbookRecipes = recipes.filter((recipe) => !recipe.source)
 const categories = cookbookSupport.categories
 const categoryById = new Map(categories.map((category) => [category.id, category.name]))
 
@@ -29,7 +30,10 @@ const totals = computed(() => ({
   No: recipes.filter((recipe) => recipe.support === 'No').length,
 }))
 
-const passPercentage = computed(() => Math.round((totals.value.Yes / recipes.length) * 100))
+const passPercentage = computed(() => {
+  const supportedRecipes = cookbookRecipes.filter((recipe) => recipe.support === 'Yes').length
+  return Math.round((supportedRecipes / cookbookRecipes.length) * 100)
+})
 
 const filteredRecipes = computed(() => {
   const query = search.value.trim().toLocaleLowerCase('en-GB')
@@ -79,7 +83,7 @@ async function checkRecipe(recipe) {
     <section class="page-hero page-width cookbook-matrix__hero">
       <span class="eyebrow"><abbr title="International Image Interoperability Framework">IIIF</abbr> Cookbook</span>
       <h1>Cookbook support<br /><em>at a glance.</em></h1>
-      <p>See Mango's support for every <abbr title="International Image Interoperability Framework">IIIF</abbr> Cookbook recipe.</p>
+      <p>See Mango's support for every <abbr title="International Image Interoperability Framework">IIIF</abbr> Cookbook recipe, plus Mango test manifests.</p>
 
       <aside class="cookbook-contribute" aria-labelledby="cookbook-contribute-heading">
         <div>
@@ -95,7 +99,7 @@ async function checkRecipe(recipe) {
         >Help add support <span aria-hidden="true">↗</span></a>
       </aside>
 
-      <dl class="cookbook-summary" aria-label="Recipe support summary">
+      <dl class="cookbook-summary" aria-label="Test support summary">
         <div><dt>Pass</dt><dd>{{ totals.Yes }}</dd></div>
         <div><dt>Partial</dt><dd>{{ totals.Partial }}</dd></div>
         <div><dt>Fail</dt><dd>{{ totals.No }}</dd></div>
@@ -108,7 +112,7 @@ async function checkRecipe(recipe) {
         <div>
           <span class="eyebrow">Live test</span>
           <h2 id="cookbook-viewer-heading" ref="viewerHeading" tabindex="-1">
-            Recipe {{ activeRecipe.id }}: <TechnicalText :text="activeRecipe.name" />
+            {{ activeRecipe.source || 'Recipe' }} {{ activeRecipe.id }}: <TechnicalText :text="activeRecipe.name" />
           </h2>
         </div>
         <span
@@ -118,7 +122,7 @@ async function checkRecipe(recipe) {
       </div>
 
       <p class="cookbook-viewer__manifest">
-        Cookbook:
+        {{ activeRecipe.source ? 'Test manifest:' : 'Cookbook:' }}
         <a :href="activeManifestCookbookUrl" target="_blank" rel="noreferrer">{{ activeManifestCookbookUrl }} <span aria-hidden="true">↗</span></a>
       </p>
 
@@ -127,7 +131,7 @@ async function checkRecipe(recipe) {
 
     <section class="cookbook-recipes page-width" aria-labelledby="recipe-list-heading">
       <div class="section-heading">
-        <h2 id="recipe-list-heading">All recipes.</h2>
+        <h2 id="recipe-list-heading">All recipes and tests.</h2>
         <p class="cookbook-pass-rate">
           <span>{{ passPercentage }}% of cookbook recipes supported</span>
           <a href="https://github.com/Mango-IIIF/Mango/issues?q=is%3Aissue%20state%3Aopen%20label%3A%22cookbook%20recipe%22" target="_blank" rel="noreferrer">Help add support <span aria-hidden="true">↗</span></a>
@@ -137,7 +141,7 @@ async function checkRecipe(recipe) {
       <div class="cookbook-filters" aria-label="Filter recipes">
         <div class="cookbook-filter cookbook-filter--search">
           <label for="cookbook-search">Search recipes</label>
-          <input id="cookbook-search" v-model="search" type="search" placeholder="Recipe number, name or notes" />
+          <input id="cookbook-search" v-model="search" type="search" placeholder="Recipe number, test name or notes" />
         </div>
         <div class="cookbook-filter">
           <label for="cookbook-category">Category</label>
@@ -157,7 +161,7 @@ async function checkRecipe(recipe) {
       </div>
 
       <p class="cookbook-result-count" aria-live="polite">
-        Showing {{ filteredRecipes.length }} recipes
+        Showing {{ filteredRecipes.length }} recipes and tests
       </p>
 
       <div v-if="filteredRecipes.length" class="cookbook-list">
@@ -195,7 +199,7 @@ async function checkRecipe(recipe) {
           </div>
           <p class="cookbook-recipe__notes"><TechnicalText :text="recipe.notes || 'No additional notes.'" /></p>
           <div class="cookbook-recipe__actions">
-            <a :href="recipe.url" target="_blank" rel="noreferrer">Recipe details <span aria-hidden="true">↗</span></a>
+            <a :href="recipe.url" target="_blank" rel="noreferrer">{{ recipe.source ? 'Test manifest' : 'Recipe details' }} <span aria-hidden="true">↗</span></a>
             <button
               v-if="recipe.manifest"
               class="button button--secondary"

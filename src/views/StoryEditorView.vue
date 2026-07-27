@@ -1,5 +1,6 @@
 <script setup>
 import ViewerDemo from '../components/ViewerDemo.vue'
+import { storyBuilderDemoUrl } from '../data/docs'
 
 const storyEditor = {
   slug: 'story-editor',
@@ -39,7 +40,7 @@ const storyEditor = {
 
     <section class="story-editor-footer page-width">
       <div><span class="eyebrow">Start again</span><h2>Need a blank canvas?</h2></div>
-      <RouterLink class="button button--secondary" to="/builds/story-builder">Open Story Builder <span>→</span></RouterLink>
+      <RouterLink class="button button--secondary" :to="storyBuilderDemoUrl">Open Story Builder <span>→</span></RouterLink>
     </section>
   </div>
 </template>

@@ -9,6 +9,7 @@ export const commonOptions = [
   { name: 'showLayers', type: 'boolean', default: 'true', description: 'Shows opacity controls when a canvas has multiple layers.' },
   { name: 'showSettings', type: 'boolean', default: 'true', description: 'Shows the viewer settings control.' },
   { name: 'allowCreateMode', type: 'boolean', default: 'false', description: 'Enables annotation creation in the viewer.' },
+  { name: 'showCollection', type: 'boolean', default: 'true', description: 'Shows collection navigation when a IIIF Collection is loaded.' },
 ]
 
 const osdOptions = [
@@ -27,6 +28,7 @@ const viewerOptions = [
   { name: 'osdConfig', type: 'Record<string, unknown>', default: '{}', description: 'Passes raw OpenSeadragon options to the image renderer.' },
   { name: 'modelConfig', type: 'Record<string, unknown>', default: '{}', description: 'Applies raw attributes or properties to the model-viewer element.' },
   { name: 'pdf.page', type: 'number', default: '1', description: 'Selects the initial PDF page.' },
+  { name: 'av', type: 'AVPlayerConfig', default: '{}', description: 'Configures the audio and video player: controls, panels, transcript, request, and playback options.' },
   { name: 'initialCanvasIndex', type: 'number', default: '0', description: 'Selects the canvas shown when the viewer loads.' },
   { name: 'initialLayoutMode', type: "'single' | 'two-page' | 'continuous' | 'gallery'", default: "'single'", description: 'Sets the initial canvas layout.' },
   { name: 'initialRotation', type: 'number', default: '0', description: 'Sets the initial image rotation in degrees.' },
@@ -34,6 +36,9 @@ const viewerOptions = [
   { name: 'story.enabled', type: 'boolean', default: 'false', description: 'Enables story behaviour in the viewer.' },
   { name: 'story.showDebug', type: 'boolean', default: 'false', description: 'Shows story playback diagnostics and seek controls.' },
   { name: 'story.languages', type: 'string[]', default: "['en']", description: 'Sets the languages available to story content.' },
+  { name: 'story.annotationPageId', type: 'string', default: 'undefined', description: 'Public HTTP(S) identifier used for new story AnnotationPage exports.' },
+  { name: 'story.annotationBase', type: 'string', default: 'undefined', description: 'Base for chapter Annotation identifiers. Defaults to the annotation page identifier followed by /annotation/.' },
+  { name: 'story.identifiersLocked', type: 'boolean', default: 'false', description: 'Prevents authors changing host-supplied canonical identifiers.' },
   { name: 'story.save.enabled', type: 'boolean', default: 'false', description: 'Enables saving stories to a remote endpoint.' },
   { name: 'story.save.endpoint', type: 'string', default: 'undefined', description: 'Sets the URL used to persist story JSON.' },
   { name: 'story.save.method', type: "'POST' | 'PUT'", default: "'POST'", description: 'Sets the HTTP method used for story saves.' },
@@ -43,6 +48,7 @@ const viewerOptions = [
 ]
 
 const baseManifest = 'https://iiif.wellcomecollection.org/presentation/v2/b18035723'
+export const storyBuilderDemoUrl = '/builds/story-builder?iiif-content=/stories/demo.json'
 
 export const builds = [
     {
@@ -76,24 +82,28 @@ export const builds = [
     description: 'Capture a view, write a chapter, and order the sequence. The builder records camera positions, media segments, annotations, layer opacity, and narration timing in a portable story document.',
     accent: 'violet',
     screenshot: '/images/screenshot_story_builder.png',
+    demoUrl: storyBuilderDemoUrl,
     manifest: 'https://iiif.harvardartmuseums.org/manifests/object/299843',
     config: { showThumbnails: false, showSearch: false, showMetadata: false, showAnnotations: false, showTools: false, story: { languages: ['en', 'cy'] } },
     features: ['Chapter timeline', 'Camera capture', 'Narration tracks', 'Localised text', 'Media segments', 'Save and export'],
     options: [
       commonOptions[0],
       { name: 'story.languages', type: 'string[]', default: "['en']", description: 'Languages available for chapter text and narration.' },
+      { name: 'story.annotationPageId', type: 'string', default: 'undefined', description: 'Public HTTP(S) identifier used for new story AnnotationPage exports.' },
+      { name: 'story.annotationBase', type: 'string', default: 'undefined', description: 'Base for chapter Annotation identifiers. Defaults to the annotation page identifier followed by /annotation/.' },
+      { name: 'story.identifiersLocked', type: 'boolean', default: 'false', description: 'Prevents authors changing host-supplied canonical identifiers.' },
       { name: 'story.save.enabled', type: 'boolean', default: 'false', description: 'Enables saving stories to a remote endpoint.' },
       { name: 'story.save.endpoint', type: 'string', default: 'undefined', description: 'URL used to persist story JSON.' },
       { name: 'story.save.method', type: "'POST' | 'PUT'", default: "'POST'", description: 'HTTP method used for story saves.' },
       { name: 'story.save.headers', type: 'Record<string, string>', default: '{}', description: 'Custom request headers, including authorisation.' },
-      { name: 'story.save.timeoutMs', type: 'number', default: '5000', description: 'Save request timeout in milliseconds.' },
+      { name: 'story.save.timeoutMs', type: 'number', default: '10000', description: 'Save request timeout in milliseconds.' },
       { name: 'story.save.credentials', type: 'RequestCredentials', default: "'same-origin'", description: 'Browser credentials mode for save requests.' },
     ],
     installImport: '@mango-iiif/iiif-viewer/element/story-builder',
   },
   {
     slug: 'annotation-editor',
-    number: '04',
+    number: '03',
     mode: 'annotation-editor',
     eyebrow: 'Describe',
     title: 'Annotation Editor',
@@ -139,7 +149,7 @@ export const eventCategories = [
       ['stateChange', '{ snapshot: ViewerStateSnapshot }', 'Any core viewer state has changed.'],
       ['error', '{ scope, message, cause? }', 'Manifest, media, search, or annotation failure.'],
       ['storyViewerError', '{ message, cause? }', 'A story could not load or play.'],
-      ['pluginError', '{ pluginId, phase, message, cause? }', 'A plugin failed during setup or teardown.'],
+      ['pluginError', '{ pluginId, pluginLabel, phase, message, cause? }', 'A plugin failed during setup or teardown.'],
     ],
   },
   {
@@ -150,6 +160,7 @@ export const eventCategories = [
       ['zoomChange', '{ zoom, viewBox }', 'The zoom level has changed.'],
       ['viewBoxChange', '{ viewBox }', 'The visible canvas coordinates have changed.'],
       ['modelChange', '{ canvasId, ...ModelPose }', 'The 3D camera pose has changed.'],
+      ['rotationChange', '{ rotation }', 'The image rotation has changed.'],
       ['panelToggle', '{ panel, open }', 'A viewer panel has opened or closed.'],
     ],
   },
@@ -170,7 +181,7 @@ export const eventCategories = [
       ['updateAnnotation', '{ annotation }', 'A local annotation was updated through the API.'],
       ['removeAnnotation', '{ annotationId }', 'A local annotation was removed through the API.'],
       ['annotationCreate', '{ annotation }', 'A drafted annotation was finalised.'],
-      ['annotationUpdate', '{ annotation }', 'Annotation geometry or content changed.'],
+      ['annotationUpdate', '{ annotationId, patch }', 'Annotation geometry or content changed.'],
       ['annotationDelete', '{ annotationId }', 'An annotation was deleted.'],
       ['annotationHover', '{ id, annotation? }', 'The pointer entered or left an annotation.'],
       ['annotationSelect', '{ id, annotation?, preventZoom? }', 'An annotation was selected.'],

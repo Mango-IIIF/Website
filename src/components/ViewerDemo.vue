@@ -1,6 +1,6 @@
 <script setup>
 import { computed, nextTick, onBeforeUnmount, onMounted, ref } from 'vue'
-import '@mango-iiif/iiif-viewer/element.iife'
+import '@mango-iiif/iiif-viewer/element'
 import viewerStyles from '@mango-iiif/iiif-viewer/style.css?raw'
 
 const props = defineProps({ build: { type: Object, required: true } })
@@ -46,6 +46,9 @@ async function injectViewerStyles(attempts = 20) {
     [role="button"]:hover,
     img:hover {
       transform: none !important;
+    }
+    .viewer__expand-sidebar:hover {
+      transform: translateY(-50%) !important;
     }
     .story-sidebar__narration-button {
       background: #9d4021 !important;

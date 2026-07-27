@@ -1,10 +1,10 @@
 <script setup>
 import BuildCard from '../components/BuildCard.vue'
 import CodeBlock from '../components/CodeBlock.vue'
-import { builds } from '../data/docs'
+import { builds, storyBuilderDemoUrl } from '../data/docs'
 
 const quickStart = `npm install @mango-iiif/iiif-viewer`
-const viewerCode = `import '@mango-iiif/iiif-viewer/element.iife';
+const viewerCode = `import '@mango-iiif/iiif-viewer/element';
 
 // Then use <mango-viewer> in any framework.`
 </script>
@@ -44,7 +44,12 @@ const viewerCode = `import '@mango-iiif/iiif-viewer/element.iife';
         <p>Start with a standards-based viewer, then add the tools your collection and your audience need.</p>
       </div>
       <div class="build-grid">
-        <BuildCard v-for="build in builds" :key="build.slug" :build="build" />
+        <BuildCard
+          v-for="build in builds"
+          :key="build.slug"
+          :build="build"
+          :to="build.slug === 'story-builder' ? storyBuilderDemoUrl : null"
+        />
       </div>
     </section>
 
@@ -54,12 +59,12 @@ const viewerCode = `import '@mango-iiif/iiif-viewer/element.iife';
           <span class="eyebrow eyebrow--light">Built for storytelling</span>
           <h2>From close looking<br />to <em>shared meaning.</em></h2>
           <p>Frame a detail, add context, and lead audiences through a collection with chapter-based stories. Mango keeps the content portable and the experience accessible.</p>
-          <RouterLink class="button button--light" to="/builds/story-builder">Meet Story Builder <span>→</span></RouterLink>
+          <RouterLink class="button button--light" :to="storyBuilderDemoUrl">Meet Story Builder <span>→</span></RouterLink>
         </div>
         <div class="story-sequence" aria-hidden="true">
-          <article><img class="sequence-image" src="/images/01_set_the_scene.png" alt="" /><b>Set the scene</b><p>Frame the complete work.</p></article>
-          <article><img class="sequence-image" src="/images/02_guide_attention.png" alt="" /><b>Guide attention</b><p>Move into the detail.</p></article>
-          <article><img class="sequence-image" src="/images/03_add_a_voice.png" alt="" /><b>Add a voice</b><p>Layer text and narration.</p></article>
+          <article><img class="sequence-image" src="/svg/set-the-scene.svg" alt="" /><b>Set the scene</b><p>Frame the complete work.</p></article>
+          <article><img class="sequence-image" src="/svg/guide-attention.svg" alt="" /><b>Guide attention</b><p>Move into the detail.</p></article>
+          <article><img class="sequence-image" src="/svg/add-a-voice.svg" alt="" /><b>Add a voice</b><p>Layer text and narration.</p></article>
         </div>
       </div>
     </section>
@@ -74,6 +79,7 @@ const viewerCode = `import '@mango-iiif/iiif-viewer/element.iife';
           <div class="feature-list"><span>01</span><div><b>Web component</b><p>Works in Vue, React, Svelte, or plain <abbr title="HyperText Markup Language">HTML</abbr>.</p></div></div>
           <div class="feature-list"><span>02</span><div><b>Typed JavaScript <abbr title="Application Programming Interface">API</abbr></b><p>Control navigation, media, viewports, and annotations.</p></div></div>
           <div class="feature-list"><span>03</span><div><b>Observable events</b><p>Connect Mango to the rest of your application.</p></div></div>
+          <div class="feature-list"><span>04</span><div><b>Plugin <abbr title="Application Programming Interface">API</abbr></b><p>Mount your own panels and behaviours in <RouterLink to="/plugins">five viewer slots</RouterLink>.</p></div></div>
         </div>
         <div>
           <CodeBlock :code="quickStart" language="shell" label="Terminal" />

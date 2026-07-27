@@ -2,7 +2,7 @@
 import CodeBlock from '../components/CodeBlock.vue'
 
 const install = 'npm install @mango-iiif/iiif-viewer'
-const bundle = `import '@mango-iiif/iiif-viewer/element.iife';`
+const bundle = `import '@mango-iiif/iiif-viewer/element';`
 const html = `<div class="viewer-container">
   <mango-viewer
     mode="viewer"
@@ -24,7 +24,7 @@ mango-viewer {
   height: 100%;
 }`
 const vue = `<script setup>
-import '@mango-iiif/iiif-viewer/element.iife';
+import '@mango-iiif/iiif-viewer/element';
 
 const config = JSON.stringify({
   theme: 'light',
@@ -66,6 +66,7 @@ const cdn = `<!doctype html>
     ></mango-viewer>
 
     <script
+      type="module"
       src="https://cdn.jsdelivr.net/npm/@mango-iiif/iiif-viewer@latest"
     ><\/script>
   </body>
@@ -87,12 +88,12 @@ const cdn = `<!doctype html>
       </aside>
       <div class="guide-content">
         <section id="install"><span class="step-number">01</span><h2>Install the package</h2><p>Install Mango from npm. The package includes the custom elements, JavaScript <abbr title="Application Programming Interface">API</abbr>, TypeScript declarations, and styles.</p><CodeBlock :code="install" language="shell" label="Terminal" /></section>
-        <section id="import"><span class="step-number">02</span><h2>Import the element</h2><p>The <abbr title="Immediately Invoked Function Expression">IIFE</abbr> entry registers <code>&lt;mango-viewer&gt;</code> with all component styles included. It supports every Mango mode and works in a Vue bundle without additional shadow-root styling.</p><CodeBlock :code="bundle" language="javascript" label="main.js" /></section>
+        <section id="import"><span class="step-number">02</span><h2>Import the element</h2><p>The element entry registers <code>&lt;mango-viewer&gt;</code> for use in your application. It supports every Mango mode and works in a Vue bundle.</p><CodeBlock :code="bundle" language="javascript" label="main.js" /></section>
         <section id="element"><span class="step-number">03</span><h2>Add the viewer</h2><p>Provide an <abbr title="International Image Interoperability Framework">IIIF</abbr> Presentation 2 or 3 manifest <abbr title="Uniform Resource Locator">URL</abbr>. Pass configuration as valid <abbr title="JavaScript Object Notation">JSON</abbr> when using an <abbr title="HyperText Markup Language">HTML</abbr> attribute.</p><CodeBlock :code="html" language="html" label="App.vue" /></section>
         <section id="size"><span class="step-number">04</span><h2>Give it a size</h2><p>Mango fills the space its host provides. An explicit height prevents the viewer from collapsing in normal document flow.</p><CodeBlock :code="css" language="css" label="styles.css" /></section>
         <section id="vue"><span class="step-number">05</span><h2>Use it from Vue</h2><p>Bind the serialised configuration value as a property. Configure Vue’s template compiler to treat <code>mango-viewer</code> as a custom element if it reports a resolution warning.</p><CodeBlock :code="vue" language="vue" label="ViewerPage.vue" /></section>
-        <section id="cdn"><span class="step-number">06</span><h2>Use Mango from a <abbr title="Content Delivery Network">CDN</abbr></h2><p>For a static page or quick prototype, load the complete custom-element bundle directly from jsDelivr. No package manager or build step is required.</p><CodeBlock :code="cdn" language="html" label="index.html" /><div class="callout"><b>Pin production versions</b><p><code>@latest</code> is convenient while experimenting. Replace it with a tested version such as <code>@0.0.2</code> before deploying to keep builds reproducible.</p></div></section>
-        <section id="next" class="next-grid"><span class="step-number">07</span><h2>Choose the next step</h2><div><RouterLink to="/builds"><b>Compare builds</b><span>Pick the right Mango mode. →</span></RouterLink><RouterLink to="/events"><b>Connect events</b><span>Synchronise your application. →</span></RouterLink></div></section>
+        <section id="cdn"><span class="step-number">06</span><h2>Use Mango from a <abbr title="Content Delivery Network">CDN</abbr></h2><p>For a static page or quick prototype, load the complete custom-element bundle directly from jsDelivr. No package manager or build step is required.</p><CodeBlock :code="cdn" language="html" label="index.html" /><div class="callout"><b>Pin production versions</b><p><code>@latest</code> is convenient while experimenting. Replace it with a tested version such as <code>@0.2.0</code> before deploying to keep builds reproducible.</p></div></section>
+        <section id="next" class="next-grid"><span class="step-number">07</span><h2>Choose the next step</h2><div><RouterLink to="/builds"><b>Compare builds</b><span>Pick the right Mango mode. →</span></RouterLink><RouterLink to="/events"><b>Connect events</b><span>Synchronise your application. →</span></RouterLink><RouterLink to="/plugins"><b>Extend with plugins</b><span>Add panels and behaviours. →</span></RouterLink></div></section>
       </div>
     </div>
   </div>

@@ -11,8 +11,9 @@ const route = useRoute()
 const build = computed(() => builds.find((item) => item.slug === route.params.slug) || builds[0])
 const previous = computed(() => builds[(builds.indexOf(build.value) - 1 + builds.length) % builds.length])
 const next = computed(() => builds[(builds.indexOf(build.value) + 1) % builds.length])
-const importCode = computed(() => `import '@mango-iiif/iiif-viewer/element.iife';`)
+const importCode = computed(() => `import '@mango-iiif/iiif-viewer/element';`)
 const cdnCode = `<script
+  type="module"
   src="https://cdn.jsdelivr.net/npm/@mango-iiif/iiif-viewer@latest"
 ><\/script>`
 
@@ -26,6 +27,69 @@ const manifestPresets = [
   { label: 'Georges Seurat — A Sunday on La Grande Jatte', url: 'https://api.artic.edu/api/v1/artworks/27992/manifest.json' },
   { label: 'Edward Hopper — Nighthawks', url: 'https://api.artic.edu/api/v1/artworks/111628/manifest.json' },
   { label: 'Vincent van Gogh — Self-Portrait Dedicated to Paul Gauguin', url: 'https://iiif.harvardartmuseums.org/manifests/object/299843' },
+]
+
+const storyComparison = [
+  {
+    capability: 'Product integration',
+    detail: 'Native component, not an iframe',
+    mango: true,
+    exhibit: false,
+  },
+  {
+    capability: 'Media range',
+    detail: 'Images, A/V, PDFs, 3D, annotations, and layers',
+    mango: true,
+    exhibit: false,
+  },
+  {
+    capability: 'Narrative precision',
+    detail: 'Capture the exact object state per chapter',
+    mango: true,
+    exhibit: true,
+  },
+  {
+    capability: 'Narration',
+    detail: 'Timed audio tracks with waveform editing',
+    mango: true,
+    exhibit: false,
+  },
+  {
+    capability: 'Multilingual stories',
+    detail: 'Localised copy, interface, and narration',
+    mango: true,
+    exhibit: false,
+  },
+  {
+    capability: 'Standards & portability',
+    detail: 'IIIF AnnotationPage story output',
+    mango: true,
+    exhibit: false,
+  },
+  {
+    capability: 'Application control',
+    detail: 'Typed API and observable DOM events',
+    mango: true,
+    exhibit: false,
+  },
+  {
+    capability: 'Extensibility',
+    detail: 'A first-class plugin contract',
+    mango: true,
+    exhibit: false,
+  },
+  {
+    capability: 'Open source',
+    detail: 'MIT-licensed and free',
+    mango: true,
+    exhibit: false,
+  },
+  {
+    capability: 'Turnkey publishing',
+    detail: 'Hosted links, quizzes, and kiosks',
+    mango: false,
+    exhibit: true,
+  },
 ]
 
 const manifestInput = ref('')
@@ -116,6 +180,33 @@ function loadManifest(url = manifestInput.value) {
 
     </section>
 
+    <section v-if="build.slug === 'story-viewer'" class="story-compare page-width" aria-labelledby="story-compare-heading">
+      <div class="story-compare__header">
+        <div>
+          <h2 id="story-compare-heading">A storytelling engine.<br /><em>Not another microsite.</em></h2>
+        </div>
+      </div>
+
+      <div class="story-compare__table-wrap">
+        <table class="story-compare__table">
+          <thead>
+            <tr>
+              <th scope="col">The test</th>
+              <th scope="col"><span class="story-compare__product story-compare__product--mango">Mango</span></th>
+              <th scope="col"><span class="story-compare__product">Exhibit</span></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="item in storyComparison" :key="item.capability">
+              <th scope="row"><span>{{ item.capability }}</span><small>{{ item.detail }}</small></th>
+              <td><span class="story-compare__mark" :class="item.mango ? 'story-compare__mark--yes' : 'story-compare__mark--no'" :aria-label="item.mango ? 'Supported' : 'Not supported'">{{ item.mango ? '✓' : '×' }}</span></td>
+              <td><span class="story-compare__mark" :class="item.exhibit ? 'story-compare__mark--yes' : 'story-compare__mark--no'" :aria-label="item.exhibit ? 'Supported' : 'Not supported'">{{ item.exhibit ? '✓' : '×' }}</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
     <section class="docs-section page-width">
       <div class="docs-sidebar"><span class="eyebrow">Use this build</span><h2>Two ways.<br />One element.</h2><p>Register Mango through your application bundle or load it directly from jsDelivr.</p></div>
       <div class="docs-content">
@@ -126,7 +217,7 @@ function loadManifest(url = manifestInput.value) {
         <h3>3. Or load Mango from a <abbr title="Content Delivery Network">CDN</abbr></h3>
         <p class="docs-content__intro">For a static <abbr title="HyperText Markup Language">HTML</abbr> page, replace the JavaScript import with this script tag. The custom-element markup above remains the same.</p>
         <CodeBlock :code="cdnCode" language="html" label="index.html" />
-        <div class="callout"><b>Pin production versions</b><p><code>@latest</code> is useful for prototypes. Replace it with a tested release such as <code>@0.0.2</code> before deployment.</p></div>
+        <div class="callout"><b>Pin production versions</b><p><code>@latest</code> is useful for prototypes. Replace it with a tested release such as <code>@0.2.0</code> before deployment.</p></div>
         <div class="callout"><b>Container size matters</b><p>Give <code>&lt;mango-viewer&gt;</code> an explicit height or place it in a flex/grid area with a resolved height. Focused <abbr title="ECMAScript Module">ESM</abbr> entry points are also available for applications that manage component <abbr title="Cascading Style Sheets">CSS</abbr> in their build pipeline.</p></div>
       </div>
     </section>

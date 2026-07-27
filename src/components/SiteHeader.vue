@@ -29,6 +29,7 @@ const menuOpen = ref(false)
         <RouterLink to="/cookbook_matrix" @click="menuOpen = false">Cookbook</RouterLink>
         <RouterLink to="/events" @click="menuOpen = false">Events</RouterLink>
         <RouterLink to="/guide" @click="menuOpen = false">Get started</RouterLink>
+        <RouterLink to="/plugins" @click="menuOpen = false">Plugins</RouterLink>
         <a class="nav-github" href="https://github.com/Mango-IIIF/Mango" target="_blank" rel="noreferrer">
           GitHub <span aria-hidden="true">↗</span>
         </a>

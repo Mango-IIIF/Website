@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" role="img" aria-labelledby="title desc">
+  <title id="title">Set the scene</title>
+  <desc id="desc">A framed landscape representing the complete work.</desc>
+  <g fill="none" stroke="#F4EFE6" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M35 46V34h12M113 34h12v12M125 114v12h-12M47 126H35v-12"/>
+    <rect x="45" y="44" width="70" height="72" rx="4"/>
+    <circle cx="92" cy="66" r="7" stroke="#C9A66B"/>
+    <path d="M50 100l19-20 14 13 12-11 15 18"/>
+    <path d="M50 103h60"/>
+  </g>
+</svg>

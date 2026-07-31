@@ -1,6 +1,8 @@
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 
+import { cloudflare } from "@cloudflare/vite-plugin";
+
 export default defineConfig(({ mode }) => ({
   build: {
     sourcemap: true,
@@ -13,13 +15,11 @@ export default defineConfig(({ mode }) => ({
     host: true,
     hmr: true,
   },
-  plugins: [
-    vue({
-      template: {
-        compilerOptions: {
-          isCustomElement: (tag) => tag.startsWith('mango-'),
-        },
+  plugins: [vue({
+    template: {
+      compilerOptions: {
+        isCustomElement: (tag) => tag.startsWith('mango-'),
       },
-    }),
-  ],
+    },
+  }), cloudflare()],
 }))

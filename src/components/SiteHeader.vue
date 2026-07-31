@@ -11,7 +11,7 @@ const menuOpen = ref(false)
     <a class="skip-link" href="#main-content">Skip to main content</a>
     <div class="site-header__inner page-width">
       <RouterLink class="wordmark" to="/" aria-label="Mango home" @click="menuOpen = false">
-        <img class="wordmark__logo" src="/mango-logo.svg" alt="" />
+        <img class="wordmark__logo" src="/mango-logo.svg" width="112" height="43" alt="" />
       </RouterLink>
 
       <button

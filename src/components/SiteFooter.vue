@@ -3,7 +3,7 @@
     <div class="page-width footer-grid">
       <div>
         <RouterLink class="wordmark wordmark--footer" to="/" aria-label="Mango home">
-          <img class="wordmark__logo" src="/mango-logo.svg" alt="" />
+          <img class="wordmark__logo" src="/mango-logo.svg" width="112" height="43" alt="" />
         </RouterLink>
       </div>
       <nav class="footer-nav" aria-label="Footer navigation">

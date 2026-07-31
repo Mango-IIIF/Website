@@ -26,7 +26,14 @@ const viewerCode = `import '@mango-iiif/iiif-viewer/element';
         <div class="hero-orbit hero-orbit--one"></div>
         <div class="hero-orbit hero-orbit--two"></div>
         <div class="hero-screenshot">
-          <img src="/images/screenshot_story_viewer.png" alt="" />
+          <img
+            src="/images/screenshot_story_viewer-660.webp"
+            srcset="/images/screenshot_story_viewer-660.webp 660w, /images/screenshot_story_viewer-1320.webp 1320w"
+            sizes="(max-width: 700px) 92vw, 590px"
+            width="660"
+            height="408"
+            alt=""
+          />
         </div>
       </div>
     </section>

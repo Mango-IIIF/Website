@@ -183,7 +183,7 @@ function loadManifest(url = manifestInput.value) {
     <section v-if="build.slug === 'story-viewer'" class="story-compare page-width" aria-labelledby="story-compare-heading">
       <div class="story-compare__header">
         <div>
-          <h2 id="story-compare-heading">A storytelling engine.<br /><em>Not another microsite.</em></h2>
+          <h2 id="story-compare-heading">Guided stories<br /><em>inside the viewer.</em></h2>
         </div>
       </div>
 
@@ -208,7 +208,7 @@ function loadManifest(url = manifestInput.value) {
     </section>
 
     <section class="docs-section page-width">
-      <div class="docs-sidebar"><span class="eyebrow">Use this build</span><h2>Two ways.<br />One element.</h2><p>Register Mango through your application bundle or load it directly from jsDelivr.</p></div>
+      <div class="docs-sidebar"><span class="eyebrow">Use this build</span><h2>Add the web component.</h2><p>Register Mango through your application bundle or load it directly from jsDelivr.</p></div>
       <div class="docs-content">
         <h3>1. Register the web component</h3>
         <CodeBlock :code="importCode" language="javascript" label="main.js" />
@@ -227,8 +227,8 @@ function loadManifest(url = manifestInput.value) {
       <OptionTable :options="build.options" />
       <aside v-if="build.slug === 'iiif-viewer'" class="configuration-builder-cta">
         <div>
-          <span class="eyebrow">Make it yours</span>
-          <h3>Configure the viewer without guessing.</h3>
+          <span class="eyebrow">Configuration builder</span>
+          <h3>Choose options and preview the result.</h3>
           <p>Choose options visually, preview every change, and copy the generated configuration.</p>
         </div>
         <RouterLink class="button button--primary" to="/builds/iiif-viewer/configuration-builder">
@@ -238,7 +238,7 @@ function loadManifest(url = manifestInput.value) {
     </section>
 
     <section class="build-events page-width">
-      <div><span class="eyebrow">Connect your application</span><h2>Respond to what<br />the viewer does.</h2></div>
+      <div><span class="eyebrow">Connect your application</span><h2>Listen for<br />viewer events.</h2></div>
       <div><p>Mango forwards its internal event bus as standard <abbr title="Document Object Model">DOM</abbr> custom events. Listen on the element and read the payload from <code>event.detail</code>.</p><RouterLink class="text-link" to="/events">Explore all events <span>→</span></RouterLink></div>
     </section>
 

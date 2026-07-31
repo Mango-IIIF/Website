@@ -43,12 +43,12 @@ const stateExample = `viewer.addEventListener('stateChange', (event) => {
   <div class="inner-page">
     <section class="page-hero page-width events-hero">
       <span class="eyebrow">Event reference</span>
-      <h1>Observe every<br /><em>meaningful change.</em></h1>
+      <h1>Listen for<br /><em>viewer events.</em></h1>
       <p>Keep application <abbr title="User Interface">UI</abbr>, analytics, and adjacent tools synchronised with navigation, media, annotations, and viewer state.</p>
     </section>
 
     <section class="docs-section page-width">
-      <div class="docs-sidebar"><span class="eyebrow">Listening</span><h2>Use the <abbr title="Application Programming Interface">API</abbr> that<br />fits your stack.</h2><p><abbr title="Document Object Model">DOM</abbr> events are ideal in Vue and other frameworks. The JavaScript class offers the same event names with typed callbacks.</p></div>
+      <div class="docs-sidebar"><span class="eyebrow">Listening</span><h2>Choose how to receive events.</h2><p><abbr title="Document Object Model">DOM</abbr> events are ideal in Vue and other frameworks. The JavaScript class offers the same event names with typed callbacks.</p></div>
       <div class="docs-content docs-content--wide">
         <h3>Custom element</h3>
         <CodeBlock :code="domExample" language="javascript" label="DOM events" />

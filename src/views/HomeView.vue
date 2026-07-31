@@ -14,7 +14,7 @@ const viewerCode = `import '@mango-iiif/iiif-viewer/element';
     <section class="hero-section page-width">
       <div class="hero-copy">
         <span class="eyebrow hero-eyebrow"><i></i> Open source · <abbr title="International Image Interoperability Framework">IIIF</abbr> native</span>
-        <h1>Look closer.<br /><em>Tell the story.</em></h1>
+        <h1>Explore collections.<br /><em>Build visual stories.</em></h1>
         <p class="hero-lede">Mango is a flexible viewer for exploring collections, creating annotations, and building guided visual stories with <abbr title="International Image Interoperability Framework">IIIF</abbr>.</p>
         <div class="hero-actions">
           <RouterLink class="button button--primary" to="/guide">Get started <span>→</span></RouterLink>
@@ -33,14 +33,14 @@ const viewerCode = `import '@mango-iiif/iiif-viewer/element';
 
     <section class="intro-strip">
       <div class="page-width intro-strip__inner">
-        <p>One toolkit.<br /><em>Four ways to see.</em></p>
+        <p>One toolkit.<br /><em>Four focused tools.</em></p>
         <div><span>Images</span><span>Video</span><span>Audio</span><span><abbr title="Portable Document Format">PDF</abbr></span><span><abbr title="Three-dimensional">3D</abbr></span><span>Annotations</span></div>
       </div>
     </section>
 
     <section class="section page-width" id="builds">
       <div class="section-heading split-heading">
-        <div><span class="eyebrow">Choose your experience</span><h2>Made for more<br />than viewing.</h2></div>
+        <div><span class="eyebrow">Viewer and editing tools</span><h2>Choose the tool<br />for your task.</h2></div>
         <p>Start with a standards-based viewer, then add the tools your collection and your audience need.</p>
       </div>
       <div class="build-grid">
@@ -57,7 +57,7 @@ const viewerCode = `import '@mango-iiif/iiif-viewer/element';
       <div class="page-width story-band__grid">
         <div class="story-band__copy">
           <span class="eyebrow eyebrow--light">Built for storytelling</span>
-          <h2>From close looking<br />to <em>shared meaning.</em></h2>
+          <h2>Create guided stories<br />from <em>IIIF content.</em></h2>
           <p>Frame a detail, add context, and lead audiences through a collection with chapter-based stories. Mango keeps the content portable and the experience accessible.</p>
           <RouterLink class="button button--light" :to="storyBuilderDemoUrl">Meet Story Builder <span>→</span></RouterLink>
         </div>
@@ -71,7 +71,7 @@ const viewerCode = `import '@mango-iiif/iiif-viewer/element';
 
     <section class="section page-width developer-section">
       <div class="section-heading split-heading">
-        <div><span class="eyebrow">Developer friendly</span><h2>Drop it in.<br /><em>Make it yours.</em></h2></div>
+        <div><span class="eyebrow">For developers</span><h2>Use Mango<br /><em>in any framework.</em></h2></div>
         <p>Use a web component in any framework or the JavaScript <abbr title="Application Programming Interface">API</abbr> for deeper integrations. Configuration and events stay consistent across builds.</p>
       </div>
       <div class="developer-grid">
@@ -89,8 +89,8 @@ const viewerCode = `import '@mango-iiif/iiif-viewer/element';
     </section>
 
     <section class="cta-section page-width">
-      <span class="eyebrow">Start exploring</span>
-      <h2>Your collection has<br /><em>more to reveal.</em></h2>
+      <span class="eyebrow">Try Mango</span>
+      <h2>Start with<br /><em>your own manifest.</em></h2>
       <RouterLink class="round-link" to="/guide" aria-label="Read the installation guide">→</RouterLink>
     </section>
   </div>

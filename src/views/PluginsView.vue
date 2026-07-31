@@ -120,7 +120,7 @@ const packages = [
   <div class="inner-page plugin-catalogue">
     <section class="page-hero page-width plugin-catalogue__hero">
       <span class="eyebrow">Mango ecosystem</span>
-      <h1>Five focused packages.<br /><em>One IIIF toolkit.</em></h1>
+      <h1>Packages for common<br /><em>IIIF tasks.</em></h1>
       <p>Mango’s companion packages solve the hard parts around the viewer: audiovisual playback, image annotation, standards-compliant data, collection navigation and content search.</p>
       <div class="plugin-catalogue__summary" aria-label="Plugin catalogue summary">
         <span><b>5</b> packages</span>
@@ -171,7 +171,7 @@ const packages = [
       <div v-else class="plugin-profile__headless">
         <div>
           <span class="eyebrow">Headless by design</span>
-          <h3>Annotations in.<br />Portable data out.</h3>
+          <h3>Read, edit, and export annotations.</h3>
           <p>The parser has no visual layer to screenshot. This is the complete shape of its integration.</p>
         </div>
         <CodeBlock :code="item.code" language="typescript" label="annotation.ts" />
@@ -198,8 +198,8 @@ const packages = [
 
     <section class="plugin-architecture page-width">
       <div>
-        <span class="eyebrow">A useful distinction</span>
-        <h2>Plugins in practice,<br /><em>packages by design.</em></h2>
+        <span class="eyebrow">How they fit together</span>
+        <h2>Independent packages<br />with <em>Mango integrations.</em></h2>
       </div>
       <div>
         <p>These packages extend what Mango can do, but they are not all objects implementing Mango’s internal <code>ViewerPlugin</code> interface. Each is framework-agnostic and can be used with Mango, another viewer, or a completely application-owned interface.</p>
@@ -209,7 +209,7 @@ const packages = [
 
     <section class="cta-section page-width">
       <span class="eyebrow">Build with Mango</span>
-      <h2>Choose one package.<br /><em>Or compose the set.</em></h2>
+      <h2>Use only the packages<br /><em>your project needs.</em></h2>
       <RouterLink class="round-link" to="/guide" aria-label="Read the integration guide">→</RouterLink>
     </section>
   </div>

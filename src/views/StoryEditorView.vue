@@ -26,7 +26,7 @@ const storyEditor = {
       <div>
         <RouterLink class="back-link" to="/builds/story-viewer">← Story Viewer</RouterLink>
         <span class="eyebrow">Edit the demo story</span>
-        <h1>Make the story<br /><em>your own.</em></h1>
+        <h1>Edit the<br /><em>example story.</em></h1>
       </div>
       <div class="story-editor-hero__intro">
         <p>The complete 17-chapter demo is loaded into Story Builder. Reframe views, edit chapter text, change narration marks, and export the updated story.</p>

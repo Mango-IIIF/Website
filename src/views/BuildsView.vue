@@ -8,7 +8,7 @@ import { builds } from '../data/docs'
   <div class="inner-page">
     <section class="page-hero page-width">
       <span class="eyebrow">Mango builds</span>
-      <h1>One foundation.<br /><em>Four experiences.</em></h1>
+      <h1>Choose a build<br /><em>for your task.</em></h1>
       <p>Each build packages the same <abbr title="International Image Interoperability Framework">IIIF</abbr> rendering core for a different task—from open exploration to authored visual narratives.</p>
     </section>
     <section class="section page-width section--first">

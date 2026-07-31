@@ -77,7 +77,7 @@ const cdn = `<!doctype html>
   <div class="inner-page">
     <section class="page-hero page-width guide-hero">
       <span class="eyebrow">Installation guide</span>
-      <h1>From install to<br /><em>first manifest.</em></h1>
+      <h1>Install Mango.<br /><em>Open a manifest.</em></h1>
       <p>Mango ships as framework-independent custom elements and as a typed JavaScript <abbr title="Application Programming Interface">API</abbr>. Start with the web component in a Vue application.</p>
     </section>
 

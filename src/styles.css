@@ -1,16 +1,16 @@
 @import url("https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600&family=Manrope:wght@400;500;600;700&family=Playfair+Display:ital,wght@1,500&display=swap");
 
 :root {
-  --paper: #f4ede3;
-  --paper-light: #fbf8f2;
-  --paper-deep: #e6dacb;
-  --ink: #27221d;
-  --muted: #73685d;
-  --line: rgba(39, 34, 29, 0.16);
-  --orange: #b04b27;
-  --orange-dark: #9d4021;
-  --forest: #283c32;
-  --code: #24211f;
+  --paper: #eef4f7;
+  --paper-light: #f9fcfd;
+  --paper-deep: #dce8ed;
+  --ink: #17252e;
+  --muted: #566b77;
+  --line: rgba(23, 37, 46, 0.16);
+  --orange: #28708f;
+  --orange-dark: #185872;
+  --forest: #173d50;
+  --code: #15242d;
   --serif: "Playfair Display", Georgia, serif;
   --sans: "Manrope", system-ui, sans-serif;
   --mono: "DM Mono", monospace;
@@ -85,7 +85,7 @@ abbr[title] {
   position: relative;
   z-index: 50;
   border-bottom: 1px solid var(--line);
-  background: rgba(244, 237, 227, 0.9);
+  background: rgba(238, 244, 247, 0.92);
   backdrop-filter: blur(16px);
 }
 .skip-link {
@@ -191,7 +191,7 @@ abbr[title] {
   height: 7px;
   border-radius: 50%;
   background: var(--orange);
-  box-shadow: 0 0 0 4px rgba(223, 112, 64, 0.13);
+  box-shadow: 0 0 0 4px rgba(40, 112, 143, 0.14);
 }
 .hero-copy h1,
 .page-hero h1,
@@ -237,7 +237,7 @@ h2 em {
 .button--primary {
   background: var(--orange);
   color: white;
-  box-shadow: 0 12px 35px rgba(139, 63, 31, 0.17);
+  box-shadow: 0 12px 35px rgba(24, 88, 114, 0.18);
 }
 .button--primary:hover {
   background: var(--orange-dark);
@@ -264,7 +264,7 @@ h2 em {
 }
 .hero-orbit {
   position: absolute;
-  border: 1px solid rgba(136, 112, 88, 0.18);
+  border: 1px solid rgba(23, 37, 46, 0.18);
   border-radius: 50%;
 }
 .hero-orbit--one {
@@ -291,7 +291,7 @@ h2 em {
 .floating-card {
   position: absolute;
   z-index: 4;
-  box-shadow: 0 16px 35px rgba(70, 48, 30, 0.17);
+  box-shadow: 0 16px 35px rgba(23, 61, 80, 0.16);
 }
 .floating-card span {
   display: block;
@@ -326,8 +326,8 @@ h2 em {
   top: 16px;
   width: 145px;
   padding: 15px;
-  border: 1px solid rgba(39, 34, 29, 0.15);
-  background: #f9f5ee;
+  border: 1px solid rgba(23, 37, 46, 0.15);
+  background: #f6fafc;
   transform: rotate(4deg);
 }
 .floating-card--chapter b {
@@ -453,9 +453,9 @@ h2 em {
   aspect-ratio: 1.62;
   object-fit: cover;
   object-position: center top;
-  border: 1px solid rgba(39, 34, 29, 0.18);
+  border: 1px solid rgba(23, 37, 46, 0.18);
   border-radius: 5px;
-  box-shadow: 0 20px 38px rgba(85, 56, 34, 0.16);
+  box-shadow: 0 20px 38px rgba(23, 61, 80, 0.15);
 }
 .build-card .eyebrow {
   margin-bottom: 10px;
@@ -474,7 +474,7 @@ h2 em {
   line-height: 1.7;
 }
 .build-card--orange .build-card__visual {
-  background: rgba(223, 112, 64, 0.09);
+  background: rgba(40, 112, 143, 0.09);
 }
 .build-card--blue .build-card__visual {
   background: rgba(75, 116, 135, 0.1);
@@ -726,8 +726,8 @@ h2 em {
 }
 
 .site-footer {
-  background: #292522;
-  color: #eee7de;
+  background: #102f40;
+  color: #f9fcfd;
   padding-block: 70px 25px;
 }
 .wordmark--footer .wordmark__logo {
@@ -741,7 +741,7 @@ h2 em {
 }
 .footer-grid > div > p {
   margin-top: 25px;
-  color: #aaa19a;
+  color: #a9c1cd;
   font-size: 13px;
   line-height: 1.7;
 }
@@ -757,7 +757,7 @@ h2 em {
   gap: 12px;
 }
 .footer-nav a {
-  color: #d9d1c8;
+  color: #dceaf1;
   text-decoration: none;
   font-size: 12px;
 }
@@ -766,7 +766,7 @@ h2 em {
 }
 .footer-label {
   margin-bottom: 10px;
-  color: #aaa19a;
+  color: #a9c1cd;
   font: 12px var(--mono);
   letter-spacing: 0.13em;
   text-transform: uppercase;
@@ -777,10 +777,17 @@ h2 em {
   margin-top: 70px;
   padding-top: 22px;
   border-top: 1px solid rgba(255, 255, 255, 0.11);
-  color: #aaa19a;
+  color: #a9c1cd;
   font: 12px var(--mono);
   letter-spacing: 0.08em;
   text-transform: uppercase;
+}
+
+.site-contribution :is(a, button):focus-visible,
+.site-footer :is(a, button):focus-visible,
+.story-compare :is(a, button, input, select, textarea):focus-visible,
+.configuration-builder-cta :is(a, button):focus-visible {
+  outline-color: #8fd0e8;
 }
 
 .inner-page {
@@ -2059,9 +2066,9 @@ h2 em {
   align-items: center;
   margin-top: 18px;
   padding: 20px 22px;
-  border: 1px solid rgba(176, 75, 39, 0.36);
+  border: 1px solid rgba(40, 112, 143, 0.36);
   border-left: 5px solid var(--orange);
-  background: rgba(176, 75, 39, 0.08);
+  background: rgba(40, 112, 143, 0.08);
 }
 .cookbook-testing-note .eyebrow {
   color: var(--orange-dark);

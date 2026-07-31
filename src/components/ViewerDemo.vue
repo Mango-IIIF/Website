@@ -51,7 +51,7 @@ async function injectViewerStyles(attempts = 20) {
       transform: translateY(-50%) !important;
     }
     .story-sidebar__narration-button {
-      background: #9d4021 !important;
+      background: #185872 !important;
     }
   `
   root.append(accessibilityStyles)

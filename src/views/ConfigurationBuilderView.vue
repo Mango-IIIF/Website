@@ -204,7 +204,7 @@ async function copyConfiguration() {
   <div class="inner-page configuration-builder">
     <section class="page-hero page-width configuration-builder__hero">
       <span class="eyebrow"><abbr title="International Image Interoperability Framework">IIIF</abbr> Viewer</span>
-      <h1>Build your viewer.<br /><em>See every choice.</em></h1>
+      <h1>Configure the viewer.<br /><em>Preview it live.</em></h1>
       <p>Shape Mango interactively. Each option updates the live viewer and generates the configuration you need for your project.</p>
     </section>
 
@@ -225,7 +225,7 @@ async function copyConfiguration() {
       <div class="configuration-presets">
         <div class="configuration-section-heading">
           <span class="eyebrow">Starting points</span>
-          <h2 id="configuration-controls-heading">Choose a shape.</h2>
+          <h2 id="configuration-controls-heading">Choose a starting configuration.</h2>
           <p>Start with a preset, then refine individual options below.</p>
         </div>
         <div class="configuration-preset-grid">

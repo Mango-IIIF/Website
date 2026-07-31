@@ -20,6 +20,7 @@ const router = createRouter({
     { path: '/plugins', name: 'plugins', component: () => import('./views/PluginsView.vue') },
     { path: '/events', name: 'events', component: () => import('./views/EventsView.vue') },
     { path: '/guide', name: 'guide', component: () => import('./views/GuideView.vue') },
+    { path: '/examples/embedding', alias: '/embed-third-party.html', name: 'embedding-examples', component: () => import('./views/EmbeddingExamplesView.vue') },
     { path: '/cookbook_matrix', name: 'cookbook-matrix', component: () => import('./views/CookbookMatrixView.vue') },
     { path: '/:pathMatch(.*)*', redirect: '/' },
   ],

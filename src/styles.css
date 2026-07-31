@@ -442,14 +442,15 @@ h2 em {
   color: white;
 }
 .build-card__visual {
-  height: 280px;
+  height: auto;
   display: grid;
   place-items: center;
   margin: 20px 0 30px;
 }
 .build-card__image {
   display: block;
-  width: min(90%, 420px);
+  width: 100%;
+  height: auto;
   aspect-ratio: 1.62;
   object-fit: cover;
   object-position: center top;
@@ -2404,7 +2405,7 @@ h2 em {
     padding: 20px;
   }
   .build-card__visual {
-    height: 240px;
+    height: auto;
   }
   .build-card__image {
     width: 94%;
@@ -2691,7 +2692,7 @@ h2 em {
     min-height: auto;
   }
   .build-card__visual {
-    height: 190px;
+    height: auto;
   }
   .site-contribution__actions a {
     grid-template-columns: 1fr 28px;

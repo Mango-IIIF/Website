@@ -1,0 +1,4 @@
+/schema/*
+  Access-Control-Allow-Origin: *
+  Content-Type: application/ld+json
+  Cache-Control: public, max-age=31536000, immutable

@@ -29,6 +29,16 @@ const manifestPresets = [
   { label: 'Vincent van Gogh — Self-Portrait Dedicated to Paul Gauguin', url: 'https://iiif.harvardartmuseums.org/manifests/object/299843' },
 ]
 
+const storyPresets = [
+  { label: 'The Fountain, Villa Torlonia — John Singer Sargent', url: 'https://404mike.github.io/uv4-manifest/mango/stories/fountain-villa-torlonia.json' },
+  { label: 'Five minutes on the Markt, Göttingen', url: 'https://404mike.github.io/uv4-manifest/mango/stories/gottingen-story.json' },
+  { label: 'A Sunday on La Grande Jatte — 1884', url: 'https://404mike.github.io/uv4-manifest/mango/stories/grande-jatte.json' },
+  { label: 'Paris Street; Rainy Day — Gustave Caillebotte', url: 'https://404mike.github.io/uv4-manifest/mango/stories/paris-street-rainy-day.json' },
+  { label: 'Landscape with Saint John on Patmos — Nicolas Poussin', url: 'https://404mike.github.io/uv4-manifest/mango/stories/st-john-patmos.json' },
+  { label: 'Stoke-by-Nayland — John Constable', url: 'https://404mike.github.io/uv4-manifest/mango/stories/stoke-by-nayland.json' },
+  { label: 'The Bedroom — Vincent van Gogh', url: 'https://404mike.github.io/uv4-manifest/mango/stories/the-bedroom.json' },
+]
+
 const storyComparison = [
   {
     capability: 'Product integration',
@@ -94,27 +104,38 @@ const storyComparison = [
 
 const manifestInput = ref('')
 const activeManifest = ref('')
+const activeStory = ref('')
 
 watch(
   () => build.value.slug,
   () => {
     activeManifest.value = build.value.manifest || ''
     manifestInput.value = activeManifest.value
+    activeStory.value = build.value.storyUrl || ''
   },
   { immediate: true },
 )
 
-const demoBuild = computed(() => (
-  build.value.mode === 'viewer'
-    ? { ...build.value, manifest: activeManifest.value || build.value.manifest }
-    : build.value
-))
+const demoBuild = computed(() => {
+  if (build.value.mode === 'viewer') {
+    return { ...build.value, manifest: activeManifest.value || build.value.manifest }
+  }
+  if (build.value.mode === 'story-viewer') {
+    return { ...build.value, storyUrl: activeStory.value || build.value.storyUrl }
+  }
+  return build.value
+})
 
 function loadManifest(url = manifestInput.value) {
   const nextManifest = url.trim()
   if (!nextManifest) return
   activeManifest.value = nextManifest
   manifestInput.value = nextManifest
+}
+
+function loadStory(url) {
+  if (!url) return
+  activeStory.value = url
 }
 </script>
 
@@ -159,6 +180,17 @@ function loadManifest(url = manifestInput.value) {
         <select id="manifest-preset" :value="activeManifest" @change="loadManifest($event.target.value)">
           <option value="" disabled>Choose a preset</option>
           <option v-for="preset in manifestPresets" :key="preset.url" :value="preset.url">{{ preset.label }}</option>
+        </select>
+      </div>
+
+      <div v-if="build.mode === 'story-viewer'" class="manifest-presets">
+        <div>
+          <label for="story-preset">Explore a test story</label>
+          <p>Choose a story from the Mango test collection to load it in the viewer.</p>
+        </div>
+        <select id="story-preset" :value="activeStory" @change="loadStory($event.target.value)">
+          <option :value="build.storyUrl">Demo story</option>
+          <option v-for="preset in storyPresets" :key="preset.url" :value="preset.url">{{ preset.label }}</option>
         </select>
       </div>
 

@@ -901,7 +901,7 @@ h2 em {
   padding-bottom: 100px;
 }
 .demo-viewer {
-  height: clamp(820px, 92vh, 980px);
+  height: clamp(574px, 64.4vh, 686px);
 }
 .demo-viewer mango-viewer {
   display: block;

@@ -7,9 +7,8 @@ import { builds } from '../data/docs'
 <template>
   <div class="inner-page">
     <section class="page-hero page-width">
-      <span class="eyebrow">Mango builds</span>
-      <h1>Choose a build<br /><em>for your task.</em></h1>
-      <p>Each build packages the same <abbr title="International Image Interoperability Framework">IIIF</abbr> rendering core for a different task—from open exploration to authored visual narratives.</p>
+      <h1>Choose a Mango build for your task.</h1>
+      <p>Each build uses the same <abbr title="International Image Interoperability Framework">IIIF</abbr> renderer and adds controls for a specific task.</p>
     </section>
     <section class="section page-width section--first">
       <div class="build-grid build-grid--listing">
@@ -17,12 +16,12 @@ import { builds } from '../data/docs'
       </div>
     </section>
     <section class="comparison page-width">
-      <div class="section-heading"><span class="eyebrow">At a glance</span><h2>Choose by task.</h2></div>
+      <div class="section-heading"><h2>Compare builds by task.</h2></div>
       <div class="comparison-grid">
         <div class="comparison-row comparison-row--head"><span>Build</span><span>Best for</span><span>Input</span><span>Output</span></div>
         <div v-for="build in builds" :key="build.slug" class="comparison-row">
           <RouterLink :to="build.demoUrl || `/builds/${build.slug}`"><TechnicalText :text="build.title" /> <span>↗</span></RouterLink>
-          <span>{{ build.eyebrow === 'Explore' ? 'Collection access' : build.eyebrow === 'Describe' ? 'Research & cataloguing' : build.eyebrow === 'Compose' ? 'Story authoring' : 'Audience experiences' }}</span>
+          <span>{{ build.eyebrow === 'Explore' ? 'Collection viewing' : build.eyebrow === 'Describe' ? 'Annotation editing' : build.eyebrow === 'Compose' ? 'Story authoring' : 'Story playback' }}</span>
           <span><TechnicalText :text="build.storyUrl ? 'AnnotationPage' : 'IIIF Manifest'" /></span>
           <span><TechnicalText :text="build.mode === 'annotation-editor' ? 'Web Annotations' : build.mode === 'story-builder' ? 'AnnotationPage' : 'Interactive view'" /></span>
         </div>

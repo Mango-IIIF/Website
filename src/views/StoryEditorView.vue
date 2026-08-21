@@ -25,11 +25,10 @@ const storyEditor = {
     <section class="story-editor-hero page-width">
       <div>
         <RouterLink class="back-link" to="/builds/story-viewer">← Story Viewer</RouterLink>
-        <span class="eyebrow">Edit the demo story</span>
-        <h1>Edit the<br /><em>example story.</em></h1>
+        <h1>Edit the example story.</h1>
       </div>
       <div class="story-editor-hero__intro">
-        <p>The complete 17-chapter demo is loaded into Story Builder. Reframe views, edit chapter text, change narration marks, and export the updated story.</p>
+        <p>The 17-chapter demo is loaded into Story Builder. Reframe views, edit chapter text, change narration marks, and export the updated story.</p>
         <span>Changes remain in this browser until you save or export them.</span>
       </div>
     </section>
@@ -39,7 +38,7 @@ const storyEditor = {
     </section>
 
     <section class="story-editor-footer page-width">
-      <div><span class="eyebrow">Start again</span><h2>Need a blank canvas?</h2></div>
+      <div><h2>Need a blank canvas?</h2></div>
       <RouterLink class="button button--secondary" :to="storyBuilderDemoUrl">Open Story Builder <span>→</span></RouterLink>
     </section>
   </div>

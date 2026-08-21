@@ -41,20 +41,20 @@ const storyPresets = [
 
 const storyComparison = [
   {
-    capability: 'Product integration',
+    capability: 'Embedding',
     detail: 'Native component, not an iframe',
     mango: true,
     exhibit: false,
   },
   {
-    capability: 'Media range',
+    capability: 'Supported media',
     detail: 'Images, A/V, PDFs, 3D, annotations, and layers',
     mango: true,
     exhibit: false,
   },
   {
-    capability: 'Narrative precision',
-    detail: 'Capture the exact object state per chapter',
+    capability: 'Chapter state',
+    detail: 'Store the canvas, viewport, and media state for each chapter',
     mango: true,
     exhibit: true,
   },
@@ -71,20 +71,20 @@ const storyComparison = [
     exhibit: false,
   },
   {
-    capability: 'Standards & portability',
+    capability: 'Story file format',
     detail: 'IIIF AnnotationPage story output',
     mango: true,
     exhibit: false,
   },
   {
-    capability: 'Application control',
+    capability: 'JavaScript integration',
     detail: 'Typed API and observable DOM events',
     mango: true,
     exhibit: false,
   },
   {
-    capability: 'Extensibility',
-    detail: 'A first-class plugin contract',
+    capability: 'Plugins',
+    detail: 'ViewerPlugin interface for external panels and controls',
     mango: true,
     exhibit: false,
   },
@@ -95,7 +95,7 @@ const storyComparison = [
     exhibit: false,
   },
   {
-    capability: 'Turnkey publishing',
+    capability: 'Hosted publishing',
     detail: 'Hosted links, quizzes, and kiosks',
     mango: false,
     exhibit: true,
@@ -143,7 +143,6 @@ function loadStory(url) {
   <div class="inner-page build-detail" :class="`build-detail--${build.accent}`">
     <section class="build-hero page-width">
       <div class="build-hero__copy">
-        <span class="eyebrow">{{ build.number }} · {{ build.eyebrow }}</span>
         <h1><TechnicalText :text="build.title" /></h1>
         <p><TechnicalText :text="build.description" /></p>
         <div class="hero-actions">
@@ -157,7 +156,6 @@ function loadStory(url) {
     <section id="demo" class="demo-section page-width">
       <div v-if="build.mode === 'viewer'" class="manifest-loader">
         <div class="manifest-loader__copy">
-          <span class="eyebrow">Try your collection</span>
           <h2>Open your own manifest.</h2>
           <p>Paste a public <abbr title="International Image Interoperability Framework">IIIF</abbr> Presentation 2 or 3 manifest <abbr title="Uniform Resource Locator">URL</abbr> to load it in Mango.</p>
         </div>
@@ -197,9 +195,8 @@ function loadStory(url) {
       <div v-if="build.mode === 'story-viewer'">
         <aside class="cookbook-contribute" aria-labelledby="cookbook-contribute-heading">
           <div>
-            <span class="eyebrow">Built a story?</span>
             <h2 id="cookbook-contribute-heading">Share it with us</h2>
-            <p>We would love to see what you've created..</p>
+            <p>Share a story link or example in the Mango GitHub issues.</p>
           </div>
           <a
             class="button button--primary"
@@ -215,7 +212,7 @@ function loadStory(url) {
     <section v-if="build.slug === 'story-viewer'" class="story-compare page-width" aria-labelledby="story-compare-heading">
       <div class="story-compare__header">
         <div>
-          <h2 id="story-compare-heading">Guided stories<br /><em>inside the viewer.</em></h2>
+          <h2 id="story-compare-heading">Guided stories inside the viewer.</h2>
         </div>
       </div>
 
@@ -240,7 +237,7 @@ function loadStory(url) {
     </section>
 
     <section class="docs-section page-width">
-      <div class="docs-sidebar"><span class="eyebrow">Use this build</span><h2>Add the web component.</h2><p>Register Mango through your application bundle or load it directly from jsDelivr.</p></div>
+      <div class="docs-sidebar"><h2>Add the web component.</h2><p>Register Mango through your application bundle or load it directly from jsDelivr.</p></div>
       <div class="docs-content">
         <h3>1. Register the web component</h3>
         <CodeBlock :code="importCode" language="javascript" label="main.js" />
@@ -250,18 +247,17 @@ function loadStory(url) {
         <p class="docs-content__intro">For a static <abbr title="HyperText Markup Language">HTML</abbr> page, replace the JavaScript import with this script tag. The custom-element markup above remains the same.</p>
         <CodeBlock :code="cdnCode" language="html" label="index.html" />
         <div class="callout"><b>Pin production versions</b><p><code>@latest</code> is useful for prototypes. Replace it with a tested release such as <code>@0.2.0</code> before deployment.</p></div>
-        <div class="callout"><b>Container size matters</b><p>Give <code>&lt;mango-viewer&gt;</code> an explicit height or place it in a flex/grid area with a resolved height. Focused <abbr title="ECMAScript Module">ESM</abbr> entry points are also available for applications that manage component <abbr title="Cascading Style Sheets">CSS</abbr> in their build pipeline.</p></div>
+        <div class="callout"><b>Container size matters</b><p>Give <code>&lt;mango-viewer&gt;</code> an explicit height or place it in a flex/grid area with a resolved height. Mode-specific <abbr title="ECMAScript Module">ESM</abbr> entry points are also available for applications that manage component <abbr title="Cascading Style Sheets">CSS</abbr> in their build pipeline.</p></div>
       </div>
     </section>
 
     <section id="options" class="options-section page-width">
-      <div class="section-heading split-heading"><div><span class="eyebrow">Configuration</span><h2>{{ build.shortTitle }} options.</h2></div><p>Pass these values in the <code>config</code> object, or as <abbr title="JavaScript Object Notation">JSON</abbr> in the custom element’s <code>config</code> attribute.</p></div>
+      <div class="section-heading split-heading"><div><h2>{{ build.shortTitle }} options.</h2></div><p>Pass these values in the <code>config</code> object, or as <abbr title="JavaScript Object Notation">JSON</abbr> in the custom element’s <code>config</code> attribute.</p></div>
       <OptionTable :options="build.options" />
       <aside v-if="build.slug === 'iiif-viewer'" class="configuration-builder-cta">
         <div>
-          <span class="eyebrow">Configuration builder</span>
           <h3>Choose options and preview the result.</h3>
-          <p>Choose options visually, preview every change, and copy the generated configuration.</p>
+          <p>Set the options in a form, check them in the viewer, and copy the resulting configuration.</p>
         </div>
         <RouterLink class="button button--primary" to="/builds/iiif-viewer/configuration-builder">
           Configuration builder <span aria-hidden="true">→</span>
@@ -270,8 +266,8 @@ function loadStory(url) {
     </section>
 
     <section class="build-events page-width">
-      <div><span class="eyebrow">Connect your application</span><h2>Listen for<br />viewer events.</h2></div>
-      <div><p>Mango forwards its internal event bus as standard <abbr title="Document Object Model">DOM</abbr> custom events. Listen on the element and read the payload from <code>event.detail</code>.</p><RouterLink class="text-link" to="/events">Explore all events <span>→</span></RouterLink></div>
+      <div><h2>Listen for viewer events.</h2></div>
+      <div><p>The Mango element dispatches <abbr title="Document Object Model">DOM</abbr> custom events. Read each event’s data from <code>event.detail</code>.</p><RouterLink class="text-link" to="/events">View all events <span>→</span></RouterLink></div>
     </section>
 
     <nav class="build-pagination page-width" aria-label="Other builds">

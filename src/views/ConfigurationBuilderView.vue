@@ -8,8 +8,8 @@ const manifest = 'https://iiif.wellcomecollection.org/presentation/v2/b18035723'
 const presets = [
   {
     id: 'full',
-    name: 'Full experience',
-    description: 'Make every available viewer feature visible.',
+    name: 'All controls',
+    description: 'Show every viewer panel and control.',
     config: {
       theme: 'light', language: 'en', showThumbnails: true, showMetadata: true,
       showSearch: true, showAnnotations: true, showTools: true, showLayers: true, showSettings: true,
@@ -20,8 +20,8 @@ const presets = [
   },
   {
     id: 'focused',
-    name: 'Focused image',
-    description: 'Keep navigation visible while reducing supporting panels.',
+    name: 'Image viewing',
+    description: 'Show navigation and image tools; hide the other panels.',
     config: {
       theme: 'light', language: 'en', showThumbnails: true, showMetadata: false,
       showSearch: false, showAnnotations: false, showTools: true, showLayers: false, showSettings: false,
@@ -32,8 +32,8 @@ const presets = [
   },
   {
     id: 'research',
-    name: 'Research desk',
-    description: 'Prioritise metadata, search, annotations, and layers.',
+    name: 'Research tools',
+    description: 'Show metadata, search, annotations, and layers.',
     config: {
       theme: 'light', language: 'en', showThumbnails: true, showMetadata: true,
       showSearch: true, showAnnotations: true, showTools: false, showLayers: true, showSettings: false,
@@ -44,8 +44,8 @@ const presets = [
   },
   {
     id: 'minimal',
-    name: 'Minimal canvas',
-    description: 'Close every optional panel for an uncluttered presentation.',
+    name: 'Viewer only',
+    description: 'Hide every optional panel.',
     config: {
       theme: 'dark', language: 'en', showThumbnails: false, showMetadata: false,
       showSearch: false, showAnnotations: false, showTools: false, showLayers: false, showSettings: false,
@@ -59,7 +59,7 @@ const presets = [
 const controlGroups = [
   {
     title: 'Viewer panels',
-    description: 'Choose the information and tools available around the canvas.',
+    description: 'Show or hide panels and controls around the canvas.',
     options: [
       ['showThumbnails', 'Thumbnails', 'Show the canvas navigation strip.'],
       ['showCollection', 'Collection navigation', 'Show collection navigation when a IIIF Collection is loaded.'],
@@ -74,7 +74,7 @@ const controlGroups = [
   },
   {
     title: 'Image interaction',
-    description: 'Tune the OpenSeadragon experience used for deep-zoom images.',
+    description: 'Configure pan, zoom, rotation, and the overview navigator.',
     options: [
       ['osd.preserveViewport', 'Preserve viewport', 'Keep the current pan and zoom between canvases.'],
       ['osd.showNavigator', 'Navigator', 'Show the small overview navigator.'],
@@ -203,15 +203,13 @@ async function copyConfiguration() {
 <template>
   <div class="inner-page configuration-builder">
     <section class="page-hero page-width configuration-builder__hero">
-      <span class="eyebrow"><abbr title="International Image Interoperability Framework">IIIF</abbr> Viewer</span>
-      <h1>Configure the viewer.<br /><em>Preview it live.</em></h1>
-      <p>Shape Mango interactively. Each option updates the live viewer and generates the configuration you need for your project.</p>
+      <h1>Configure and preview the <abbr title="International Image Interoperability Framework">IIIF</abbr> viewer.</h1>
+      <p>Change the options in the form and see the result in the viewer. The page generates the corresponding configuration object.</p>
     </section>
 
     <section class="configuration-preview page-width" aria-labelledby="configuration-preview-heading">
       <div class="configuration-preview__heading">
         <div>
-          <span class="eyebrow">Live preview</span>
           <h2 id="configuration-preview-heading">Your configured viewer.</h2>
         </div>
         <span class="configuration-preview__state" aria-live="polite">
@@ -224,9 +222,8 @@ async function copyConfiguration() {
     <section class="configuration-workspace page-width" aria-labelledby="configuration-controls-heading">
       <div class="configuration-presets">
         <div class="configuration-section-heading">
-          <span class="eyebrow">Starting points</span>
           <h2 id="configuration-controls-heading">Choose a starting configuration.</h2>
-          <p>Start with a preset, then refine individual options below.</p>
+          <p>Choose a preset, then change individual options below.</p>
         </div>
         <div class="configuration-preset-grid">
           <button
@@ -238,7 +235,6 @@ async function copyConfiguration() {
             :aria-pressed="activePreset === preset.id"
             @click="applyPreset(preset)"
           >
-            <span>{{ preset.id === 'full' ? '01' : preset.id === 'focused' ? '02' : preset.id === 'research' ? '03' : '04' }}</span>
             <strong>{{ preset.name }}</strong>
             <small>{{ preset.description }}</small>
           </button>
@@ -426,7 +422,6 @@ async function copyConfiguration() {
         <aside class="configuration-output" aria-labelledby="configuration-output-heading">
           <div class="configuration-output__heading">
             <div>
-              <span class="eyebrow">Generated output</span>
               <h2 id="configuration-output-heading">Configuration</h2>
             </div>
             <button class="button button--secondary" type="button" @click="copyConfiguration">Copy</button>

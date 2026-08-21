@@ -42,13 +42,12 @@ const stateExample = `viewer.addEventListener('stateChange', (event) => {
 <template>
   <div class="inner-page">
     <section class="page-hero page-width events-hero">
-      <span class="eyebrow">Event reference</span>
-      <h1>Listen for<br /><em>viewer events.</em></h1>
-      <p>Keep application <abbr title="User Interface">UI</abbr>, analytics, and adjacent tools synchronised with navigation, media, annotations, and viewer state.</p>
+      <h1>Listen for viewer events.</h1>
+      <p>Viewer events report changes to pages, media, annotations, and state. Use them to update your application or analytics.</p>
     </section>
 
     <section class="docs-section page-width">
-      <div class="docs-sidebar"><span class="eyebrow">Listening</span><h2>Choose how to receive events.</h2><p><abbr title="Document Object Model">DOM</abbr> events are ideal in Vue and other frameworks. The JavaScript class offers the same event names with typed callbacks.</p></div>
+      <div class="docs-sidebar"><h2>Choose how to receive events.</h2><p><abbr title="Document Object Model">DOM</abbr> events are ideal in Vue and other frameworks. The JavaScript class offers the same event names with typed callbacks.</p></div>
       <div class="docs-content docs-content--wide">
         <h3>Custom element</h3>
         <CodeBlock :code="domExample" language="javascript" label="DOM events" />
@@ -58,7 +57,7 @@ const stateExample = `viewer.addEventListener('stateChange', (event) => {
     </section>
 
     <section class="event-reference page-width">
-      <div class="section-heading"><span class="eyebrow">All events</span><h2>Event reference.</h2></div>
+      <div class="section-heading"><h2>Event reference.</h2></div>
       <div v-for="category in eventCategories" :key="category.name" class="event-category">
         <h3>{{ category.name }}</h3>
         <div class="event-list">

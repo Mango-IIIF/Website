@@ -13,9 +13,8 @@ const viewerCode = `import '@mango-iiif/iiif-viewer/element';
   <div>
     <section class="hero-section page-width">
       <div class="hero-copy">
-        <span class="eyebrow hero-eyebrow"><i></i> Open source · <abbr title="International Image Interoperability Framework">IIIF</abbr> native</span>
-        <h1>Explore collections.<br /><em>Build visual stories.</em></h1>
-        <p class="hero-lede">Mango is a flexible viewer for exploring collections, creating annotations, and building guided visual stories with <abbr title="International Image Interoperability Framework">IIIF</abbr>.</p>
+        <h1>Explore and present <abbr title="International Image Interoperability Framework">IIIF</abbr> collections.</h1>
+        <p class="hero-lede">Mango displays <abbr title="International Image Interoperability Framework">IIIF</abbr> collections and manifests, creates Web Annotations, and publishes chapter-based stories.</p>
         <div class="hero-actions">
           <RouterLink class="button button--primary" to="/guide">Get started <span>→</span></RouterLink>
           <RouterLink class="button button--text" to="/builds">Explore the builds <span>→</span></RouterLink>
@@ -23,8 +22,6 @@ const viewerCode = `import '@mango-iiif/iiif-viewer/element';
       </div>
 
       <div class="hero-art" role="img" aria-label="Illustration of the Mango viewer interface">
-        <div class="hero-orbit hero-orbit--one"></div>
-        <div class="hero-orbit hero-orbit--two"></div>
         <div class="hero-screenshot">
           <img
             src="/images/screenshot_story_viewer-660.webp"
@@ -40,15 +37,15 @@ const viewerCode = `import '@mango-iiif/iiif-viewer/element';
 
     <section class="intro-strip">
       <div class="page-width intro-strip__inner">
-        <p>One toolkit.<br /><em>Four focused tools.</em></p>
+        <p>Supported content and features</p>
         <div><span>Images</span><span>Video</span><span>Audio</span><span><abbr title="Portable Document Format">PDF</abbr></span><span><abbr title="Three-dimensional">3D</abbr></span><span>Annotations</span></div>
       </div>
     </section>
 
     <section class="section page-width" id="builds">
       <div class="section-heading split-heading">
-        <div><span class="eyebrow">Viewer and editing tools</span><h2>Choose the tool<br />for your task.</h2></div>
-        <p>Start with a standards-based viewer, then add the tools your collection and your audience need.</p>
+        <div><h2>Choose the Mango interface for your task.</h2></div>
+        <p>All four builds use the same <abbr title="International Image Interoperability Framework">IIIF</abbr> renderer. Choose one for viewing, annotation, story authoring, or story playback.</p>
       </div>
       <div class="build-grid">
         <BuildCard
@@ -63,30 +60,29 @@ const viewerCode = `import '@mango-iiif/iiif-viewer/element';
     <section class="story-band">
       <div class="page-width story-band__grid">
         <div class="story-band__copy">
-          <span class="eyebrow eyebrow--light">Built for storytelling</span>
-          <h2>Create guided stories<br />from <em>IIIF content.</em></h2>
-          <p>Frame a detail, add context, and lead audiences through a collection with chapter-based stories. Mango keeps the content portable and the experience accessible.</p>
+          <h2>Create guided stories from <abbr title="International Image Interoperability Framework">IIIF</abbr> content.</h2>
+          <p>Each chapter stores a canvas and viewport together with text, narration, and media timing. Mango saves the story as an <abbr title="International Image Interoperability Framework">IIIF</abbr> AnnotationPage.</p>
           <RouterLink class="button button--light" :to="storyBuilderDemoUrl">Meet Story Builder <span>→</span></RouterLink>
         </div>
         <div class="story-sequence" aria-hidden="true">
-          <article><img class="sequence-image" src="/svg/set-the-scene.svg" alt="" /><b>Set the scene</b><p>Frame the complete work.</p></article>
-          <article><img class="sequence-image" src="/svg/guide-attention.svg" alt="" /><b>Guide attention</b><p>Move into the detail.</p></article>
-          <article><img class="sequence-image" src="/svg/add-a-voice.svg" alt="" /><b>Add a voice</b><p>Layer text and narration.</p></article>
+          <article><img class="sequence-image" src="/svg/set-the-scene.svg" alt="" /><b>Whole object</b><p>Show the complete work.</p></article>
+          <article><img class="sequence-image" src="/svg/guide-attention.svg" alt="" /><b>Selected detail</b><p>Store a closer viewport.</p></article>
+          <article><img class="sequence-image" src="/svg/add-a-voice.svg" alt="" /><b>Chapter content</b><p>Add text and narration.</p></article>
         </div>
       </div>
     </section>
 
     <section class="section page-width developer-section">
       <div class="section-heading split-heading">
-        <div><span class="eyebrow">For developers</span><h2>Use Mango<br /><em>in any framework.</em></h2></div>
-        <p>Use a web component in any framework or the JavaScript <abbr title="Application Programming Interface">API</abbr> for deeper integrations. Configuration and events stay consistent across builds.</p>
+        <div><h2>Use Mango in any framework.</h2></div>
+        <p>Use the custom element in any framework. The JavaScript <abbr title="Application Programming Interface">API</abbr> controls navigation, media, viewports, and annotations.</p>
       </div>
       <div class="developer-grid">
         <div class="developer-copy">
-          <div class="feature-list"><span>01</span><div><b>Web component</b><p>Works in Vue, React, Svelte, or plain <abbr title="HyperText Markup Language">HTML</abbr>.</p></div></div>
-          <div class="feature-list"><span>02</span><div><b>Typed JavaScript <abbr title="Application Programming Interface">API</abbr></b><p>Control navigation, media, viewports, and annotations.</p></div></div>
-          <div class="feature-list"><span>03</span><div><b>Observable events</b><p>Connect Mango to the rest of your application.</p></div></div>
-          <div class="feature-list"><span>04</span><div><b>Plugin <abbr title="Application Programming Interface">API</abbr></b><p>Mount your own panels and behaviours in <RouterLink to="/plugins">five viewer slots</RouterLink>.</p></div></div>
+          <div class="feature-list"><div><b>Web component</b><p>Works in Vue, React, Svelte, or plain <abbr title="HyperText Markup Language">HTML</abbr>.</p></div></div>
+          <div class="feature-list"><div><b>Typed JavaScript <abbr title="Application Programming Interface">API</abbr></b><p>Control navigation, media, viewports, and annotations.</p></div></div>
+          <div class="feature-list"><div><b><abbr title="Document Object Model">DOM</abbr> events</b><p>Receive updates when pages, media, viewports, or annotations change.</p></div></div>
+          <div class="feature-list"><div><b>Plugin <abbr title="Application Programming Interface">API</abbr></b><p>Mount your own panels and behaviours in <RouterLink to="/plugins">five viewer slots</RouterLink>.</p></div></div>
         </div>
         <div>
           <CodeBlock :code="quickStart" language="shell" label="Terminal" />
@@ -96,9 +92,8 @@ const viewerCode = `import '@mango-iiif/iiif-viewer/element';
     </section>
 
     <section class="cta-section page-width">
-      <span class="eyebrow">Try Mango</span>
-      <h2>Start with<br /><em>your own manifest.</em></h2>
-      <RouterLink class="round-link" to="/guide" aria-label="Read the installation guide">→</RouterLink>
+      <h2>Open your own manifest.</h2>
+      <RouterLink class="button button--text" to="/guide">Read the installation guide <span aria-hidden="true">→</span></RouterLink>
     </section>
   </div>
 </template>

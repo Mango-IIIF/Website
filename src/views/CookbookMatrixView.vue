@@ -81,13 +81,11 @@ async function checkRecipe(recipe) {
 <template>
   <div class="inner-page cookbook-matrix">
     <section class="page-hero page-width cookbook-matrix__hero">
-      <span class="eyebrow"><abbr title="International Image Interoperability Framework">IIIF</abbr> Cookbook</span>
-      <h1>Cookbook support<br /><em>at a glance.</em></h1>
+      <h1><abbr title="International Image Interoperability Framework">IIIF</abbr> Cookbook support in Mango.</h1>
       <p>See Mango's support for every <abbr title="International Image Interoperability Framework">IIIF</abbr> Cookbook recipe, plus Mango test manifests.</p>
 
       <aside class="cookbook-contribute" aria-labelledby="cookbook-contribute-heading">
         <div>
-          <span class="eyebrow">Help close the gaps</span>
           <h2 id="cookbook-contribute-heading">Found a failing recipe? Help us support it.</h2>
           <p>Open an issue, share what you know, or contribute a fix to Mango on GitHub.</p>
         </div>
@@ -110,7 +108,6 @@ async function checkRecipe(recipe) {
     <section id="cookbook-viewer" class="cookbook-viewer page-width" aria-labelledby="cookbook-viewer-heading">
       <div class="cookbook-viewer__heading">
         <div>
-          <span class="eyebrow">Live test</span>
           <h2 id="cookbook-viewer-heading" ref="viewerHeading" tabindex="-1">
             {{ activeRecipe.source || 'Recipe' }} {{ activeRecipe.id }}: <TechnicalText :text="activeRecipe.name" />
           </h2>

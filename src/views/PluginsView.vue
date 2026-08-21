@@ -21,7 +21,7 @@ const packages = [
     packageName: '@mango-iiif/av',
     version: '0.3.0',
     category: 'Audio and video',
-    description: 'A complete IIIF audio and video system powered by Media Chrome. Use the composed player or place its chapters, transcript and annotation components independently around your own interface.',
+    description: 'Web components and a controller for IIIF audio and video. Use the supplied player or add the chapter, transcript, and annotation components separately.',
     image: '/images/plugin-av.png',
     imageAlt: 'Mango AV configuration builder showing a video player, chapters and feature controls.',
     repo: 'https://github.com/Mango-IIIF/av',
@@ -31,7 +31,7 @@ const packages = [
       ['Custom elements', '<mango-av-media>, <mango-av-player>, <mango-av-chapters>, <mango-av-transcript> and <mango-av-annotations>.'],
       ['AVPlayerController', 'load, play, pause, stop, seekTo, seekBy, selectCanvas, next, previous, selectSource and annotation mutation methods.'],
       ['Events', 'Typed av-* events for readiness, playback, time, Canvas/source changes, annotations, configuration and errors.'],
-      ['Integration hooks', 'Custom fetch, request options, protected-media URL resolution, persisted resume positions and an annotation persistence adapter.'],
+      ['Requests and storage', 'Custom fetch, request options, protected-media URL resolution, saved resume positions and an annotation storage adapter.'],
       ['Parsing helpers', 'Normalize IIIF AV manifests and parse WebVTT, SRT, plain-text or structured JSON transcripts.'],
     ],
   },
@@ -41,7 +41,7 @@ const packages = [
     packageName: '@mango-iiif/annotation',
     version: '0.1.1',
     category: 'Image annotation',
-    description: 'A framework-agnostic OpenSeadragon annotation editor. It owns the high-resolution drawing interaction while the host application keeps control of annotation state and persistence.',
+    description: 'An OpenSeadragon annotation editor with no framework dependency. It handles drawing on the image; the host application stores and updates the annotations.',
     image: '/images/plugin-annotation.png',
     imageAlt: 'Mango Annotation demo with drawing tools and a rectangular annotation over a high-resolution image.',
     repo: 'https://github.com/Mango-IIIF/Annotation',
@@ -61,7 +61,7 @@ const packages = [
     packageName: '@mango-iiif/w3c-parser',
     version: '0.0.2',
     category: 'Annotation data',
-    description: 'A zero-dependency boundary between W3C Web Annotations and Mango’s small normalized shape model. It is intentionally headless: the useful output is interoperable data, not a user interface.',
+    description: 'A zero-dependency parser and serializer for W3C Web Annotations. It converts annotations to and from Mango’s normalised shape model and has no user interface.',
     repo: 'https://github.com/Mango-IIIF/W3C',
     npm: 'https://www.npmjs.com/package/@mango-iiif/w3c-parser',
     features: ['AnnotationPage parsing', 'W3C serialization', 'Fragment selectors', 'SVG selectors', 'Temporal fragments', 'Zero dependencies'],
@@ -79,7 +79,7 @@ const packages = [
     packageName: '@mango-iiif/collection-navigator',
     version: '0.0.5',
     category: 'Collection navigation',
-    description: 'A fast, accessible tree for IIIF Collections, Manifests, Ranges and Canvases. It supports lazy loading and alternative hierarchy/date views without tying the navigation model to any viewer framework.',
+    description: 'A tree component for IIIF Collections, Manifests, Ranges, and Canvases. It supports lazy loading, hierarchy views, and date views, and it can be used without Mango.',
     image: '/images/plugin-collection.png',
     imageAlt: 'Collection Navigator demo showing a six-volume IIIF hierarchy beside an OpenSeadragon integration.',
     repo: 'https://github.com/Mango-IIIF/collection-navigator',
@@ -99,7 +99,7 @@ const packages = [
     packageName: '@mango-iiif/iiif-search-client',
     version: '0.0.2',
     category: 'Content search',
-    description: 'A zero-runtime-dependency client for IIIF Content Search 1.0 and 2.0. It discovers services from a Manifest and turns version-specific responses into predictable hits, annotations and Canvas geometry.',
+    description: 'A client for IIIF Content Search 1.0 and 2.0 with no runtime dependencies. It finds search services in a Manifest and normalises responses into hits, annotations, and Canvas geometry.',
     image: '/images/plugin-search.png',
     imageAlt: 'IIIF Search Client demo showing normalized search results and Canvas fragment coordinates.',
     repo: 'https://github.com/mango-iiif/iiif-search-client',
@@ -110,7 +110,7 @@ const packages = [
       ['Discovery', 'discoverSearchServices and requireSearchServices locate Search and Autocomplete services in IIIF resources.'],
       ['Response parsing', 'parseSearchResponse and parseAutocompleteResponse can normalize already-fetched fixtures independently.'],
       ['Errors', 'Typed IIIFSearchError and IIIFSearchHttpError expose stable codes, HTTP status and request URL.'],
-      ['Portable requests', 'Supply a custom fetcher for authentication, Node, browser or worker environments.'],
+      ['Custom requests', 'Supply a fetcher for authentication or for use in Node, browsers, or workers.'],
     ],
   },
 ]
@@ -119,9 +119,8 @@ const packages = [
 <template>
   <div class="inner-page plugin-catalogue">
     <section class="page-hero page-width plugin-catalogue__hero">
-      <span class="eyebrow">Mango ecosystem</span>
-      <h1>Packages for common<br /><em>IIIF tasks.</em></h1>
-      <p>Mango’s companion packages solve the hard parts around the viewer: audiovisual playback, image annotation, standards-compliant data, collection navigation and content search.</p>
+      <h1>Packages for common <abbr title="International Image Interoperability Framework">IIIF</abbr> tasks.</h1>
+      <p>These packages provide audio and video playback, image annotation, W3C Annotation conversion, collection navigation, and content search.</p>
       <div class="plugin-catalogue__summary" aria-label="Plugin catalogue summary">
         <span><b>5</b> packages</span>
         <span><b>4</b> live demos</span>
@@ -131,7 +130,7 @@ const packages = [
 
     <nav class="plugin-index page-width" aria-label="Package index">
       <a v-for="item in packages" :key="item.packageName" :href="`#plugin-${item.number}`">
-        <span>{{ item.number }}</span>{{ item.name }}
+        {{ item.name }}
       </a>
     </nav>
 
@@ -142,9 +141,7 @@ const packages = [
       class="plugin-profile page-width"
     >
       <header class="plugin-profile__header">
-        <span class="plugin-profile__number">{{ item.number }}</span>
         <div>
-          <span class="eyebrow">{{ item.category }}</span>
           <h2>{{ item.name }}</h2>
           <div class="plugin-profile__package">
             <code>{{ item.packageName }}</code>
@@ -170,16 +167,15 @@ const packages = [
       </figure>
       <div v-else class="plugin-profile__headless">
         <div>
-          <span class="eyebrow">Headless by design</span>
           <h3>Read, edit, and export annotations.</h3>
-          <p>The parser has no visual layer to screenshot. This is the complete shape of its integration.</p>
+          <p>The parser has no user interface. The example shows how it reads and writes annotation data.</p>
         </div>
         <CodeBlock :code="item.code" language="typescript" label="annotation.ts" />
       </div>
 
       <div class="plugin-profile__api">
         <div class="section-heading split-heading">
-          <div><span class="eyebrow">Public surface</span><h3>API features.</h3></div>
+          <div><h3>API features.</h3></div>
           <p>Install with <code>npm install {{ item.packageName }}</code></p>
         </div>
         <div class="option-table-wrap">
@@ -198,19 +194,17 @@ const packages = [
 
     <section class="plugin-architecture page-width">
       <div>
-        <span class="eyebrow">How they fit together</span>
-        <h2>Independent packages<br />with <em>Mango integrations.</em></h2>
+        <h2>Packages you can use with or without Mango.</h2>
       </div>
       <div>
-        <p>These packages extend what Mango can do, but they are not all objects implementing Mango’s internal <code>ViewerPlugin</code> interface. Each is framework-agnostic and can be used with Mango, another viewer, or a completely application-owned interface.</p>
-        <p>The W3C Parser supplies Annotation’s standards boundary; Collection Navigator and Search Client feed navigation and discovery into a viewer; Mango AV provides both composed and independently placeable media components.</p>
+        <p>These packages use different APIs, and not all of them implement Mango’s <code>ViewerPlugin</code> interface. You can install each package with Mango, another viewer, or on its own.</p>
+        <p>W3C Parser converts annotation data. Collection Navigator supplies collection and canvas navigation. Search Client finds and normalises IIIF search results. Mango AV supplies a player and separate media components.</p>
       </div>
     </section>
 
     <section class="cta-section page-width">
-      <span class="eyebrow">Build with Mango</span>
-      <h2>Use only the packages<br /><em>your project needs.</em></h2>
-      <RouterLink class="round-link" to="/guide" aria-label="Read the integration guide">→</RouterLink>
+      <h2>Install Mango or one of its packages.</h2>
+      <RouterLink class="button button--text" to="/guide">Read the integration guide <span aria-hidden="true">→</span></RouterLink>
     </section>
   </div>
 </template>
@@ -223,14 +217,13 @@ const packages = [
 .plugin-catalogue__summary {
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
+  gap: 10px 24px;
   margin-top: 32px;
 }
 
 .plugin-catalogue__summary span {
-  border: 1px solid var(--line);
-  border-radius: 999px;
-  padding: 9px 14px;
+  padding-bottom: 4px;
+  border-bottom: 1px solid var(--line);
   color: var(--muted);
   font-size: 13px;
 }
@@ -261,13 +254,6 @@ const packages = [
   border-right: 0;
 }
 
-.plugin-index span,
-.plugin-profile__number {
-  color: var(--orange-dark);
-  font-family: var(--mono);
-  font-size: 11px;
-}
-
 .plugin-profile {
   padding-block: 110px;
   border-bottom: 1px solid var(--line);
@@ -276,20 +262,16 @@ const packages = [
 
 .plugin-profile__header {
   display: grid;
-  grid-template-columns: 56px minmax(0, 1fr) auto;
+  grid-template-columns: minmax(0, 1fr) auto;
   gap: 24px;
   align-items: start;
 }
 
 .plugin-profile__header h2 {
-  margin: 8px 0 12px;
-  font-size: clamp(42px, 6vw, 82px);
-  line-height: 0.98;
-  letter-spacing: -0.055em;
-}
-
-.plugin-profile__number {
-  padding-top: 7px;
+  margin: 0 0 12px;
+  font-size: clamp(36px, 4.5vw, 58px);
+  line-height: 1.04;
+  letter-spacing: -0.025em;
 }
 
 .plugin-profile__package {
@@ -302,7 +284,6 @@ const packages = [
 .plugin-profile__package code,
 .plugin-profile__package span {
   border: 1px solid var(--line);
-  border-radius: 999px;
   padding: 6px 10px;
   font-size: 11px;
 }
@@ -317,9 +298,8 @@ const packages = [
 }
 
 .plugin-profile__links a {
-  border: 1px solid var(--ink);
-  border-radius: 999px;
-  padding: 9px 14px;
+  padding: 6px 0;
+  border-bottom: 1px solid var(--ink);
   font-size: 12px;
   font-weight: 700;
   text-decoration: none;
@@ -330,7 +310,7 @@ const packages = [
   grid-template-columns: minmax(0, 1.2fr) minmax(340px, 0.8fr);
   gap: 70px;
   align-items: start;
-  margin: 54px 0 42px 80px;
+  margin: 54px 0 42px;
 }
 
 .plugin-profile__intro > p {
@@ -376,7 +356,7 @@ const packages = [
   object-fit: cover;
   object-position: top center;
   border: 1px solid var(--line);
-  border-radius: 18px;
+  border-radius: 4px;
   background: var(--paper-light);
 }
 
@@ -392,7 +372,7 @@ const packages = [
   gap: 50px;
   align-items: start;
   padding: 42px;
-  border-radius: 18px;
+  border-radius: 4px;
   background: var(--forest);
   color: white;
 }
@@ -435,25 +415,25 @@ const packages = [
 }
 
 .plugin-architecture {
-  display: grid;
-  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
-  gap: 90px;
+  display: block;
   padding-block: 120px;
 }
 
 .plugin-architecture h2 {
-  margin: 12px 0 0;
-  font-size: clamp(40px, 5vw, 68px);
-  line-height: 1;
-  letter-spacing: -0.05em;
+  max-width: 820px;
+  margin: 0 0 32px;
+  font-size: clamp(34px, 3.8vw, 52px);
+  line-height: 1.08;
+  letter-spacing: -0.016em;
 }
 
 .plugin-architecture h2 em {
-  font-family: var(--serif);
-  font-weight: 500;
+  font-style: normal;
+  font-weight: inherit;
 }
 
 .plugin-architecture p {
+  max-width: 820px;
   margin: 0 0 20px;
   font-size: 18px;
   line-height: 1.7;
@@ -473,7 +453,7 @@ const packages = [
   }
 
   .plugin-profile__header {
-    grid-template-columns: 36px 1fr;
+    grid-template-columns: 1fr auto;
   }
 
   .plugin-profile__links {
@@ -483,7 +463,7 @@ const packages = [
   .plugin-profile__intro {
     grid-template-columns: 1fr;
     gap: 30px;
-    margin-left: 60px;
+    margin-left: 0;
   }
 
   .plugin-profile__headless,
@@ -510,7 +490,6 @@ const packages = [
     grid-template-columns: 1fr;
   }
 
-  .plugin-profile__number,
   .plugin-profile__links {
     grid-column: 1;
   }

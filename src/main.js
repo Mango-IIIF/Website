@@ -22,6 +22,11 @@ const router = createRouter({
     { path: '/guide', name: 'guide', component: () => import('./views/GuideView.vue') },
     { path: '/examples/embedding', alias: '/embed-third-party.html', name: 'embedding-examples', component: () => import('./views/EmbeddingExamplesView.vue') },
     { path: '/cookbook_matrix', name: 'cookbook-matrix', component: () => import('./views/CookbookMatrixView.vue') },
+    { path: '/training', redirect: '/training/stories' },
+    { path: '/training/stories', name: 'training-stories', component: () => import('./views/TrainingStoriesView.vue') },
+    { path: '/training/stories/new', name: 'training-story-new', component: () => import('./views/TrainingStoryEditorView.vue') },
+    { path: '/training/stories/:id/edit', name: 'training-story-edit', component: () => import('./views/TrainingStoryEditorView.vue') },
+    { path: '/training/stories/:id', name: 'training-story-view', component: () => import('./views/TrainingStoryViewerView.vue') },
     { path: '/:pathMatch(.*)*', redirect: '/' },
   ],
 })

@@ -26,7 +26,7 @@
       </nav>
     </div>
     <div class="page-width footer-base">
-      <span>Built for the <abbr title="International Image Interoperability Framework">IIIF</abbr> community.</span>
+      <span>Open-source <abbr title="International Image Interoperability Framework">IIIF</abbr> software.</span>
       <span><abbr title="Massachusetts Institute of Technology">MIT</abbr> licensed.</span>
     </div>
   </footer>

@@ -68,7 +68,6 @@ onBeforeUnmount(() => window.clearInterval(readyTimer))
     </header>
 
     <article class="embed-wrap">
-      <span class="eyebrow">Embedding examples</span>
       <h1>Mango viewers in real page layouts</h1>
       <p class="embed-byline">A practical guide to placing Mango in your own site</p>
       <p>A viewer rarely gets the whole browser window to itself. It might sit between paragraphs, fill a feature section, or share a row with other content. This page shows Mango in each of those settings, surrounded by the kind of layout a typical website provides.</p>
@@ -86,7 +85,7 @@ onBeforeUnmount(() => window.clearInterval(readyTimer))
     <section id="story" class="embed-bleed">
       <div>
         <h2>A story viewer in a full-width feature</h2>
-        <p>Some stories deserve more room. This section breaks out of the reading column and gives the story viewer a wide, dark backdrop. Mango keeps its own colours and typography, so the surrounding page styles do not change its controls.</p>
+        <p>This example places the story viewer outside the reading column on a wide, dark background. Its controls keep Mango’s colours and typography rather than inheriting styles from the page.</p>
         <EmbeddedViewer mode="story-viewer" story-url="/stories/demo.json" :config="storyConfig" />
         <p>The page carries on below the story, just as it would in a long-form article or exhibition feature.</p>
       </div>
@@ -116,7 +115,7 @@ onBeforeUnmount(() => window.clearInterval(readyTimer))
 
     <section id="placement" class="embed-wide">
       <h2>Place different collections side by side</h2>
-      <p>These viewers sit in an equal two-column layout, making it easy to compare material from different institutions. Each one opens on a chosen detail using a single <code>config</code> value and coordinates from the source image.</p>
+      <p>These viewers sit in equal columns so readers can compare material from different institutions. Each opens on a chosen detail using a <code>config</code> value and coordinates from the source image.</p>
       <div class="embed-pair">
         <figure>
           <EmbeddedViewer manifest="https://iiif.harvardartmuseums.org/manifests/object/299843" :config="{ theme: 'light', initialViewBox: { x: 560, y: 880, w: 980, h: 800 } }" />
@@ -163,7 +162,7 @@ onBeforeUnmount(() => window.clearInterval(readyTimer))
 
 <style scoped>
 .embed-docs { --embed-ink:#16181d; --embed-muted:#5c6472; --embed-rule:#e3e6ec; --embed-accent:#7a3e12; background:#fbfaf8; color:var(--embed-ink); font:18px/1.65 Iowan Old Style,Palatino,Georgia,serif; padding-bottom:4rem; }
-.embed-masthead { position:sticky; top:0; z-index:49; display:flex; align-items:center; justify-content:space-between; gap:1rem; padding:.75rem clamp(1rem,4vw,2.5rem); border-bottom:1px solid var(--embed-rule); background:rgba(251,250,248,.92); backdrop-filter:blur(8px); font:700 .85rem system-ui,sans-serif; letter-spacing:.02em; text-transform:uppercase; }
+.embed-masthead { position:sticky; top:0; z-index:49; display:flex; align-items:center; justify-content:space-between; gap:1rem; padding:.75rem clamp(1rem,4vw,2.5rem); border-bottom:1px solid var(--embed-rule); background:#fbfaf8; font:700 .85rem system-ui,sans-serif; letter-spacing:.02em; text-transform:uppercase; }
 .embed-masthead nav { display:flex; flex-wrap:wrap; gap:clamp(.5rem,2vw,1.25rem); font-weight:400; text-transform:none; }
 .embed-masthead a { color:var(--embed-muted); text-decoration:none; }
 .embed-wrap { max-width:46rem; margin:0 auto; padding:3rem clamp(1rem,4vw,2rem) 0; }

@@ -8,7 +8,7 @@
       </div>
       <nav class="footer-nav" aria-label="Footer navigation">
         <div>
-          <span class="footer-label"><abbr title="Applications">Apps</abbr></span>
+          <span class="footer-label">Interfaces</span>
           <RouterLink to="/builds/story-viewer">Story Viewer</RouterLink>
           <RouterLink to="/builds/story-viewer/edit">Story Editor</RouterLink>
           <RouterLink to="/builds/annotation-editor">Annotation Editor</RouterLink>
@@ -21,7 +21,8 @@
           <RouterLink to="/cookbook_matrix"><abbr title="International Image Interoperability Framework">IIIF</abbr> Cookbook matrix</RouterLink>
           <RouterLink to="/events">Events</RouterLink>
           <RouterLink to="/examples/embedding">Embedding examples</RouterLink>
-          <a href="https://github.com/Mango-IIIF/Mango" target="_blank" rel="noreferrer">Source code ↗</a>
+          <a href="https://github.com/Mango-IIIF/Mango/issues" target="_blank" rel="noreferrer">Issue tracker</a>
+          <a href="https://github.com/Mango-IIIF/Mango" target="_blank" rel="noreferrer">Source code</a>
         </div>
       </nav>
     </div>

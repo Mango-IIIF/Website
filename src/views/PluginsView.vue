@@ -124,7 +124,7 @@ const packages = [
       <div class="plugin-catalogue__summary" aria-label="Plugin catalogue summary">
         <span><b>5</b> packages</span>
         <span><b>4</b> live demos</span>
-        <span><b>100%</b> open source</span>
+        <span><b>MIT</b> licensed</span>
       </div>
     </section>
 
@@ -149,8 +149,8 @@ const packages = [
           </div>
         </div>
         <div class="plugin-profile__links">
-          <a :href="item.repo" target="_blank" rel="noreferrer">GitHub <span aria-hidden="true">↗</span></a>
-          <a :href="item.npm" target="_blank" rel="noreferrer">npm <span aria-hidden="true">↗</span></a>
+          <a :href="item.repo" target="_blank" rel="noreferrer">GitHub</a>
+          <a :href="item.npm" target="_blank" rel="noreferrer">npm</a>
         </div>
       </header>
 
@@ -204,7 +204,7 @@ const packages = [
 
     <section class="cta-section page-width">
       <h2>Install Mango or one of its packages.</h2>
-      <RouterLink class="button button--text" to="/guide">Read the integration guide <span aria-hidden="true">→</span></RouterLink>
+      <RouterLink class="button button--text" to="/guide">Read the integration guide</RouterLink>
     </section>
   </div>
 </template>

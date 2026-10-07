@@ -9,10 +9,6 @@ defineProps({
 
 <template>
   <RouterLink class="build-card" :class="`build-card--${build.accent}`" :to="to || build.demoUrl || `/builds/${build.slug}`">
-    <div class="build-card__top">
-      <span>{{ build.eyebrow }}</span>
-      <span class="build-card__arrow" aria-hidden="true">→</span>
-    </div>
     <div class="build-card__visual" aria-hidden="true">
       <img
         class="build-card__image"

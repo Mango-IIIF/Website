@@ -39,69 +39,6 @@ const storyPresets = [
   { label: 'The Bedroom — Vincent van Gogh', url: 'https://404mike.github.io/uv4-manifest/mango/stories/the-bedroom.json' },
 ]
 
-const storyComparison = [
-  {
-    capability: 'Embedding',
-    detail: 'Native component, not an iframe',
-    mango: true,
-    exhibit: false,
-  },
-  {
-    capability: 'Supported media',
-    detail: 'Images, A/V, PDFs, 3D, annotations, and layers',
-    mango: true,
-    exhibit: false,
-  },
-  {
-    capability: 'Chapter state',
-    detail: 'Store the canvas, viewport, and media state for each chapter',
-    mango: true,
-    exhibit: true,
-  },
-  {
-    capability: 'Narration',
-    detail: 'Timed audio tracks with waveform editing',
-    mango: true,
-    exhibit: false,
-  },
-  {
-    capability: 'Multilingual stories',
-    detail: 'Localised copy, interface, and narration',
-    mango: true,
-    exhibit: false,
-  },
-  {
-    capability: 'Story file format',
-    detail: 'IIIF AnnotationPage story output',
-    mango: true,
-    exhibit: false,
-  },
-  {
-    capability: 'JavaScript integration',
-    detail: 'Typed API and observable DOM events',
-    mango: true,
-    exhibit: false,
-  },
-  {
-    capability: 'Plugins',
-    detail: 'ViewerPlugin interface for external panels and controls',
-    mango: true,
-    exhibit: false,
-  },
-  {
-    capability: 'Open source',
-    detail: 'MIT-licensed and free',
-    mango: true,
-    exhibit: false,
-  },
-  {
-    capability: 'Hosted publishing',
-    detail: 'Hosted links, quizzes, and kiosks',
-    mango: false,
-    exhibit: true,
-  },
-]
-
 const manifestInput = ref('')
 const activeManifest = ref('')
 const activeStory = ref('')
@@ -146,9 +83,9 @@ function loadStory(url) {
         <h1><TechnicalText :text="build.title" /></h1>
         <p><TechnicalText :text="build.description" /></p>
         <div class="hero-actions">
-          <a class="button button--primary" href="#demo">Try the demo <span>↓</span></a>
-          <RouterLink v-if="build.mode === 'story-viewer'" class="button button--secondary" to="/builds/story-viewer/edit">Edit this story <span>↗</span></RouterLink>
-          <a class="button button--text" href="#options">View options <span>↘</span></a>
+          <a class="button button--primary" href="#demo">Try the demo</a>
+          <RouterLink v-if="build.mode === 'story-viewer'" class="button button--secondary" to="/builds/story-viewer/edit">Edit this story</RouterLink>
+          <a class="button button--text" href="#options">View options</a>
         </div>
       </div>
     </section>
@@ -163,7 +100,7 @@ function loadStory(url) {
           <label for="manifest-url">Manifest <abbr title="Uniform Resource Locator">URL</abbr></label>
           <div>
             <input id="manifest-url" v-model="manifestInput" type="url" required autocomplete="url" placeholder="https://example.org/manifest.json" />
-            <button class="button button--primary" type="submit">Load manifest <span aria-hidden="true">→</span></button>
+            <button class="button button--primary" type="submit">Load manifest</button>
           </div>
         </form>
       </div>
@@ -203,37 +140,10 @@ function loadStory(url) {
             href="https://github.com/Mango-IIIF/Mango/issues"
             target="_blank"
             rel="noreferrer"
-          >Share your story <span aria-hidden="true">↗</span></a>
+          >Share your story</a>
         </aside>
       </div>
 
-    </section>
-
-    <section v-if="build.slug === 'story-viewer'" class="story-compare page-width" aria-labelledby="story-compare-heading">
-      <div class="story-compare__header">
-        <div>
-          <h2 id="story-compare-heading">Guided stories inside the viewer.</h2>
-        </div>
-      </div>
-
-      <div class="story-compare__table-wrap">
-        <table class="story-compare__table">
-          <thead>
-            <tr>
-              <th scope="col">The test</th>
-              <th scope="col"><span class="story-compare__product story-compare__product--mango">Mango</span></th>
-              <th scope="col"><span class="story-compare__product">Exhibit</span></th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr v-for="item in storyComparison" :key="item.capability">
-              <th scope="row"><span>{{ item.capability }}</span><small>{{ item.detail }}</small></th>
-              <td><span class="story-compare__mark" :class="item.mango ? 'story-compare__mark--yes' : 'story-compare__mark--no'" :aria-label="item.mango ? 'Supported' : 'Not supported'">{{ item.mango ? '✓' : '×' }}</span></td>
-              <td><span class="story-compare__mark" :class="item.exhibit ? 'story-compare__mark--yes' : 'story-compare__mark--no'" :aria-label="item.exhibit ? 'Supported' : 'Not supported'">{{ item.exhibit ? '✓' : '×' }}</span></td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
     </section>
 
     <section class="docs-section page-width">
@@ -260,14 +170,14 @@ function loadStory(url) {
           <p>Set the options in a form, check them in the viewer, and copy the resulting configuration.</p>
         </div>
         <RouterLink class="button button--primary" to="/builds/iiif-viewer/configuration-builder">
-          Configuration builder <span aria-hidden="true">→</span>
+          Configuration builder
         </RouterLink>
       </aside>
     </section>
 
     <section class="build-events page-width">
       <div><h2>Listen for viewer events.</h2></div>
-      <div><p>The Mango element dispatches <abbr title="Document Object Model">DOM</abbr> custom events. Read each event’s data from <code>event.detail</code>.</p><RouterLink class="text-link" to="/events">View all events <span>→</span></RouterLink></div>
+      <div><p>The Mango element dispatches <abbr title="Document Object Model">DOM</abbr> custom events. Read each event’s data from <code>event.detail</code>.</p><RouterLink class="text-link" to="/events">View all events</RouterLink></div>
     </section>
 
     <nav class="build-pagination page-width" aria-label="Other builds">

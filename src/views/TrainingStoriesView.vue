@@ -32,7 +32,7 @@ onMounted(async () => {
       </div>
       <div class="training-hero__actions">
         <p>Create guided IIIF stories, keep them in this browser, and open them in Mango’s story viewer.</p>
-        <RouterLink class="button button--primary" to="/training/stories/new">Create a story <span>→</span></RouterLink>
+        <RouterLink class="button button--primary" to="/training/stories/new">Create a story</RouterLink>
       </div>
     </section>
 
@@ -52,7 +52,7 @@ onMounted(async () => {
       <div v-else class="training-empty">
         <h2>Build your first guided story.</h2>
         <p>Your work will be saved to IndexedDB in this browser.</p>
-        <RouterLink class="button button--primary" to="/training/stories/new">Open the editor <span>→</span></RouterLink>
+        <RouterLink class="button button--primary" to="/training/stories/new">Open the editor</RouterLink>
       </div>
     </section>
   </div>

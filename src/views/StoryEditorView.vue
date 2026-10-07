@@ -39,7 +39,7 @@ const storyEditor = {
 
     <section class="story-editor-footer page-width">
       <div><h2>Need a blank canvas?</h2></div>
-      <RouterLink class="button button--secondary" :to="storyBuilderDemoUrl">Open Story Builder <span>→</span></RouterLink>
+      <RouterLink class="button button--secondary" :to="storyBuilderDemoUrl">Open Story Builder</RouterLink>
     </section>
   </div>
 </template>

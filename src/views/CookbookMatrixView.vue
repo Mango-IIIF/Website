@@ -94,7 +94,7 @@ async function checkRecipe(recipe) {
           href="https://github.com/Mango-IIIF/Mango/issues"
           target="_blank"
           rel="noreferrer"
-        >Help add support <span aria-hidden="true">↗</span></a>
+        >Help add support</a>
       </aside>
 
       <dl class="cookbook-summary" aria-label="Test support summary">
@@ -120,7 +120,7 @@ async function checkRecipe(recipe) {
 
       <p class="cookbook-viewer__manifest">
         {{ activeRecipe.source ? 'Test manifest:' : 'Cookbook:' }}
-        <a :href="activeManifestCookbookUrl" target="_blank" rel="noreferrer">{{ activeManifestCookbookUrl }} <span aria-hidden="true">↗</span></a>
+        <a :href="activeManifestCookbookUrl" target="_blank" rel="noreferrer">{{ activeManifestCookbookUrl }}</a>
       </p>
 
       <ViewerDemo :key="activeManifestUrl" :build="viewerBuild" />
@@ -131,7 +131,7 @@ async function checkRecipe(recipe) {
         <h2 id="recipe-list-heading">All recipes and tests.</h2>
         <p class="cookbook-pass-rate">
           <span>{{ passPercentage }}% of cookbook recipes supported</span>
-          <a href="https://github.com/Mango-IIIF/Mango/issues?q=is%3Aissue%20state%3Aopen%20label%3A%22cookbook%20recipe%22" target="_blank" rel="noreferrer">Help add support <span aria-hidden="true">↗</span></a>
+          <a href="https://github.com/Mango-IIIF/Mango/issues?q=is%3Aissue%20state%3Aopen%20label%3A%22cookbook%20recipe%22" target="_blank" rel="noreferrer">Help add support</a>
         </p>
       </div>
 
@@ -196,7 +196,7 @@ async function checkRecipe(recipe) {
           </div>
           <p class="cookbook-recipe__notes"><TechnicalText :text="recipe.notes || 'No additional notes.'" /></p>
           <div class="cookbook-recipe__actions">
-            <a :href="recipe.url" target="_blank" rel="noreferrer">{{ recipe.source ? 'Test manifest' : 'Recipe details' }} <span aria-hidden="true">↗</span></a>
+            <a :href="recipe.url" target="_blank" rel="noreferrer">{{ recipe.source ? 'Test manifest' : 'Recipe details' }}</a>
             <button
               v-if="recipe.manifest"
               class="button button--secondary"

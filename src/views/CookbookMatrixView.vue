@@ -1,7 +1,6 @@
 <script setup>
 import { computed, nextTick, ref } from 'vue'
-import TechnicalText from '../components/TechnicalText.vue'
-import ViewerDemo from '../components/ViewerDemo.vue'
+import MangoViewer from '../components/MangoViewer.vue'
 import cookbookSupport from '../data/iiif_cookbook_support.json'
 
 const recipes = cookbookSupport.recipes
@@ -18,10 +17,10 @@ const viewerHeading = ref(null)
 const supportOptions = ['All', 'Yes', 'Partial', 'No']
 const defaultIssueUrl = 'https://github.com/Mango-IIIF/Mango/issues'
 
-const supportDetails = {
-  Yes: { label: 'Pass', description: 'Supported' },
-  Partial: { label: 'Partial', description: 'Partially supported' },
-  No: { label: 'Fail', description: 'Not supported' },
+const supportMeta = {
+  Yes: { label: 'Pass', description: 'Supported', badgeClass: 'text-bg-success' },
+  Partial: { label: 'Partial', description: 'Partially supported', badgeClass: 'text-bg-warning' },
+  No: { label: 'Fail', description: 'Not supported', badgeClass: 'text-bg-danger' },
 }
 
 const totals = computed(() => ({
@@ -31,8 +30,8 @@ const totals = computed(() => ({
 }))
 
 const passPercentage = computed(() => {
-  const supportedRecipes = cookbookRecipes.filter((recipe) => recipe.support === 'Yes').length
-  return Math.round((supportedRecipes / cookbookRecipes.length) * 100)
+  const supported = cookbookRecipes.filter((recipe) => recipe.support === 'Yes').length
+  return Math.round((supported / cookbookRecipes.length) * 100)
 })
 
 const filteredRecipes = computed(() => {
@@ -46,17 +45,8 @@ const filteredRecipes = computed(() => {
       const searchableText = `${recipe.id} ${recipe.name} ${recipe.notes} ${categoryNames}`.toLocaleLowerCase('en-GB')
       return matchesSupport && matchesCategory && (!query || searchableText.includes(query))
     })
-    .sort((recipeA, recipeB) => recipeA.id.localeCompare(recipeB.id, 'en-GB', { numeric: true }))
+    .sort((a, b) => a.id.localeCompare(b.id, 'en-GB', { numeric: true }))
 })
-
-const activeManifestUrl = computed(() => activeRecipe.value.manifest)
-const activeManifestCookbookUrl = computed(() => activeRecipe.value.url)
-const viewerBuild = computed(() => ({
-  slug: 'cookbook-matrix',
-  mode: 'viewer',
-  manifest: activeManifestUrl.value,
-  config: {},
-}))
 
 function isActive(recipe) {
   return activeRecipe.value === recipe
@@ -67,147 +57,167 @@ function supportIssueUrl(recipe) {
 }
 
 function getRecipeCategories(recipe) {
-  return recipe.categoryIds.map((categoryId) => categoryById.get(categoryId)).filter(Boolean)
+  return recipe.categoryIds.map((id) => categoryById.get(id)).filter(Boolean)
 }
 
 async function checkRecipe(recipe) {
   activeRecipe.value = recipe
   await nextTick()
   viewerHeading.value?.focus({ preventScroll: true })
-  viewerHeading.value?.scrollIntoView({ block: 'start' })
+  viewerHeading.value?.scrollIntoView({ behavior: 'smooth', block: 'start' })
 }
 </script>
 
 <template>
-  <div class="inner-page cookbook-matrix">
-    <section class="page-hero page-width cookbook-matrix__hero">
-      <h1><abbr title="International Image Interoperability Framework">IIIF</abbr> Cookbook support in Mango.</h1>
-      <p>See Mango's support for every <abbr title="International Image Interoperability Framework">IIIF</abbr> Cookbook recipe, plus Mango test manifests.</p>
+  <div>
+    <section class="bg-body-tertiary border-bottom py-4">
+      <div class="container">
+        <div class="d-flex flex-wrap justify-content-between align-items-start gap-3">
+          <div>
+            <h1 class="h3 mb-1">IIIF Cookbook Support</h1>
+            <p class="text-body-secondary mb-3">
+              Support status for IIIF Cookbook recipes and Mango test manifests ({{ passPercentage }}% of cookbook recipes passing).
+            </p>
+            <div class="d-flex flex-wrap gap-2 small">
+              <span class="badge text-bg-success fs-6 fw-normal">Pass: {{ totals.Yes }}</span>
+              <span class="badge text-bg-warning fs-6 fw-normal">Partial: {{ totals.Partial }}</span>
+              <span class="badge text-bg-danger fs-6 fw-normal">Fail: {{ totals.No }}</span>
+              <span class="badge text-bg-secondary fs-6 fw-normal">Total: {{ recipes.length }}</span>
+            </div>
+          </div>
 
-      <aside class="cookbook-contribute" aria-labelledby="cookbook-contribute-heading">
-        <div>
-          <h2 id="cookbook-contribute-heading">Found a failing recipe? Help us support it.</h2>
-          <p>Open an issue, share what you know, or contribute a fix to Mango on GitHub.</p>
+          <a
+            class="btn btn-outline-primary btn-sm"
+            href="https://github.com/Mango-IIIF/Mango/issues?q=is%3Aissue%20state%3Aopen%20label%3A%22cookbook%20recipe%22"
+            target="_blank"
+            rel="noreferrer"
+          >
+            Help add support on GitHub
+          </a>
         </div>
-        <a
-          class="button button--primary"
-          href="https://github.com/Mango-IIIF/Mango/issues"
-          target="_blank"
-          rel="noreferrer"
-        >Help add support</a>
-      </aside>
-
-      <dl class="cookbook-summary" aria-label="Test support summary">
-        <div><dt>Pass</dt><dd>{{ totals.Yes }}</dd></div>
-        <div><dt>Partial</dt><dd>{{ totals.Partial }}</dd></div>
-        <div><dt>Fail</dt><dd>{{ totals.No }}</dd></div>
-        <div><dt>Total</dt><dd>{{ recipes.length }}</dd></div>
-      </dl>
+      </div>
     </section>
 
-    <section id="cookbook-viewer" class="cookbook-viewer page-width" aria-labelledby="cookbook-viewer-heading">
-      <div class="cookbook-viewer__heading">
-        <div>
-          <h2 id="cookbook-viewer-heading" ref="viewerHeading" tabindex="-1">
-            {{ activeRecipe.source || 'Recipe' }} {{ activeRecipe.id }}: <TechnicalText :text="activeRecipe.name" />
-          </h2>
+    <section class="container py-4">
+      <div class="card mb-4">
+        <div class="card-header d-flex flex-wrap justify-content-between align-items-center gap-2">
+          <div>
+            <h2 id="cookbook-viewer-heading" ref="viewerHeading" class="h6 mb-0" tabindex="-1">
+              {{ activeRecipe.source || 'Recipe' }} {{ activeRecipe.id }}: {{ activeRecipe.name }}
+            </h2>
+            <a class="small text-break" :href="activeRecipe.url" target="_blank" rel="noreferrer">
+              {{ activeRecipe.url }}
+            </a>
+          </div>
+          <span class="badge" :class="supportMeta[activeRecipe.support].badgeClass">
+            {{ supportMeta[activeRecipe.support].label }}
+          </span>
         </div>
-        <span
-          class="cookbook-status"
-          :class="`cookbook-status--${activeRecipe.support.toLowerCase()}`"
-        >{{ supportDetails[activeRecipe.support].label }}</span>
+        <div class="card-body p-0">
+          <MangoViewer :key="activeRecipe.manifest" :manifest="activeRecipe.manifest" />
+        </div>
       </div>
 
-      <p class="cookbook-viewer__manifest">
-        {{ activeRecipe.source ? 'Test manifest:' : 'Cookbook:' }}
-        <a :href="activeManifestCookbookUrl" target="_blank" rel="noreferrer">{{ activeManifestCookbookUrl }}</a>
-      </p>
-
-      <ViewerDemo :key="activeManifestUrl" :build="viewerBuild" />
-    </section>
-
-    <section class="cookbook-recipes page-width" aria-labelledby="recipe-list-heading">
-      <div class="section-heading">
-        <h2 id="recipe-list-heading">All recipes and tests.</h2>
-        <p class="cookbook-pass-rate">
-          <span>{{ passPercentage }}% of cookbook recipes supported</span>
-          <a href="https://github.com/Mango-IIIF/Mango/issues?q=is%3Aissue%20state%3Aopen%20label%3A%22cookbook%20recipe%22" target="_blank" rel="noreferrer">Help add support</a>
-        </p>
-      </div>
-
-      <div class="cookbook-filters" aria-label="Filter recipes">
-        <div class="cookbook-filter cookbook-filter--search">
-          <label for="cookbook-search">Search recipes</label>
-          <input id="cookbook-search" v-model="search" type="search" placeholder="Recipe number, test name or notes" />
+      <div class="row g-2 align-items-end mb-3">
+        <div class="col-md-5">
+          <label class="form-label small fw-semibold mb-1" for="cookbook-search">Search recipes</label>
+          <input
+            id="cookbook-search"
+            v-model="search"
+            class="form-control form-control-sm"
+            type="search"
+            placeholder="Recipe number, name, or notes"
+          />
         </div>
-        <div class="cookbook-filter">
-          <label for="cookbook-category">Category</label>
-          <select id="cookbook-category" v-model="categoryFilter">
+        <div class="col-md-4">
+          <label class="form-label small fw-semibold mb-1" for="cookbook-category">Category</label>
+          <select id="cookbook-category" v-model="categoryFilter" class="form-select form-select-sm">
             <option value="All">All categories</option>
-            <option v-for="category in categories" :key="category.id" :value="category.id">{{ category.name }}</option>
+            <option v-for="category in categories" :key="category.id" :value="category.id">
+              {{ category.name }}
+            </option>
           </select>
         </div>
-        <div class="cookbook-filter">
-          <label for="cookbook-support">Support</label>
-          <select id="cookbook-support" v-model="supportFilter">
+        <div class="col-md-3">
+          <label class="form-label small fw-semibold mb-1" for="cookbook-support">Status</label>
+          <select id="cookbook-support" v-model="supportFilter" class="form-select form-select-sm">
             <option v-for="support in supportOptions" :key="support" :value="support">
-              {{ support === 'All' ? 'All results' : supportDetails[support].description }}
+              {{ support === 'All' ? 'All results' : supportMeta[support].description }}
             </option>
           </select>
         </div>
       </div>
 
-      <p class="cookbook-result-count" aria-live="polite">
-        Showing {{ filteredRecipes.length }} recipes and tests
+      <p class="text-body-secondary small mb-2" aria-live="polite">
+        Showing {{ filteredRecipes.length }} of {{ recipes.length }} recipes and tests
       </p>
 
-      <div v-if="filteredRecipes.length" class="cookbook-list">
-        <article v-for="recipe in filteredRecipes" :key="recipe.id" class="cookbook-recipe">
-          <div class="cookbook-recipe__identity">
-            <span class="cookbook-recipe__number">{{ recipe.id }}</span>
-            <div>
-              <h4><TechnicalText :text="recipe.name" /></h4>
-              <div class="cookbook-recipe__categories" aria-label="Recipe categories">
-                <span v-for="category in getRecipeCategories(recipe)" :key="category">{{ category }}</span>
-              </div>
-            </div>
-          </div>
-          <div class="cookbook-recipe__support">
-            <a
-              v-if="recipe.support.toLowerCase() !== 'yes'"
-              class="cookbook-status"
-              target="_blank"
-              title="see GitHub issue"
-              :class="`cookbook-status--${recipe.support.toLowerCase()}`"
-              :href="supportIssueUrl(recipe)"
-            >
-              {{ supportDetails[recipe.support].label }}
-            </a>
-
-            <span
-              v-else
-              class="cookbook-status"
-              :class="`cookbook-status--${recipe.support.toLowerCase()}`"
-            >
-              {{ supportDetails[recipe.support].label }}
-            </span>
-
-            <span>{{ supportDetails[recipe.support].description }}</span>
-          </div>
-          <p class="cookbook-recipe__notes"><TechnicalText :text="recipe.notes || 'No additional notes.'" /></p>
-          <div class="cookbook-recipe__actions">
-            <a :href="recipe.url" target="_blank" rel="noreferrer">{{ recipe.source ? 'Test manifest' : 'Recipe details' }}</a>
-            <button
-              v-if="recipe.manifest"
-              class="button button--secondary"
-              type="button"
-              :disabled="isActive(recipe)"
-              @click="checkRecipe(recipe)"
-            >{{ isActive(recipe) ? 'Viewing now' : 'Check manifest' }}</button>
-          </div>
-        </article>
+      <div v-if="filteredRecipes.length" class="table-responsive border rounded">
+        <table class="table table-hover align-middle mb-0 small">
+          <thead class="table-light">
+            <tr>
+              <th scope="col" class="text-nowrap">ID</th>
+              <th scope="col">Recipe</th>
+              <th scope="col" class="text-nowrap">Status</th>
+              <th scope="col">Notes</th>
+              <th scope="col" class="text-end text-nowrap">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="recipe in filteredRecipes" :key="recipe.id" :class="{ 'table-active': isActive(recipe) }">
+              <td class="font-monospace text-nowrap">{{ recipe.id }}</td>
+              <td>
+                <div class="fw-semibold">{{ recipe.name }}</div>
+                <div class="d-flex flex-wrap gap-1 mt-1">
+                  <span
+                    v-for="category in getRecipeCategories(recipe)"
+                    :key="category"
+                    class="badge text-bg-light border text-body-secondary fw-normal"
+                  >
+                    {{ category }}
+                  </span>
+                </div>
+              </td>
+              <td class="text-nowrap">
+                <a
+                  v-if="recipe.support !== 'Yes'"
+                  class="badge text-decoration-none"
+                  :class="supportMeta[recipe.support].badgeClass"
+                  :href="supportIssueUrl(recipe)"
+                  target="_blank"
+                  rel="noreferrer"
+                  title="View GitHub issue"
+                >
+                  {{ supportMeta[recipe.support].label }}
+                </a>
+                <span v-else class="badge" :class="supportMeta[recipe.support].badgeClass">
+                  {{ supportMeta[recipe.support].label }}
+                </span>
+              </td>
+              <td class="text-body-secondary">{{ recipe.notes || '—' }}</td>
+              <td class="text-end text-nowrap">
+                <a class="me-2" :href="recipe.url" target="_blank" rel="noreferrer">
+                  {{ recipe.source ? 'Manifest' : 'Spec' }}
+                </a>
+                <button
+                  v-if="recipe.manifest"
+                  class="btn btn-sm"
+                  :class="isActive(recipe) ? 'btn-secondary' : 'btn-outline-primary'"
+                  type="button"
+                  :disabled="isActive(recipe)"
+                  @click="checkRecipe(recipe)"
+                >
+                  {{ isActive(recipe) ? 'Viewing' : 'Check' }}
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </div>
-      <p v-else class="cookbook-empty">No recipes match these filters.</p>
+
+      <div v-else class="alert alert-light border mb-0">
+        No recipes match these filters.
+      </div>
     </section>
   </div>
 </template>

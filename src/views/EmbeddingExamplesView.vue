@@ -1,9 +1,9 @@
 <script setup>
 import { onBeforeUnmount, onMounted, ref } from 'vue'
-import EmbeddedViewer from '../components/EmbeddedViewer.vue'
+import MangoViewer from '../components/MangoViewer.vue'
+import MangoStory from '../components/MangoStory.vue'
 
 const wellcome = 'https://iiif.wellcomecollection.org/presentation/v2/b18035723'
-const storyConfig = { showThumbnails: false, showSearch: false, showMetadata: false, showAnnotations: false, showTools: false }
 const controlledViewer = ref(null)
 const ready = ref(false)
 const page = ref('–')
@@ -15,7 +15,7 @@ const round = (value) => Math.round(value)
 
 function refresh() {
   const viewer = controlledViewer.value?.element
-  if (!viewer?.getCanvasCount()) return
+  if (!viewer?.getCanvasCount?.()) return
   page.value = `${viewer.getCanvasIndex() + 1} of ${viewer.getCanvasCount()}`
   zoom.value = `${round(viewer.getZoom())}%`
   const box = viewer.getViewBox()
@@ -44,152 +44,222 @@ function act(action, value) {
 onMounted(() => {
   readyTimer = window.setInterval(() => {
     const viewer = controlledViewer.value?.element
-    if (!viewer?.getCanvasCount()) return
+    if (!viewer?.getCanvasCount?.()) return
     window.clearInterval(readyTimer)
     ready.value = true
     viewer.addEventListener('pageChange', refresh)
     viewer.addEventListener('zoomChange', refresh)
     viewer.addEventListener('viewBoxChange', refresh)
     refresh()
-  }, 120)
+  }, 150)
 })
 
 onBeforeUnmount(() => window.clearInterval(readyTimer))
 </script>
 
 <template>
-  <div class="embed-docs">
-    <header class="embed-masthead">
-      <strong>Mango embedding guide</strong>
-      <nav aria-label="Embedding examples">
-        <a href="#collection">Article</a><a href="#story">Story</a><a href="#sidebar">Sidebar</a>
-        <a href="#short">Short embed</a><a href="#placement">Comparison</a><a href="#controlled">Page controls</a>
-      </nav>
-    </header>
-
-    <article class="embed-wrap">
-      <h1>Mango viewers in real page layouts</h1>
-      <p class="embed-byline">A practical guide to placing Mango in your own site</p>
-      <p>A viewer rarely gets the whole browser window to itself. It might sit between paragraphs, fill a feature section, or share a row with other content. This page shows Mango in each of those settings, surrounded by the kind of layout a typical website provides.</p>
-      <p>Try scrolling and resizing the page as you explore. Each example highlights a different constraint, from a narrow column to a fixed-height container, so you can see how the controls and content adapt.</p>
-
-      <h2 id="collection">Inside an article column</h2>
-      <p>This first viewer follows the width of the text around it. Even on a large screen, the available space is closer to a tablet than a full desktop window, so Mango switches to a compact arrangement that fits the column.</p>
-      <figure>
-        <EmbeddedViewer :manifest="wellcome" />
-        <figcaption>Wunder der Vererbung, Lux-Lesebogen 103. Embedded at the article column width.</figcaption>
-      </figure>
-      <p>The article continues naturally below the viewer. Mango stays within the figure, avoids adding a horizontal scrollbar, and lets readers keep scrolling the page when their pointer or finger moves over it.</p>
-    </article>
-
-    <section id="story" class="embed-bleed">
-      <div>
-        <h2>A story viewer in a full-width feature</h2>
-        <p>This example places the story viewer outside the reading column on a wide, dark background. Its controls keep Mango’s colours and typography rather than inheriting styles from the page.</p>
-        <EmbeddedViewer mode="story-viewer" story-url="/stories/demo.json" :config="storyConfig" />
-        <p>The page carries on below the story, just as it would in a long-form article or exhibition feature.</p>
+  <div>
+    <section class="bg-body-tertiary border-bottom py-4">
+      <div class="container">
+        <nav aria-label="breadcrumb" class="mb-2">
+          <ol class="breadcrumb small mb-0">
+            <li class="breadcrumb-item"><RouterLink to="/viewer">IIIF Viewer</RouterLink></li>
+            <li class="breadcrumb-item active" aria-current="page">Embedding Examples</li>
+          </ol>
+        </nav>
+        <h1 class="h3 mb-1">Embedding Examples</h1>
+        <p class="text-body-secondary mb-3">
+          How Mango components adapt inside real page layouts: article columns, dark bands, narrow sidebars, fixed heights, comparisons, and host controls.
+        </p>
+        <ul class="nav nav-pills small gap-1">
+          <li class="nav-item"><a class="nav-link py-1 px-2 border bg-white" href="#article">Article</a></li>
+          <li class="nav-item"><a class="nav-link py-1 px-2 border bg-white" href="#story">Dark band</a></li>
+          <li class="nav-item"><a class="nav-link py-1 px-2 border bg-white" href="#sidebar">Sidebar</a></li>
+          <li class="nav-item"><a class="nav-link py-1 px-2 border bg-white" href="#short">Short container</a></li>
+          <li class="nav-item"><a class="nav-link py-1 px-2 border bg-white" href="#deep-link">Deep link</a></li>
+          <li class="nav-item"><a class="nav-link py-1 px-2 border bg-white" href="#comparison">Side by side</a></li>
+          <li class="nav-item"><a class="nav-link py-1 px-2 border bg-white" href="#controlled">Page controls</a></li>
+        </ul>
       </div>
     </section>
 
-    <article class="embed-wrap">
-      <h2 id="sidebar">Tucked into a narrow sidebar</h2>
-      <div class="embed-split">
-        <div>
-          <p>A viewer can live alongside related notes as well as in the main flow. On desktop, the column beside this text is only 22rem wide; on smaller screens, it drops below the text and uses the full available width.</p>
-          <p>Mango responds to the space it actually receives rather than the size of the browser window. That gives this embed the same tidy controls you would expect on a phone, even when the page itself is open on a wide monitor.</p>
+    <section id="article" class="container py-5">
+      <div class="row justify-content-center">
+        <div class="col-lg-8">
+          <h2 class="h4 mb-2">Inside an article column</h2>
+          <p class="text-body-secondary">
+            Placed inside a standard reading column, the viewer responds to its container width rather than the full viewport.
+          </p>
+          <figure class="mb-0">
+            <div class="viewer-frame" style="--mango-viewer-height: 600px;">
+              <MangoViewer :manifest="wellcome" />
+            </div>
+            <figcaption class="figure-caption mt-2">
+              Wellcome Collection — Wunder der Vererbung, embedded at article column width.
+            </figcaption>
+          </figure>
         </div>
-        <aside><EmbeddedViewer :manifest="wellcome" /><p class="embed-note">Same component, 22rem of space.</p></aside>
       </div>
-
-      <h2 id="short">When vertical space is limited</h2>
-      <p>Not every page can offer a tall viewer. This story viewer has a fixed height of <code>400px</code>, similar to an embed inside a landing page or card. The image, timeline, and playback controls reorganise to remain useful within the shorter frame.</p>
-      <div class="embed-short"><EmbeddedViewer mode="story-viewer" story-url="/stories/demo.json" :config="storyConfig" /></div>
-
-      <h2 id="deep-link">Start on the detail you are discussing</h2>
-      <p>An embedded viewer does not have to open on the cover. Here, <code>initialCanvasIndex</code> takes the reader straight to page 7, while <code>initialViewBox</code> frames a <code>1900 × 1300</code> region of the image. This is useful when the surrounding text refers to one particular illustration or detail.</p>
-      <figure>
-        <EmbeddedViewer :manifest="wellcome" :config="{ initialCanvasIndex: 6, initialViewBox: { x: 250, y: 500, w: 1900, h: 1300 } }" />
-        <figcaption>Deep-linked at embed time: page 7, framed on the upper illustration.</figcaption>
-      </figure>
-    </article>
-
-    <section id="placement" class="embed-wide">
-      <h2>Place different collections side by side</h2>
-      <p>These viewers sit in equal columns so readers can compare material from different institutions. Each opens on a chosen detail using a <code>config</code> value and coordinates from the source image.</p>
-      <div class="embed-pair">
-        <figure>
-          <EmbeddedViewer manifest="https://iiif.harvardartmuseums.org/manifests/object/299843" :config="{ theme: 'light', initialViewBox: { x: 560, y: 880, w: 980, h: 800 } }" />
-          <figcaption>Harvard Art Museums — Van Gogh, <em>Self-Portrait Dedicated to Paul Gauguin</em>.</figcaption>
-        </figure>
-        <figure>
-          <EmbeddedViewer manifest="https://manifests.collections.yale.edu/ycba/obj/499" :config="{ theme: 'light', initialViewBox: { x: 700, y: 3900, w: 2200, h: 1800 } }" />
-          <figcaption>Yale Center for British Art — Hayman, <em>The Good Samaritan</em>.</figcaption>
-        </figure>
-      </div>
-      <p>Because the crop is described in image coordinates, it stays focused on the same part of each work as the page changes size. The viewer adjusts the surrounding space without losing the subject.</p>
     </section>
 
-    <article class="embed-wrap">
-      <h2 id="narrow">A pair inside the reading column</h2>
-      <p>Here the two-column pattern moves back into the narrower article width. Each viewer has much less room, so Mango uses its compact controls while preserving the chosen crop. On a small screen, the pair stacks into a single column.</p>
-      <div class="embed-pair">
-        <figure>
-          <EmbeddedViewer manifest="https://iiif.bodleian.ox.ac.uk/iiif/manifest/e32a277e-91e2-4a6d-8ba6-cc4bad230410.json" :config="{ initialViewBox: { x: 900, y: 3000, w: 2600, h: 2200 } }" />
-          <figcaption>Bodleian Library, MS. Ind. Inst. Misc. 22.</figcaption>
-        </figure>
-        <figure>
-          <EmbeddedViewer manifest="https://iiif.io/api/cookbook/recipe/0005-image-service/manifest.json" :config="{ initialViewBox: { x: 2400, y: 900, w: 1500, h: 1300 } }" />
-          <figcaption>IIIF Cookbook, recipe 0005 — opened on its right-hand side.</figcaption>
-        </figure>
-      </div>
-
-      <h2 id="controlled">Connect your own page controls</h2>
-      <p>You can control Mango from the rest of your interface. The buttons below belong to this page, not the viewer: they call the public methods on <code>&lt;mango-viewer&gt;</code> to change the page, zoom, and position. The readout listens for viewer events and updates as you explore.</p>
-      <figure>
-        <EmbeddedViewer ref="controlledViewer" :manifest="wellcome" />
-        <div class="embed-deck">
-          <div><b>Page</b><button :disabled="!ready" @click="act('first')">First</button><button :disabled="!ready" @click="act('prev')">Previous</button><button :disabled="!ready" @click="act('next')">Next</button><button :disabled="!ready" @click="act('page', 6)">Go to page 7</button><button :disabled="!ready" @click="act('last')">Last</button></div>
-          <div><b>Zoom</b><button :disabled="!ready" @click="act('zoom', 100)">Fit (100%)</button><button :disabled="!ready" @click="act('zoom', 200)">200%</button><button :disabled="!ready" @click="act('zoom', 400)">400%</button><button :disabled="!ready" @click="act('zoomIn')">Zoom in</button><button :disabled="!ready" @click="act('zoomOut')">Zoom out</button></div>
-          <div><b>Position</b><button :disabled="!ready" @click="act('pan', { x: 1205, y: 600 })">Head of page</button><button :disabled="!ready" @click="act('pan', { x: 1205, y: 1686 })">Middle</button><button :disabled="!ready" @click="act('pan', { x: 1205, y: 2800 })">Foot of page</button><button :disabled="!ready" @click="act('detail')">Frame a detail</button></div>
-          <p>Page <code>{{ page }}</code> · zoom <code>{{ zoom }}</code> · viewBox <code>{{ viewBox }}</code></p>
+    <section id="story" class="bg-dark text-light py-5">
+      <div class="container">
+        <h2 class="h4 mb-2">Story viewer in a dark full-width band</h2>
+        <p class="text-secondary mb-3">
+          Using <code>&lt;mango-story-viewer&gt;</code> inside a full-width feature section with isolated shadow styles.
+        </p>
+        <div class="border border-secondary rounded overflow-hidden" style="--mango-viewer-height: 640px;">
+          <MangoStory mode="viewer" story-url="/stories/demo.json" />
         </div>
-        <figcaption>Use the page controls or Mango's own toolbar; the readout follows both.</figcaption>
-      </figure>
-      <div class="embed-callout"><strong>Try it yourself.</strong> Resize the browser while using the viewers. The page should stay free of horizontal scrolling, the controls should remain within reach, and fullscreen should cover the sticky navigation above.</div>
-    </article>
+      </div>
+    </section>
+
+    <section id="sidebar" class="container py-5 border-bottom">
+      <h2 class="h4 mb-3">Tucked into a narrow sidebar</h2>
+      <div class="row g-4 align-items-start">
+        <div class="col-lg-7">
+          <p>
+            A viewer can sit beside prose in a narrow column. On desktop, the sidebar column on the right is compact;
+            on smaller screens, it stacks cleanly below the text.
+          </p>
+          <p class="text-body-secondary mb-0">
+            Because Mango uses container-aware sizing, its toolbar adapts to the space available in the column rather than
+            assuming a full desktop window.
+          </p>
+        </div>
+        <div class="col-lg-5">
+          <div class="viewer-frame" style="--mango-viewer-height: 520px;">
+            <MangoViewer :manifest="wellcome" />
+          </div>
+          <p class="small text-body-secondary mt-2 mb-0">Same component in a narrow column.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="short" class="container py-5 border-bottom">
+      <div class="row justify-content-center">
+        <div class="col-lg-9">
+          <h2 class="h4 mb-2">Fixed short container (400px)</h2>
+          <p class="text-body-secondary">
+            Set <code>--mango-viewer-height: 400px</code> (or CSS <code>height</code>) when embedding in compact cards or landing sections.
+          </p>
+          <div class="viewer-frame" style="--mango-viewer-height: 400px;">
+            <MangoStory mode="viewer" story-url="/stories/demo.json" />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="deep-link" class="container py-5 border-bottom">
+      <div class="row justify-content-center">
+        <div class="col-lg-8">
+          <h2 class="h4 mb-2">Start on a specific page and crop</h2>
+          <p class="text-body-secondary">
+            Pass <code>initialCanvasIndex</code> and <code>initialViewBox</code> in <code>config</code> to open straight onto a detail.
+          </p>
+          <figure class="mb-0">
+            <div class="viewer-frame" style="--mango-viewer-height: 560px;">
+              <MangoViewer
+                :manifest="wellcome"
+                :config="{ initialCanvasIndex: 6, initialViewBox: { x: 250, y: 500, w: 1900, h: 1300 } }"
+              />
+            </div>
+            <figcaption class="figure-caption mt-2">
+              Page 7, framed on the upper illustration (<code>x: 250, y: 500, w: 1900, h: 1300</code>).
+            </figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <section id="comparison" class="container py-5 border-bottom">
+      <h2 class="h4 mb-2">Side-by-side comparison</h2>
+      <p class="text-body-secondary mb-3">
+        Two viewers in equal Bootstrap columns, each opened on a chosen detail in image coordinates.
+      </p>
+      <div class="row row-cols-1 row-cols-lg-2 g-4">
+        <div class="col">
+          <figure class="mb-0">
+            <div class="viewer-frame" style="--mango-viewer-height: 460px;">
+              <MangoViewer
+                manifest="https://iiif.harvardartmuseums.org/manifests/object/299843"
+                :config="{ theme: 'light', initialViewBox: { x: 560, y: 880, w: 980, h: 800 } }"
+              />
+            </div>
+            <figcaption class="figure-caption mt-2">
+              Harvard Art Museums — Van Gogh, <em>Self-Portrait Dedicated to Paul Gauguin</em>.
+            </figcaption>
+          </figure>
+        </div>
+        <div class="col">
+          <figure class="mb-0">
+            <div class="viewer-frame" style="--mango-viewer-height: 460px;">
+              <MangoViewer
+                manifest="https://manifests.collections.yale.edu/ycba/obj/499"
+                :config="{ theme: 'light', initialViewBox: { x: 700, y: 3900, w: 2200, h: 1800 } }"
+              />
+            </div>
+            <figcaption class="figure-caption mt-2">
+              Yale Center for British Art — Hayman, <em>The Good Samaritan</em>.
+            </figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <section id="controlled" class="container py-5">
+      <div class="row justify-content-center">
+        <div class="col-lg-9">
+          <h2 class="h4 mb-2">Connect external page controls</h2>
+          <p class="text-body-secondary">
+            These Bootstrap buttons call public methods on <code>&lt;mango-viewer&gt;</code> and listen for
+            <code>pageChange</code>, <code>zoomChange</code>, and <code>viewBoxChange</code> events.
+          </p>
+
+          <div class="viewer-frame mb-3" style="--mango-viewer-height: 560px;">
+            <MangoViewer ref="controlledViewer" :manifest="wellcome" />
+          </div>
+
+          <div class="card">
+            <div class="card-body d-grid gap-2">
+              <div class="d-flex flex-wrap align-items-center gap-2">
+                <span class="small fw-semibold text-uppercase text-body-secondary" style="min-width: 4.5rem;">Page</span>
+                <div class="btn-group btn-group-sm" role="group" aria-label="Page controls">
+                  <button class="btn btn-outline-secondary" :disabled="!ready" @click="act('first')">First</button>
+                  <button class="btn btn-outline-secondary" :disabled="!ready" @click="act('prev')">Prev</button>
+                  <button class="btn btn-outline-secondary" :disabled="!ready" @click="act('next')">Next</button>
+                  <button class="btn btn-outline-secondary" :disabled="!ready" @click="act('page', 6)">Page 7</button>
+                  <button class="btn btn-outline-secondary" :disabled="!ready" @click="act('last')">Last</button>
+                </div>
+              </div>
+
+              <div class="d-flex flex-wrap align-items-center gap-2">
+                <span class="small fw-semibold text-uppercase text-body-secondary" style="min-width: 4.5rem;">Zoom</span>
+                <div class="btn-group btn-group-sm" role="group" aria-label="Zoom controls">
+                  <button class="btn btn-outline-secondary" :disabled="!ready" @click="act('zoom', 100)">Fit</button>
+                  <button class="btn btn-outline-secondary" :disabled="!ready" @click="act('zoom', 200)">200%</button>
+                  <button class="btn btn-outline-secondary" :disabled="!ready" @click="act('zoom', 400)">400%</button>
+                  <button class="btn btn-outline-secondary" :disabled="!ready" @click="act('zoomIn')">Zoom in</button>
+                  <button class="btn btn-outline-secondary" :disabled="!ready" @click="act('zoomOut')">Zoom out</button>
+                </div>
+              </div>
+
+              <div class="d-flex flex-wrap align-items-center gap-2">
+                <span class="small fw-semibold text-uppercase text-body-secondary" style="min-width: 4.5rem;">Position</span>
+                <div class="btn-group btn-group-sm" role="group" aria-label="Position controls">
+                  <button class="btn btn-outline-secondary" :disabled="!ready" @click="act('pan', { x: 1205, y: 600 })">Top</button>
+                  <button class="btn btn-outline-secondary" :disabled="!ready" @click="act('pan', { x: 1205, y: 1686 })">Middle</button>
+                  <button class="btn btn-outline-secondary" :disabled="!ready" @click="act('pan', { x: 1205, y: 2800 })">Bottom</button>
+                  <button class="btn btn-outline-secondary" :disabled="!ready" @click="act('detail')">Frame detail</button>
+                </div>
+              </div>
+            </div>
+            <div class="card-footer bg-body-tertiary small text-body-secondary font-monospace">
+              Page: {{ page }} · Zoom: {{ zoom }} · viewBox: {{ viewBox }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
   </div>
 </template>
-
-<style scoped>
-.embed-docs { --embed-ink:#16181d; --embed-muted:#5c6472; --embed-rule:#e3e6ec; --embed-accent:#7a3e12; background:#fbfaf8; color:var(--embed-ink); font:18px/1.65 Iowan Old Style,Palatino,Georgia,serif; padding-bottom:4rem; }
-.embed-masthead { position:sticky; top:0; z-index:49; display:flex; align-items:center; justify-content:space-between; gap:1rem; padding:.75rem clamp(1rem,4vw,2.5rem); border-bottom:1px solid var(--embed-rule); background:#fbfaf8; font:700 .85rem system-ui,sans-serif; letter-spacing:.02em; text-transform:uppercase; }
-.embed-masthead nav { display:flex; flex-wrap:wrap; gap:clamp(.5rem,2vw,1.25rem); font-weight:400; text-transform:none; }
-.embed-masthead a { color:var(--embed-muted); text-decoration:none; }
-.embed-wrap { max-width:46rem; margin:0 auto; padding:3rem clamp(1rem,4vw,2rem) 0; }
-.embed-docs h1 { margin:.8rem 0 .5rem; font-size:clamp(2rem,6vw,3.25rem); line-height:1.1; letter-spacing:-.03em; }
-.embed-docs h2 { margin:3rem 0 .75rem; font-size:clamp(1.35rem,3.2vw,1.9rem); line-height:1.2; }
-.embed-docs p { margin:0 0 1.25rem; }
-.embed-byline,.embed-note,.embed-docs figcaption { color:var(--embed-muted); font-family:system-ui,sans-serif; font-size:.85rem; }
-.embed-docs figure { margin:2rem 0 2.5rem; }
-.embed-docs figcaption { margin-top:.6rem; }
-.embed-docs mango-viewer { display:block; width:100%; height:650px; }
-.embed-bleed { margin:3rem 0; padding:2rem clamp(1rem,4vw,2.5rem); background:#11151b; color:#eef2f7; }
-.embed-bleed>div { max-width:78rem; margin:auto; }
-.embed-bleed h2 { margin-top:0; color:white; }
-.embed-bleed p { color:#c3ccd8; }
-.embed-split { display:grid; grid-template-columns:minmax(0,1fr); gap:2rem; margin:2.5rem 0; }
-.embed-short mango-viewer { height:400px; }
-.embed-wide { max-width:76rem; margin:auto; padding:0 clamp(1rem,4vw,2rem); }
-.embed-pair { display:grid; grid-template-columns:minmax(0,1fr); gap:2rem; margin:2.5rem 0; }
-.embed-pair figure { margin:0; }
-.embed-pair mango-viewer { height:460px; }
-.embed-deck { margin:1rem 0 0; padding:.9rem 1rem; border:1px solid var(--embed-rule); background:white; font-family:system-ui,sans-serif; }
-.embed-deck>div { display:flex; flex-wrap:wrap; align-items:center; gap:.4rem; margin-bottom:.6rem; }
-.embed-deck b { min-width:5.5rem; color:var(--embed-muted); font-size:.75rem; letter-spacing:.06em; text-transform:uppercase; }
-.embed-deck button { padding:.35rem .7rem; border:1px solid #c9ced8; border-radius:4px; background:#f7f8fa; color:var(--embed-ink); cursor:pointer; font-size:.85rem; }
-.embed-deck button:disabled { cursor:not-allowed; opacity:.45; }
-.embed-deck p { margin:0; padding-top:.6rem; border-top:1px dashed var(--embed-rule); color:var(--embed-muted); font-size:.8rem; }
-.embed-callout { margin:2rem 0; padding:1rem 1.25rem; border-left:3px solid var(--embed-accent); background:white; color:var(--embed-muted); font:.9rem system-ui,sans-serif; }
-@media (min-width:60rem) { .embed-split { grid-template-columns:minmax(0,1fr) 22rem; align-items:start; } .embed-pair { grid-template-columns:repeat(2,minmax(0,1fr)); align-items:start; } }
-@media (max-width:720px) { .embed-masthead nav { display:none; } .embed-docs mango-viewer { height:540px; } .embed-pair mango-viewer { height:460px; } }
-</style>

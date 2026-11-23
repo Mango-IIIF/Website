@@ -1,8 +1,10 @@
 import { createApp } from 'vue'
 import { createRouter, createWebHistory } from 'vue-router'
+import 'bootstrap/dist/css/bootstrap.min.css'
+import 'bootstrap/dist/js/bootstrap.bundle.min.js'
+import './styles.css'
 import App from './App.vue'
 import HomeView from './views/HomeView.vue'
-import './styles.css'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -13,20 +15,41 @@ const router = createRouter({
   },
   routes: [
     { path: '/', name: 'home', component: HomeView },
-    { path: '/builds', name: 'builds', component: () => import('./views/BuildsView.vue') },
-    { path: '/builds/story-viewer/edit', name: 'story-editor', component: () => import('./views/StoryEditorView.vue') },
-    { path: '/builds/iiif-viewer/configuration-builder', name: 'configuration-builder', component: () => import('./views/ConfigurationBuilderView.vue') },
-    { path: '/builds/:slug', name: 'build', component: () => import('./views/BuildDetailView.vue') },
-    { path: '/plugins', name: 'plugins', component: () => import('./views/PluginsView.vue') },
-    { path: '/events', name: 'events', component: () => import('./views/EventsView.vue') },
-    { path: '/guide', name: 'guide', component: () => import('./views/GuideView.vue') },
-    { path: '/examples/embedding', alias: '/embed-third-party.html', name: 'embedding-examples', component: () => import('./views/EmbeddingExamplesView.vue') },
-    { path: '/cookbook_matrix', name: 'cookbook-matrix', component: () => import('./views/CookbookMatrixView.vue') },
-    { path: '/training', redirect: '/training/stories' },
-    { path: '/training/stories', name: 'training-stories', component: () => import('./views/TrainingStoriesView.vue') },
-    { path: '/training/stories/new', name: 'training-story-new', component: () => import('./views/TrainingStoryEditorView.vue') },
-    { path: '/training/stories/:id/edit', name: 'training-story-edit', component: () => import('./views/TrainingStoryEditorView.vue') },
-    { path: '/training/stories/:id', name: 'training-story-view', component: () => import('./views/TrainingStoryViewerView.vue') },
+    { path: '/viewer', name: 'viewer', component: () => import('./views/ViewerView.vue') },
+    { path: '/viewer/config', name: 'viewer-config', component: () => import('./views/ConfigurationBuilderView.vue') },
+    {
+      path: '/viewer/embedding',
+      alias: ['/examples/embedding', '/embed-third-party.html'],
+      name: 'embedding-examples',
+      component: () => import('./views/EmbeddingExamplesView.vue'),
+    },
+    { path: '/lychee', name: 'lychee', component: () => import('./views/LycheeView.vue') },
+    {
+      path: '/story',
+      name: 'story-viewer',
+      component: () => import('./views/StoryView.vue'),
+      props: { mode: 'viewer' },
+    },
+    {
+      path: '/story/editor',
+      name: 'story-editor',
+      component: () => import('./views/StoryView.vue'),
+      props: { mode: 'builder' },
+    },
+    {
+      path: '/cookbook',
+      alias: '/cookbook_matrix',
+      name: 'cookbook-matrix',
+      component: () => import('./views/CookbookMatrixView.vue'),
+    },
+    // Legacy route redirects
+    { path: '/builds', redirect: '/' },
+    { path: '/builds/iiif-viewer', redirect: '/viewer' },
+    { path: '/builds/iiif-viewer/configuration-builder', redirect: '/viewer/config' },
+    { path: '/builds/annotation-editor', redirect: '/lychee' },
+    { path: '/builds/story-viewer', redirect: '/story' },
+    { path: '/builds/story-viewer/edit', redirect: '/story/editor' },
+    { path: '/builds/story-builder', redirect: '/story/editor' },
     { path: '/:pathMatch(.*)*', redirect: '/' },
   ],
 })

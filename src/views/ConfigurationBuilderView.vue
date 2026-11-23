@@ -1,6 +1,6 @@
 <script setup>
 import { computed, reactive, ref } from 'vue'
-import ViewerDemo from '../components/ViewerDemo.vue'
+import MangoViewer from '../components/MangoViewer.vue'
 import { viewerConfigDefaults } from '../data/viewerConfig'
 
 const manifest = 'https://iiif.wellcomecollection.org/presentation/v2/b18035723'
@@ -11,8 +11,16 @@ const presets = [
     name: 'All controls',
     description: 'Show every viewer panel and control.',
     config: {
-      theme: 'light', language: 'en', showThumbnails: true, showMetadata: true,
-      showSearch: true, showAnnotations: true, showTools: true, showLayers: true, showSettings: true,
+      theme: 'light',
+      language: 'en',
+      showThumbnails: true,
+      showCollection: true,
+      showMetadata: true,
+      showSearch: true,
+      showAnnotations: true,
+      showTools: true,
+      showLayers: true,
+      showSettings: true,
       allowCreateMode: true,
       sidebar: { enabled: true, open: true, activePanel: 'settings', position: 'left' },
       osd: { preserveViewport: false, showNavigator: true, showRotationControl: true, clickToZoomEnabled: true },
@@ -21,10 +29,18 @@ const presets = [
   {
     id: 'focused',
     name: 'Image viewing',
-    description: 'Show navigation and image tools; hide the other panels.',
+    description: 'Navigation and image tools only.',
     config: {
-      theme: 'light', language: 'en', showThumbnails: true, showMetadata: false,
-      showSearch: false, showAnnotations: false, showTools: true, showLayers: false, showSettings: false,
+      theme: 'light',
+      language: 'en',
+      showThumbnails: true,
+      showCollection: true,
+      showMetadata: false,
+      showSearch: false,
+      showAnnotations: false,
+      showTools: true,
+      showLayers: false,
+      showSettings: false,
       allowCreateMode: false,
       sidebar: { enabled: true, open: false, activePanel: 'tools', position: 'left' },
       osd: { preserveViewport: false, showNavigator: true, showRotationControl: true, clickToZoomEnabled: true },
@@ -33,10 +49,18 @@ const presets = [
   {
     id: 'research',
     name: 'Research tools',
-    description: 'Show metadata, search, annotations, and layers.',
+    description: 'Metadata, search, annotations, and layers.',
     config: {
-      theme: 'light', language: 'en', showThumbnails: true, showMetadata: true,
-      showSearch: true, showAnnotations: true, showTools: false, showLayers: true, showSettings: false,
+      theme: 'light',
+      language: 'en',
+      showThumbnails: true,
+      showCollection: true,
+      showMetadata: true,
+      showSearch: true,
+      showAnnotations: true,
+      showTools: false,
+      showLayers: true,
+      showSettings: false,
       allowCreateMode: false,
       sidebar: { enabled: true, open: true, activePanel: 'metadata', position: 'left' },
       osd: { preserveViewport: true, showNavigator: false, showRotationControl: false, clickToZoomEnabled: false },
@@ -47,8 +71,16 @@ const presets = [
     name: 'Viewer only',
     description: 'Hide every optional panel.',
     config: {
-      theme: 'dark', language: 'en', showThumbnails: false, showMetadata: false,
-      showSearch: false, showAnnotations: false, showTools: false, showLayers: false, showSettings: false,
+      theme: 'dark',
+      language: 'en',
+      showThumbnails: false,
+      showCollection: false,
+      showMetadata: false,
+      showSearch: false,
+      showAnnotations: false,
+      showTools: false,
+      showLayers: false,
+      showSettings: false,
       allowCreateMode: false,
       sidebar: { enabled: false, open: false, activePanel: 'settings', position: 'left' },
       osd: { preserveViewport: false, showNavigator: false, showRotationControl: false, clickToZoomEnabled: true },
@@ -56,77 +88,64 @@ const presets = [
   },
 ]
 
-const controlGroups = [
-  {
-    title: 'Viewer panels',
-    description: 'Show or hide panels and controls around the canvas.',
-    options: [
-      ['showThumbnails', 'Thumbnails', 'Show the canvas navigation strip.'],
-      ['showCollection', 'Collection navigation', 'Show collection navigation when a IIIF Collection is loaded.'],
-      ['showMetadata', 'Metadata', 'Expose descriptive manifest metadata.'],
-      ['showSearch', 'Search', 'Enable full-text search when the manifest provides it.'],
-      ['showAnnotations', 'Annotations', 'Display annotation overlays and their panel.'],
-      ['showTools', 'Image tools', 'Provide brightness, contrast, and other image controls.'],
-      ['showLayers', 'Layers', 'Show opacity controls for multi-layer canvases.'],
-      ['showSettings', 'Settings', 'Show the viewer settings control.'],
-      ['allowCreateMode', 'Annotation creation', 'Allow annotations to be created in the viewer.'],
-    ],
-  },
-  {
-    title: 'Image interaction',
-    description: 'Configure pan, zoom, rotation, and the overview navigator.',
-    options: [
-      ['osd.preserveViewport', 'Preserve viewport', 'Keep the current pan and zoom between canvases.'],
-      ['osd.showNavigator', 'Navigator', 'Show the small overview navigator.'],
-      ['osd.showRotationControl', 'Rotation controls', 'Allow the image to be rotated.'],
-      ['osd.clickToZoomEnabled', 'Click to zoom', 'Zoom when the image is clicked or double-clicked.'],
-    ],
-  },
+const panelOptions = [
+  ['showThumbnails', 'Thumbnails', 'Canvas navigation strip.'],
+  ['showCollection', 'Collection navigation', 'Collection tree when a IIIF Collection is loaded.'],
+  ['showMetadata', 'Metadata', 'Descriptive manifest metadata panel.'],
+  ['showSearch', 'Search', 'Full-text search when supplied by the manifest.'],
+  ['showAnnotations', 'Annotations', 'Annotation overlays and panel.'],
+  ['showTools', 'Image tools', 'Brightness, contrast, and image adjustments.'],
+  ['showLayers', 'Layers', 'Opacity controls for multi-layer canvases.'],
+  ['showSettings', 'Settings', 'Viewer settings panel.'],
+  ['allowCreateMode', 'Annotation creation', 'Allow creating annotations in the viewer.'],
 ]
 
-const initialConfig = {
-  ...structuredClone(viewerConfigDefaults),
-  ...structuredClone(presets[0].config),
-  sidebar: { ...viewerConfigDefaults.sidebar, ...presets[0].config.sidebar },
-  osd: { ...viewerConfigDefaults.osd, ...presets[0].config.osd },
+const osdOptions = [
+  ['osd.preserveViewport', 'Preserve viewport', 'Keep pan and zoom between canvases.'],
+  ['osd.showNavigator', 'Navigator', 'Show overview navigator for deep-zoom images.'],
+  ['osd.showRotationControl', 'Rotation controls', 'Allow rotating the image.'],
+  ['osd.clickToZoomEnabled', 'Click to zoom', 'Zoom when the image is clicked.'],
+]
+
+function createInitialConfig() {
+  return {
+    ...structuredClone(viewerConfigDefaults),
+    ...structuredClone(presets[0].config),
+    sidebar: { ...viewerConfigDefaults.sidebar, ...presets[0].config.sidebar },
+    osd: { ...viewerConfigDefaults.osd, ...presets[0].config.osd },
+  }
 }
-const config = reactive(initialConfig)
+
+const config = reactive(createInitialConfig())
 const activePreset = ref('full')
 const copyStatus = ref('')
-const output = ref(null)
 const viewerRevision = ref(0)
 const initialViewBoxEnabled = ref(false)
 const initialViewBox = reactive({ x: 0, y: 0, w: 1000, h: 1000 })
-const rawConfig = reactive({ plugins: '{}', osdConfig: '{}', modelConfig: '{}', storyHeaders: '{}' })
-const rawErrors = reactive({ plugins: '', osdConfig: '', modelConfig: '', storyHeaders: '' })
+const rawConfig = reactive({ plugins: '{}', osdConfig: '{}', modelConfig: '{}' })
+const rawErrors = reactive({ plugins: '', osdConfig: '', modelConfig: '' })
 
 const fullConfig = computed(() => {
   const value = JSON.parse(JSON.stringify(config))
   if (initialViewBoxEnabled.value) value.initialViewBox = { ...initialViewBox }
   return value
 })
+
 const configDifference = computed(() => deepDifference(fullConfig.value, viewerConfigDefaults) ?? {})
 const configJson = computed(() => JSON.stringify(configDifference.value, null, 2))
-const fullConfigJson = computed(() => JSON.stringify(fullConfig.value))
-const viewerKey = computed(() => `${viewerRevision.value}:${fullConfigJson.value}`)
-const viewerBuild = computed(() => ({
-  slug: 'configuration-builder',
-  mode: 'viewer',
-  manifest,
-  config: fullConfig.value,
-}))
+const viewerKey = computed(() => `${viewerRevision.value}:${JSON.stringify(fullConfig.value)}`)
 
 function deepDifference(value, defaults) {
   if (Array.isArray(value)) {
     return JSON.stringify(value) === JSON.stringify(defaults) ? undefined : value
   }
   if (value && typeof value === 'object') {
-    const difference = {}
+    const diff = {}
     for (const [key, childValue] of Object.entries(value)) {
-      const childDifference = deepDifference(childValue, defaults?.[key])
-      if (childDifference !== undefined) difference[key] = childDifference
+      const childDiff = deepDifference(childValue, defaults?.[key])
+      if (childDiff !== undefined) diff[key] = childDiff
     }
-    return Object.keys(difference).length ? difference : undefined
+    return Object.keys(diff).length ? diff : undefined
   }
   return Object.is(value, defaults) ? undefined : value
 }
@@ -144,32 +163,20 @@ function setOption(path, value) {
   copyStatus.value = ''
 }
 
-function setSimpleOption(property, value) {
-  config[property] = value
-  activePreset.value = 'custom'
-  copyStatus.value = ''
-}
-
 function setNumberOption(path, value, minimum) {
-  const number = Number(value)
-  if (!Number.isFinite(number)) return
-  setOption(path, minimum === undefined ? number : Math.max(minimum, number))
+  const num = Number(value)
+  if (!Number.isFinite(num)) return
+  setOption(path, minimum === undefined ? num : Math.max(minimum, num))
 }
 
-function setLanguages(value) {
-  config.story.languages = value.split(',').map((language) => language.trim()).filter(Boolean)
-  activePreset.value = 'custom'
-}
-
-function setJsonOption(key, path, value) {
+function setJsonOption(key, value) {
   rawConfig[key] = value
   try {
     const parsed = JSON.parse(value)
-    if (!parsed || Array.isArray(parsed) || typeof parsed !== 'object') throw new Error('Use a JSON object.')
-    const keys = path.split('.')
-    const property = keys.pop()
-    const target = keys.reduce((current, part) => current[part], config)
-    target[property] = parsed
+    if (!parsed || Array.isArray(parsed) || typeof parsed !== 'object') {
+      throw new Error('Use a JSON object.')
+    }
+    config[key] = parsed
     rawErrors[key] = ''
     activePreset.value = 'custom'
   } catch (error) {
@@ -177,13 +184,17 @@ function setJsonOption(key, path, value) {
   }
 }
 
-function toggleInitialViewBox(enabled) {
-  initialViewBoxEnabled.value = enabled
-  activePreset.value = 'custom'
-}
-
 function applyPreset(preset) {
-  Object.assign(config, structuredClone(preset.config))
+  Object.assign(config, structuredClone(viewerConfigDefaults), structuredClone(preset.config))
+  config.sidebar = { ...viewerConfigDefaults.sidebar, ...preset.config.sidebar }
+  config.osd = { ...viewerConfigDefaults.osd, ...preset.config.osd }
+  initialViewBoxEnabled.value = false
+  rawConfig.plugins = '{}'
+  rawConfig.osdConfig = '{}'
+  rawConfig.modelConfig = '{}'
+  rawErrors.plugins = ''
+  rawErrors.osdConfig = ''
+  rawErrors.modelConfig = ''
   activePreset.value = preset.id
   viewerRevision.value += 1
   copyStatus.value = ''
@@ -192,251 +203,307 @@ function applyPreset(preset) {
 async function copyConfiguration() {
   try {
     await navigator.clipboard.writeText(configJson.value)
-    copyStatus.value = 'Configuration copied.'
+    copyStatus.value = 'Copied'
+    window.setTimeout(() => {
+      copyStatus.value = ''
+    }, 1800)
   } catch {
-    output.value?.select()
-    copyStatus.value = 'Select the configuration and copy it manually.'
+    copyStatus.value = 'Copy failed'
   }
 }
 </script>
 
 <template>
-  <div class="inner-page configuration-builder">
-    <section class="page-hero page-width configuration-builder__hero">
-      <h1>Configure and preview the <abbr title="International Image Interoperability Framework">IIIF</abbr> viewer.</h1>
-      <p>Change the options in the form and see the result in the viewer. The page generates the corresponding configuration object.</p>
+  <div>
+    <section class="bg-body-tertiary border-bottom py-4">
+      <div class="container">
+        <nav aria-label="breadcrumb" class="mb-2">
+          <ol class="breadcrumb small mb-0">
+            <li class="breadcrumb-item"><RouterLink to="/viewer">IIIF Viewer</RouterLink></li>
+            <li class="breadcrumb-item active" aria-current="page">Configuration Builder</li>
+          </ol>
+        </nav>
+        <h1 class="h3 mb-1">Configuration Builder</h1>
+        <p class="text-body-secondary mb-0">
+          Toggle options, preview the viewer live, and copy the resulting JSON config object.
+        </p>
+      </div>
     </section>
 
-    <section class="configuration-preview page-width" aria-labelledby="configuration-preview-heading">
-      <div class="configuration-preview__heading">
-        <div>
-          <h2 id="configuration-preview-heading">Your configured viewer.</h2>
-        </div>
-        <span class="configuration-preview__state" aria-live="polite">
-          {{ activePreset === 'custom' ? 'Custom configuration' : `${presets.find((preset) => preset.id === activePreset)?.name} preset` }}
+    <section class="container py-4">
+      <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-2">
+        <h2 class="h5 mb-0">Live preview</h2>
+        <span class="badge text-bg-secondary" aria-live="polite">
+          {{ activePreset === 'custom' ? 'Custom' : `${presets.find((p) => p.id === activePreset)?.name} preset` }}
         </span>
       </div>
-      <ViewerDemo :key="viewerKey" :build="viewerBuild" />
-    </section>
 
-    <section class="configuration-workspace page-width" aria-labelledby="configuration-controls-heading">
-      <div class="configuration-presets">
-        <div class="configuration-section-heading">
-          <h2 id="configuration-controls-heading">Choose a starting configuration.</h2>
-          <p>Choose a preset, then change individual options below.</p>
-        </div>
-        <div class="configuration-preset-grid">
-          <button
-            v-for="preset in presets"
-            :key="preset.id"
-            class="configuration-preset"
-            :class="{ 'configuration-preset--active': activePreset === preset.id }"
-            type="button"
-            :aria-pressed="activePreset === preset.id"
-            @click="applyPreset(preset)"
-          >
-            <strong>{{ preset.name }}</strong>
-            <small>{{ preset.description }}</small>
-          </button>
+      <div class="viewer-frame mb-4">
+        <MangoViewer :key="viewerKey" :manifest="manifest" :config="fullConfig" />
+      </div>
+
+      <div class="mb-4">
+        <h2 class="h6 text-uppercase text-body-secondary small fw-semibold mb-2">Starting presets</h2>
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-4 g-2">
+          <div v-for="preset in presets" :key="preset.id" class="col">
+            <button
+              type="button"
+              class="btn w-100 h-100 text-start p-3"
+              :class="activePreset === preset.id ? 'btn-primary' : 'btn-outline-secondary'"
+              :aria-pressed="activePreset === preset.id"
+              @click="applyPreset(preset)"
+            >
+              <div class="fw-semibold">{{ preset.name }}</div>
+              <div class="small" :class="activePreset === preset.id ? 'text-white-50' : 'text-body-secondary'">
+                {{ preset.description }}
+              </div>
+            </button>
+          </div>
         </div>
       </div>
 
-      <div class="configuration-builder-grid">
-        <div class="configuration-controls">
-          <fieldset class="configuration-appearance">
-            <legend>Appearance</legend>
-            <p>Set the viewer theme and interface language.</p>
-            <div class="configuration-field">
-              <span>Theme</span>
-              <div class="configuration-segmented">
-                <button
-                  v-for="theme in ['light', 'dark']"
-                  :key="theme"
-                  type="button"
-                  :aria-pressed="config.theme === theme"
-                  @click="setSimpleOption('theme', theme)"
-                >{{ theme }}</button>
+      <div class="row g-4 align-items-start">
+        <div class="col-lg-7 d-grid gap-3">
+          <div class="card">
+            <div class="card-header fw-semibold">Appearance</div>
+            <div class="card-body row g-3">
+              <div class="col-sm-6">
+                <label class="form-label small fw-semibold" for="cfg-theme">Theme</label>
+                <select
+                  id="cfg-theme"
+                  class="form-select form-select-sm"
+                  :value="config.theme"
+                  @change="setOption('theme', $event.target.value)"
+                >
+                  <option value="light">light</option>
+                  <option value="dark">dark</option>
+                  <option value="sepia">sepia</option>
+                  <option value="midnight">midnight</option>
+                  <option value="ringo">ringo</option>
+                </select>
+              </div>
+              <div class="col-sm-6">
+                <label class="form-label small fw-semibold" for="cfg-lang">Language code</label>
+                <input
+                  id="cfg-lang"
+                  class="form-control form-control-sm"
+                  type="text"
+                  maxlength="12"
+                  :value="config.language"
+                  @input="setOption('language', $event.target.value)"
+                />
               </div>
             </div>
-            <label class="configuration-field" for="configuration-language">
-              <span>Language code</span>
-              <input
-                id="configuration-language"
-                :value="config.language"
-                type="text"
-                maxlength="12"
-                autocomplete="off"
-                @input="setSimpleOption('language', $event.target.value)"
-              />
-            </label>
-          </fieldset>
+          </div>
 
-          <fieldset v-for="group in controlGroups" :key="group.title" class="configuration-control-group">
-            <legend>{{ group.title }}</legend>
-            <p>{{ group.description }}</p>
-            <label v-for="option in group.options" :key="option[0]" class="configuration-toggle">
-              <span>
-                <strong>{{ option[1] }}</strong>
-                <small>{{ option[2] }}</small>
-              </span>
-              <input
-                type="checkbox"
-                :checked="getValue(option[0])"
-                @change="setOption(option[0], $event.target.checked)"
-              />
-              <i aria-hidden="true"></i>
-            </label>
-          </fieldset>
+          <div class="card">
+            <div class="card-header fw-semibold">Viewer panels</div>
+            <div class="card-body d-grid gap-2">
+              <div v-for="[path, label, help] in panelOptions" :key="path" class="form-check form-switch">
+                <input
+                  :id="`cfg-${path}`"
+                  class="form-check-input"
+                  type="checkbox"
+                  role="switch"
+                  :checked="getValue(path)"
+                  @change="setOption(path, $event.target.checked)"
+                />
+                <label class="form-check-label" :for="`cfg-${path}`">
+                  <span class="fw-semibold small d-block">{{ label }}</span>
+                  <span class="text-body-secondary small">{{ help }}</span>
+                </label>
+              </div>
+            </div>
+          </div>
 
-          <fieldset class="configuration-control-group">
-            <legend>Sidebar</legend>
-            <p>Control whether the sidebar is available, where it appears, and which panel opens first.</p>
-            <label class="configuration-toggle">
-              <span><strong>Enable sidebar</strong><small>Display the viewer sidebar and its controls.</small></span>
-              <input type="checkbox" :checked="config.sidebar.enabled" @change="setOption('sidebar.enabled', $event.target.checked)" />
-              <i aria-hidden="true"></i>
-            </label>
-            <label class="configuration-toggle">
-              <span><strong>Open on load</strong><small>Open the selected panel when the viewer starts.</small></span>
-              <input type="checkbox" :checked="config.sidebar.open" :disabled="!config.sidebar.enabled" @change="setOption('sidebar.open', $event.target.checked)" />
-              <i aria-hidden="true"></i>
-            </label>
-            <div class="configuration-form-grid">
-              <label class="configuration-field" for="configuration-active-panel">
-                <span>Active panel</span>
-                <select id="configuration-active-panel" :value="config.sidebar.activePanel" :disabled="!config.sidebar.enabled" @change="setOption('sidebar.activePanel', $event.target.value)">
-                  <option v-for="panel in ['metadata', 'search', 'annotations', 'tools', 'layers', 'settings', 'contents']" :key="panel" :value="panel">{{ panel }}</option>
-                </select>
-              </label>
-              <div class="configuration-field">
-                <span>Position</span>
-                <div class="configuration-segmented">
-                  <button v-for="position in ['left', 'right']" :key="position" type="button" :disabled="!config.sidebar.enabled" :aria-pressed="config.sidebar.position === position" @click="setOption('sidebar.position', position)">{{ position }}</button>
+          <div class="card">
+            <div class="card-header fw-semibold">Sidebar</div>
+            <div class="card-body d-grid gap-3">
+              <div class="form-check form-switch">
+                <input
+                  id="cfg-sidebar-enabled"
+                  class="form-check-input"
+                  type="checkbox"
+                  role="switch"
+                  :checked="config.sidebar.enabled"
+                  @change="setOption('sidebar.enabled', $event.target.checked)"
+                />
+                <label class="form-check-label small fw-semibold" for="cfg-sidebar-enabled">Enable sidebar</label>
+              </div>
+
+              <div class="form-check form-switch">
+                <input
+                  id="cfg-sidebar-open"
+                  class="form-check-input"
+                  type="checkbox"
+                  role="switch"
+                  :checked="config.sidebar.open"
+                  :disabled="!config.sidebar.enabled"
+                  @change="setOption('sidebar.open', $event.target.checked)"
+                />
+                <label class="form-check-label small fw-semibold" for="cfg-sidebar-open">Open on load</label>
+              </div>
+
+              <div class="row g-3">
+                <div class="col-sm-6">
+                  <label class="form-label small fw-semibold" for="cfg-sidebar-panel">Active panel</label>
+                  <select
+                    id="cfg-sidebar-panel"
+                    class="form-select form-select-sm"
+                    :value="config.sidebar.activePanel"
+                    :disabled="!config.sidebar.enabled"
+                    @change="setOption('sidebar.activePanel', $event.target.value)"
+                  >
+                    <option
+                      v-for="panel in ['metadata', 'search', 'annotations', 'tools', 'layers', 'settings', 'contents']"
+                      :key="panel"
+                      :value="panel"
+                    >
+                      {{ panel }}
+                    </option>
+                  </select>
+                </div>
+                <div class="col-sm-6">
+                  <label class="form-label small fw-semibold" for="cfg-sidebar-position">Position</label>
+                  <select
+                    id="cfg-sidebar-position"
+                    class="form-select form-select-sm"
+                    :value="config.sidebar.position"
+                    :disabled="!config.sidebar.enabled"
+                    @change="setOption('sidebar.position', $event.target.value)"
+                  >
+                    <option value="left">left</option>
+                    <option value="right">right</option>
+                  </select>
                 </div>
               </div>
             </div>
-          </fieldset>
+          </div>
 
-          <fieldset class="configuration-control-group">
-            <legend>Initial state</legend>
-            <p>Choose the canvas, layout, rotation, and optional viewport used when the viewer first loads.</p>
-            <div class="configuration-form-grid configuration-form-grid--three">
-              <label class="configuration-field" for="configuration-canvas-index">
-                <span>Canvas index</span>
-                <input id="configuration-canvas-index" :value="config.initialCanvasIndex" type="number" min="0" @input="setNumberOption('initialCanvasIndex', $event.target.value, 0)" />
-              </label>
-              <label class="configuration-field" for="configuration-layout-mode">
-                <span>Layout mode</span>
-                <select id="configuration-layout-mode" :value="config.initialLayoutMode" @change="setSimpleOption('initialLayoutMode', $event.target.value)">
-                  <option v-for="layout in ['single', 'two-page', 'continuous', 'gallery']" :key="layout" :value="layout">{{ layout }}</option>
-                </select>
-              </label>
-              <label class="configuration-field" for="configuration-rotation">
-                <span>Rotation</span>
-                <input id="configuration-rotation" :value="config.initialRotation" type="number" step="1" @input="setNumberOption('initialRotation', $event.target.value)" />
-              </label>
+          <div class="card">
+            <div class="card-header fw-semibold">Image interaction (OpenSeadragon)</div>
+            <div class="card-body d-grid gap-2">
+              <div v-for="[path, label, help] in osdOptions" :key="path" class="form-check form-switch">
+                <input
+                  :id="`cfg-${path}`"
+                  class="form-check-input"
+                  type="checkbox"
+                  role="switch"
+                  :checked="getValue(path)"
+                  @change="setOption(path, $event.target.checked)"
+                />
+                <label class="form-check-label" :for="`cfg-${path}`">
+                  <span class="fw-semibold small d-block">{{ label }}</span>
+                  <span class="text-body-secondary small">{{ help }}</span>
+                </label>
+              </div>
             </div>
-            <label class="configuration-toggle">
-              <span><strong>Set an initial view box</strong><small>Start at an exact image region using x, y, width, and height.</small></span>
-              <input type="checkbox" :checked="initialViewBoxEnabled" @change="toggleInitialViewBox($event.target.checked)" />
-              <i aria-hidden="true"></i>
-            </label>
-            <div v-if="initialViewBoxEnabled" class="configuration-form-grid configuration-form-grid--four">
-              <label v-for="coordinate in ['x', 'y', 'w', 'h']" :key="coordinate" class="configuration-field" :for="`configuration-viewbox-${coordinate}`">
-                <span>{{ coordinate }}</span>
-                <input :id="`configuration-viewbox-${coordinate}`" v-model.number="initialViewBox[coordinate]" type="number" :min="coordinate === 'w' || coordinate === 'h' ? 1 : undefined" />
-              </label>
-            </div>
-            <label class="configuration-field configuration-field--compact" for="configuration-pdf-page">
-              <span>Initial PDF page</span>
-              <input id="configuration-pdf-page" :value="config.pdf.page" type="number" min="1" @input="setNumberOption('pdf.page', $event.target.value, 1)" />
-            </label>
-          </fieldset>
+          </div>
 
-          <fieldset class="configuration-control-group">
-            <legend>Advanced renderer options</legend>
-            <p>Pass raw option objects to OpenSeadragon, model-viewer, or registered Mango plugins.</p>
-            <label v-for="field in [
-              ['osdConfig', 'OpenSeadragon configuration', 'osdConfig'],
-              ['modelConfig', 'Model viewer configuration', 'modelConfig'],
-              ['plugins', 'Plugin configuration', 'plugins'],
-            ]" :key="field[0]" class="configuration-json-field" :for="`configuration-${field[0]}`">
-              <span>{{ field[1] }}</span>
-              <textarea :id="`configuration-${field[0]}`" :value="rawConfig[field[0]]" rows="5" spellcheck="false" @input="setJsonOption(field[0], field[2], $event.target.value)"></textarea>
-              <small :class="{ 'configuration-json-field__error': rawErrors[field[0]] }">{{ rawErrors[field[0]] || 'Enter a valid JSON object.' }}</small>
-            </label>
-          </fieldset>
+          <div class="card">
+            <div class="card-header fw-semibold">Initial view</div>
+            <div class="card-body d-grid gap-3">
+              <div class="row g-3">
+                <div class="col-sm-4">
+                  <label class="form-label small fw-semibold" for="cfg-canvas">Initial canvas index</label>
+                  <input
+                    id="cfg-canvas"
+                    class="form-control form-control-sm"
+                    type="number"
+                    min="0"
+                    :value="config.initialCanvasIndex"
+                    @input="setNumberOption('initialCanvasIndex', $event.target.value, 0)"
+                  />
+                </div>
+                <div class="col-sm-4">
+                  <label class="form-label small fw-semibold" for="cfg-layout">Layout mode</label>
+                  <select
+                    id="cfg-layout"
+                    class="form-select form-select-sm"
+                    :value="config.initialLayoutMode"
+                    @change="setOption('initialLayoutMode', $event.target.value)"
+                  >
+                    <option value="single">single</option>
+                    <option value="two-page">two-page</option>
+                    <option value="continuous">continuous</option>
+                    <option value="gallery">gallery</option>
+                  </select>
+                </div>
+                <div class="col-sm-4">
+                  <label class="form-label small fw-semibold" for="cfg-rotation">Rotation (deg)</label>
+                  <input
+                    id="cfg-rotation"
+                    class="form-control form-control-sm"
+                    type="number"
+                    step="90"
+                    :value="config.initialRotation"
+                    @input="setNumberOption('initialRotation', $event.target.value)"
+                  />
+                </div>
+              </div>
 
-          <fieldset class="configuration-control-group">
-            <legend>Story options</legend>
-            <p>Enable story behaviour, debugging, languages, and remote save settings.</p>
-            <label class="configuration-toggle">
-              <span><strong>Enable story features</strong><small>Activate story support for this viewer.</small></span>
-              <input type="checkbox" :checked="config.story.enabled" @change="setOption('story.enabled', $event.target.checked)" />
-              <i aria-hidden="true"></i>
-            </label>
-            <label class="configuration-toggle">
-              <span><strong>Story debugging</strong><small>Show story diagnostics and seek controls.</small></span>
-              <input type="checkbox" :checked="config.story.showDebug" @change="setOption('story.showDebug', $event.target.checked)" />
-              <i aria-hidden="true"></i>
-            </label>
-            <label class="configuration-field" for="configuration-story-languages">
-              <span>Languages</span>
-              <input id="configuration-story-languages" :value="config.story.languages.join(', ')" type="text" placeholder="en, cy" @input="setLanguages($event.target.value)" />
-            </label>
-            <label class="configuration-toggle">
-              <span><strong>Remote saving</strong><small>Allow stories to be saved to a remote endpoint.</small></span>
-              <input type="checkbox" :checked="config.story.save.enabled" @change="setOption('story.save.enabled', $event.target.checked)" />
-              <i aria-hidden="true"></i>
-            </label>
-            <div class="configuration-form-grid">
-              <label class="configuration-field" for="configuration-save-endpoint">
-                <span>Save endpoint</span>
-                <input id="configuration-save-endpoint" :value="config.story.save.endpoint" type="url" placeholder="https://example.org/stories" @input="setOption('story.save.endpoint', $event.target.value)" />
-              </label>
-              <label class="configuration-field" for="configuration-save-method">
-                <span>Method</span>
-                <select id="configuration-save-method" :value="config.story.save.method" @change="setOption('story.save.method', $event.target.value)">
-                  <option>POST</option><option>PUT</option>
-                </select>
-              </label>
-              <label class="configuration-field" for="configuration-save-timeout">
-                <span>Timeout (ms)</span>
-                <input id="configuration-save-timeout" :value="config.story.save.timeoutMs" type="number" min="0" @input="setNumberOption('story.save.timeoutMs', $event.target.value, 0)" />
-              </label>
-              <label class="configuration-field" for="configuration-save-credentials">
-                <span>Credentials</span>
-                <select id="configuration-save-credentials" :value="config.story.save.credentials" @change="setOption('story.save.credentials', $event.target.value)">
-                  <option value="omit">omit</option><option value="same-origin">same-origin</option><option value="include">include</option>
-                </select>
-              </label>
+              <div class="form-check form-switch">
+                <input
+                  id="cfg-viewbox-enabled"
+                  v-model="initialViewBoxEnabled"
+                  class="form-check-input"
+                  type="checkbox"
+                  role="switch"
+                  @change="activePreset = 'custom'"
+                />
+                <label class="form-check-label small fw-semibold" for="cfg-viewbox-enabled">
+                  Set initial viewBox (image coordinates)
+                </label>
+              </div>
+
+              <div v-if="initialViewBoxEnabled" class="row g-2">
+                <div v-for="axis in ['x', 'y', 'w', 'h']" :key="axis" class="col-3">
+                  <label class="form-label small mb-1" :for="`cfg-vb-${axis}`">{{ axis.toUpperCase() }}</label>
+                  <input
+                    :id="`cfg-vb-${axis}`"
+                    v-model.number="initialViewBox[axis]"
+                    class="form-control form-control-sm"
+                    type="number"
+                    min="0"
+                    @input="activePreset = 'custom'"
+                  />
+                </div>
+              </div>
             </div>
-            <label class="configuration-json-field" for="configuration-story-headers">
-              <span>Save headers</span>
-              <textarea id="configuration-story-headers" :value="rawConfig.storyHeaders" rows="5" spellcheck="false" @input="setJsonOption('storyHeaders', 'story.save.headers', $event.target.value)"></textarea>
-              <small :class="{ 'configuration-json-field__error': rawErrors.storyHeaders }">{{ rawErrors.storyHeaders || 'Enter a valid JSON object.' }}</small>
-            </label>
-          </fieldset>
+          </div>
+
+          <div class="card">
+            <div class="card-header fw-semibold">Advanced JSON overrides</div>
+            <div class="card-body d-grid gap-3">
+              <div v-for="[key, label] in [['plugins', 'plugins'], ['osdConfig', 'osdConfig'], ['modelConfig', 'modelConfig']]" :key="key">
+                <label class="form-label small fw-semibold font-monospace mb-1" :for="`cfg-raw-${key}`">{{ label }}</label>
+                <textarea
+                  :id="`cfg-raw-${key}`"
+                  class="form-control form-control-sm font-monospace"
+                  :class="{ 'is-invalid': rawErrors[key] }"
+                  rows="2"
+                  :value="rawConfig[key]"
+                  @input="setJsonOption(key, $event.target.value)"
+                ></textarea>
+                <div v-if="rawErrors[key]" class="invalid-feedback">{{ rawErrors[key] }}</div>
+              </div>
+            </div>
+          </div>
         </div>
 
-        <aside class="configuration-output" aria-labelledby="configuration-output-heading">
-          <div class="configuration-output__heading">
-            <div>
-              <h2 id="configuration-output-heading">Configuration</h2>
+        <div class="col-lg-5">
+          <div class="card sticky-lg-top" style="top: 1rem;">
+            <div class="card-header d-flex justify-content-between align-items-center">
+              <span class="fw-semibold">Generated config JSON</span>
+              <button class="btn btn-primary btn-sm" type="button" @click="copyConfiguration">
+                {{ copyStatus || 'Copy JSON' }}
+              </button>
             </div>
-            <button class="button button--secondary" type="button" @click="copyConfiguration">Copy</button>
+            <div class="card-body bg-dark text-light p-3 rounded-bottom">
+              <pre class="mb-0 small font-monospace" style="max-height: 65vh; overflow: auto;"><code>{{ configJson }}</code></pre>
+            </div>
           </div>
-          <label for="configuration-json">Changed configuration values</label>
-          <textarea
-            id="configuration-json"
-            ref="output"
-            :value="configJson"
-            readonly
-            rows="24"
-            spellcheck="false"
-          ></textarea>
-          <p class="configuration-output__status" aria-live="polite">{{ copyStatus || 'Only values that differ from the viewer defaults are included.' }}</p>
-        </aside>
+        </div>
       </div>
     </section>
   </div>

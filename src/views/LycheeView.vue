@@ -8,7 +8,7 @@ const activeManifest = ref(lycheePresets[0].url)
 const manifestInput = ref(lycheePresets[0].url)
 
 const lycheeConfig = {
-  theme: 'light',
+  theme: 'dark',
   annotations: {
     languages: ['en', 'cy'],
     wikidata: true,

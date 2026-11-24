@@ -1,11 +1,6 @@
 <script setup>
 import { computed, ref } from 'vue'
 import '@mango-iiif/iiif-viewer/element'
-import viewerStyles from '@mango-iiif/iiif-viewer/style.css?raw'
-
-if (typeof window !== 'undefined') {
-  window.__setMangoViewerCss?.(viewerStyles)
-}
 
 const props = defineProps({
   id: { type: String, default: undefined },

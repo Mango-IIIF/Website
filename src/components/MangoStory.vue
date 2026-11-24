@@ -1,6 +1,6 @@
 <script setup>
 import { computed, ref } from 'vue'
-import '@mango-iiif/story/standalone'
+import '@mango-iiif/story/element'
 
 const props = defineProps({
   mode: {

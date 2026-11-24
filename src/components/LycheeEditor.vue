@@ -1,6 +1,6 @@
 <script setup>
 import { computed, ref } from 'vue'
-import '@mango-iiif/lychee/standalone'
+import '@mango-iiif/lychee/element'
 
 const props = defineProps({
   manifest: { type: String, required: true },

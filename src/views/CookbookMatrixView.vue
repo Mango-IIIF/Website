@@ -196,7 +196,7 @@ async function checkRecipe(recipe) {
               </td>
               <td class="text-body-secondary">{{ recipe.notes || '—' }}</td>
               <td class="text-end text-nowrap">
-                <a class="me-2" :href="recipe.url" target="_blank" rel="noreferrer">
+                <a class="me-2 btn btn-sm btn-outline-primary" :href="recipe.url" target="_blank" rel="noreferrer">
                   {{ recipe.source ? 'Manifest' : 'Spec' }}
                 </a>
                 <button

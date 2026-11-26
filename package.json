@@ -11,9 +11,9 @@
     "deploy": "npm run build && wrangler deploy"
   },
   "dependencies": {
-    "@mango-iiif/iiif-viewer": "^0.6.4",
-    "@mango-iiif/lychee": "^0.3.0",
-    "@mango-iiif/story": "^0.1.1",
+    "@mango-iiif/iiif-viewer": "^0.6.5",
+    "@mango-iiif/lychee": "^0.3.1",
+    "@mango-iiif/story": "^0.1.2",
     "bootstrap": "^5.3.9",
     "vue": "^3.5.38",
     "vue-router": "^5.1.0"

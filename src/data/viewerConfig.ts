@@ -1,6 +1,6 @@
 export type ViewerConfig = {
   language?: string
-  theme?: 'light' | 'dark' | 'sepia' | 'midnight' | 'ringo' | string
+  theme?: 'light' | 'dark' | 'sepia' | 'midnight' | string
   allowCreateMode?: boolean
   showThumbnails?: boolean
   showCollection?: boolean

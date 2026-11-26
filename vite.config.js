@@ -4,7 +4,7 @@ import { cloudflare } from '@cloudflare/vite-plugin'
 
 export default defineConfig(({ mode }) => ({
   build: {
-    sourcemap: true,
+    sourcemap: mode !== 'production',
     cssMinify: mode === 'production',
   },
   css: {

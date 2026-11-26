@@ -279,7 +279,6 @@ async function copyConfiguration() {
                   <option value="dark">dark</option>
                   <option value="sepia">sepia</option>
                   <option value="midnight">midnight</option>
-                  <option value="ringo">ringo</option>
                 </select>
               </div>
               <div class="col-sm-6">
